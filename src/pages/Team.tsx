@@ -2,13 +2,16 @@ import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Star, Users, Calendar } from "lucide-react";
+import ayomideImage from "@/assets/ayomide-agbaje.jpg";
+import jadeImage from "@/assets/jade-tuzinde.jpg";
+import inezaImage from "@/assets/ineza-agape.jpg";
 
 const Team = () => {
   const teamMembers = [
     {
       name: "AYOMIDE AGBAJE",
       role: "Health Specialist",
-      image: "/api/placeholder/150/150",
+      image: ayomideImage,
       specialties: ["General Medicine", "Preventive Care", "Community Health"],
       rating: 4.9,
       consultations: 150
@@ -16,7 +19,7 @@ const Team = () => {
     {
       name: "JADE ISIMBI TUZINDE", 
       role: "Health Specialist",
-      image: "/api/placeholder/150/150",
+      image: jadeImage,
       specialties: ["Pediatrics", "Women's Health", "Telemedicine"],
       rating: 4.8,
       consultations: 120
@@ -24,7 +27,7 @@ const Team = () => {
     {
       name: "INEZA AGAPE",
       role: "Community Manager",
-      image: "/api/placeholder/150/150", 
+      image: inezaImage, 
       specialties: ["Community Outreach", "Health Education", "Program Management"],
       rating: 4.9,
       consultations: 200
@@ -68,10 +71,12 @@ const Team = () => {
                 >
                   <CardHeader className="text-center pb-4">
                     {/* Profile Image */}
-                    <div className="w-24 h-24 bg-primary-foreground/20 rounded-full mx-auto mb-4 overflow-hidden">
-                      <div className="w-full h-full bg-gradient-to-br from-primary-foreground/30 to-primary-foreground/10 flex items-center justify-center">
-                        <Users className="w-12 h-12 text-primary-foreground/70" />
-                      </div>
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary-foreground/20">
+                      <img 
+                        src={member.image} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     
                     <CardTitle className="text-xl font-bold text-primary-foreground mb-2">
