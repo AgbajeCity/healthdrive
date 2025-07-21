@@ -14,7 +14,180 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      countries: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      districts: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          region_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          region_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          region_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "districts_region_id_fkey"
+            columns: ["region_id"]
+            isOneToOne: false
+            referencedRelation: "regions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      healthcare_facilities: {
+        Row: {
+          address: string | null
+          created_at: string
+          district_id: string | null
+          id: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+          operating_hours: string | null
+          phone: string | null
+          services: string[] | null
+          type: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          district_id?: string | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          operating_hours?: string | null
+          phone?: string | null
+          services?: string[] | null
+          type: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          district_id?: string | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          operating_hours?: string | null
+          phone?: string | null
+          services?: string[] | null
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "healthcare_facilities_district_id_fkey"
+            columns: ["district_id"]
+            isOneToOne: false
+            referencedRelation: "districts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          country: string | null
+          created_at: string
+          district: string | null
+          email: string | null
+          emergency_contact: string | null
+          full_name: string | null
+          id: string
+          medical_conditions: string | null
+          phone: string | null
+          region: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          district?: string | null
+          email?: string | null
+          emergency_contact?: string | null
+          full_name?: string | null
+          id?: string
+          medical_conditions?: string | null
+          phone?: string | null
+          region?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          district?: string | null
+          email?: string | null
+          emergency_contact?: string | null
+          full_name?: string | null
+          id?: string
+          medical_conditions?: string | null
+          phone?: string | null
+          region?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      regions: {
+        Row: {
+          country_code: string
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          country_code: string
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          country_code?: string
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "regions_country_code_fkey"
+            columns: ["country_code"]
+            isOneToOne: false
+            referencedRelation: "countries"
+            referencedColumns: ["code"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
