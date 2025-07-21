@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Services from "./pages/Services";
 import Team from "./pages/Team";
+import Chat from "./pages/Chat";
+import BookConsultation from "./pages/BookConsultation";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 import OnboardingWelcome from "./pages/OnboardingWelcome";
@@ -34,6 +36,8 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/team" element={<Team />} />
           <Route path="/contact" element={<Team />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/book-consultation" element={<BookConsultation />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/onboarding/welcome" element={<OnboardingWelcome />} />
           <Route path="/onboarding/complete" element={<OnboardingComplete />} />

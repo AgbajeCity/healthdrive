@@ -1,12 +1,14 @@
 import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Star, Users, Calendar } from "lucide-react";
+import { MessageCircle, Star, Users, Calendar, Stethoscope } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import ayomideImage from "@/assets/ayomide-agbaje.jpg";
 import jadeImage from "@/assets/jade-tuzinde.jpg";
 import inezaImage from "@/assets/ineza-agape.jpg";
 
 const Team = () => {
+  const navigate = useNavigate();
   const teamMembers = [
     {
       name: "AYOMIDE AGBAJE",
@@ -115,15 +117,26 @@ const Team = () => {
                       </div>
                     </div>
 
-                    {/* Chat Button */}
-                    <div className="pt-4">
+                    {/* Action Buttons */}
+                    <div className="pt-4 space-y-3">
                       <Button 
+                        onClick={() => navigate(`/chat?doctor=${encodeURIComponent(member.name)}`)}
                         className="w-full bg-foreground text-background hover:bg-foreground/90 font-bold relative overflow-hidden group"
                         size="lg"
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                         <MessageCircle className="w-5 h-5 mr-2" />
                         Chat
+                      </Button>
+                      
+                      <Button 
+                        onClick={() => navigate(`/book-consultation?doctor=${encodeURIComponent(member.name)}`)}
+                        variant="outline"
+                        className="w-full border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-bold"
+                        size="lg"
+                      >
+                        <Stethoscope className="w-5 h-5 mr-2" />
+                        Book Consultation
                       </Button>
                     </div>
                   </CardContent>
@@ -145,9 +158,11 @@ const Team = () => {
                   Our team is available 24/7 to provide support and answer your healthcare questions.
                 </p>
                 <Button 
+                  onClick={() => navigate('/chat?doctor=Support%20Team')}
                   size="lg" 
                   className="bg-primary hover:bg-primary/90 shadow-healthcare"
                 >
+                  <MessageCircle className="w-5 h-5 mr-2" />
                   Contact Support
                 </Button>
               </CardContent>
