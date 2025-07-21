@@ -150,7 +150,7 @@ const Onboarding = () => {
         description: "Welcome to HealthDrive. You can now access all features.",
       });
 
-      navigate('/dashboard');
+      navigate('/onboarding/complete');
     } catch (error: any) {
       toast({
         title: "Error",

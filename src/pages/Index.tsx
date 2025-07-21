@@ -53,7 +53,15 @@ const Index = () => {
                 className="border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
                 asChild
               >
-                <Link to="/login">Register/Log In</Link>
+                <Link to="/register">Create Account</Link>
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+                asChild
+              >
+                <Link to="/auth">Sign In</Link>
               </Button>
               <Button 
                 size="lg" 
@@ -62,14 +70,6 @@ const Index = () => {
                 asChild
               >
                 <Link to="/services">Our Services</Link>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
-                asChild
-              >
-                <Link to="/team">Contact Us</Link>
               </Button>
             </div>
           </div>
