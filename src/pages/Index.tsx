@@ -35,13 +35,13 @@ const Index = () => {
             {/* Main Heading */}
             <div className="space-y-6">
               <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-                BRINGING HEALTHCARE
+                BRINGING PRIMARY HEALTHCARE
               </h1>
               <h2 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
                 CLOSER TO UNDERSERVED
               </h2>
               <h3 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-                AREAS IN KENYA
+                COMMUNITIES
               </h3>
             </div>
 
@@ -131,7 +131,7 @@ const Index = () => {
               className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-healthcare"
               asChild
             >
-              <Link to="/services">
+              <Link to="/map">
                 VIEW MAP
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
@@ -150,7 +150,7 @@ const Index = () => {
             <span className="text-lg font-bold text-foreground">HealthDrive</span>
           </div>
           <p className="text-muted-foreground">
-            Bringing healthcare closer to underserved areas in Kenya
+            Bringing primary healthcare closer to underserved communities
           </p>
         </div>
       </footer>

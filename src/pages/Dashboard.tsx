@@ -19,10 +19,12 @@ import {
   ChevronRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import florenceKabeyaImage from "@/assets/florence-kabeya.jpg";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const { toast } = useToast();
 
   const sidebarItems = [
     { id: "ussd", label: "*182#", icon: Phone, highlight: true },
@@ -75,10 +77,11 @@ const Dashboard = () => {
 
         {/* USSD Code Highlight */}
         <div className="p-4">
-          <Card className="bg-primary text-primary-foreground">
-            <CardContent className="p-4">
+          <Card className="bg-primary text-primary-foreground cursor-pointer hover:bg-primary/90 transition-colors">
+            <CardContent className="p-4" onClick={() => window.location.href = '/ussd'}>
               <div className="text-2xl font-bold">*182#</div>
               <div className="text-sm opacity-90">USSD code to dial on Safaricom</div>
+              <div className="text-xs opacity-75 mt-1">Click to access USSD services</div>
             </CardContent>
           </Card>
         </div>
@@ -90,9 +93,15 @@ const Dashboard = () => {
               key={item.id}
               variant={activeTab === item.id ? "secondary" : "ghost"}
               className={`w-full justify-start ${
-                item.highlight && item.id !== "ussd" ? "bg-primary text-primary-foreground" : ""
+                item.highlight ? "bg-primary text-primary-foreground hover:bg-primary/90" : ""
               }`}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => {
+                if (item.id === "ussd") {
+                  window.location.href = '/ussd';
+                } else {
+                  setActiveTab(item.id);
+                }
+              }}
             >
               <item.icon className="w-4 h-4 mr-3" />
               {item.label}
@@ -102,17 +111,23 @@ const Dashboard = () => {
 
         {/* Bottom Actions */}
         <div className="p-4 space-y-2 border-t border-border">
-          <Button variant="ghost" className="w-full justify-start">
-            <User className="w-4 h-4 mr-3" />
-            Add Account
+          <Button variant="ghost" className="w-full justify-start" asChild>
+            <Link to="/profile">
+              <User className="w-4 h-4 mr-3" />
+              View Profile
+            </Link>
           </Button>
-          <Button variant="ghost" className="w-full justify-start">
-            <Settings className="w-4 h-4 mr-3" />
-            Switch Account
+          <Button variant="ghost" className="w-full justify-start" asChild>
+            <Link to="/map">
+              <MapPin className="w-4 h-4 mr-3" />
+              View Map
+            </Link>
           </Button>
-          <Button variant="ghost" className="w-full justify-start text-destructive">
-            <LogOut className="w-4 h-4 mr-3" />
-            Log Out
+          <Button variant="ghost" className="w-full justify-start text-destructive" asChild>
+            <Link to="/profile">
+              <LogOut className="w-4 h-4 mr-3" />
+              Log Out
+            </Link>
           </Button>
         </div>
       </div>
@@ -170,7 +185,16 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               {consultations.map((consultation, index) => (
-                <div key={index} className="flex items-center space-x-4 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer">
+                <div 
+                  key={index} 
+                  className="flex items-center space-x-4 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer"
+                  onClick={() => {
+                    toast({
+                      title: "Consultation Details",
+                      description: `Viewing details for: ${consultation.title}`,
+                    });
+                  }}
+                >
                   <div className={`w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center ${consultation.color}`}>
                     <consultation.icon className="w-5 h-5" />
                   </div>
@@ -178,6 +202,7 @@ const Dashboard = () => {
                     <div className="font-medium">{consultation.title}</div>
                     <div className="text-sm text-muted-foreground">{consultation.time}</div>
                   </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
                 </div>
               ))}
             </CardContent>
@@ -212,7 +237,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Map */}
-            <Card>
+            <Card className="cursor-pointer hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center space-x-2">
@@ -222,12 +247,12 @@ const Dashboard = () => {
                   <ChevronRight className="w-5 h-5 text-muted-foreground" />
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="bg-muted/30 rounded-lg h-48 flex items-center justify-center">
+              <CardContent onClick={() => window.location.href = '/map'}>
+                <div className="bg-muted/30 rounded-lg h-48 flex items-center justify-center hover:bg-muted/40 transition-colors">
                   <div className="text-center text-muted-foreground">
                     <MapPin className="w-8 h-8 mx-auto mb-2" />
                     <div className="text-sm">Interactive Map</div>
-                    <div className="text-xs">Where you live • Where you work</div>
+                    <div className="text-xs">Click to view healthcare facilities near you</div>
                   </div>
                 </div>
               </CardContent>
