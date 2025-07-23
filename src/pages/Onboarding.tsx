@@ -311,17 +311,11 @@ const Onboarding = () => {
                           } />
                         </SelectTrigger>
                         <SelectContent>
-                          {districts.length > 0 ? (
-                            districts.map((district) => (
-                              <SelectItem key={district.id} value={district.id}>
-                                {district.name}
-                              </SelectItem>
-                            ))
-                          ) : (
-                            <SelectItem value="" disabled>
-                              No districts available for this region
+                          {districts.map((district) => (
+                            <SelectItem key={district.id} value={district.id}>
+                              {district.name}
                             </SelectItem>
-                          )}
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>
