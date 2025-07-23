@@ -28,7 +28,6 @@ interface District {
 }
 
 const Onboarding = () => {
-  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState<Country[]>([]);
   const [regions, setRegions] = useState<Region[]>([]);
@@ -116,14 +115,6 @@ const Onboarding = () => {
     }
   };
 
-  const handleNext = () => {
-    if (step < 2) {
-      setStep(step + 1);
-    } else {
-      handleSubmit();
-    }
-  };
-
   const handleSubmit = async () => {
     if (!user) return;
     
@@ -162,18 +153,10 @@ const Onboarding = () => {
     }
   };
 
-  const isStepValid = () => {
-    switch (step) {
-      case 1:
-        // Allow proceeding if districts are not available for the selected region
-        const districtRequired = districts.length > 0;
-        return formData.fullName && formData.phone && formData.country && formData.region && 
-               (districtRequired ? formData.district : true);
-      case 2:
-        return formData.emergencyContact;
-      default:
-        return false;
-    }
+  const isFormValid = () => {
+    const districtRequired = districts.length > 0;
+    return formData.fullName && formData.phone && formData.country && formData.region && 
+           (districtRequired ? formData.district : true) && formData.emergencyContact;
   };
 
   if (authLoading) {
@@ -196,184 +179,152 @@ const Onboarding = () => {
             <span className="text-2xl font-bold text-foreground">HealthDrive</span>
           </div>
           <h1 className="text-3xl font-bold text-foreground mb-2">Complete Your Profile</h1>
-          <p className="text-foreground/80">Help us provide you with the best healthcare experience</p>
-        </div>
-
-        {/* Progress Indicator */}
-        <div className="flex items-center justify-center mb-8">
-          {[1, 2].map((num) => (
-            <div key={num} className="flex items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                step >= num ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
-              }`}>
-                {step > num ? <CheckCircle className="w-6 h-6" /> : num}
-              </div>
-              {num < 2 && (
-                <div className={`w-16 h-1 mx-2 ${
-                  step > num ? 'bg-primary' : 'bg-muted'
-                }`} />
-              )}
-            </div>
-          ))}
+          <p className="text-foreground/80">Fill in your details to get started</p>
         </div>
 
         <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare">
           <CardHeader>
-            <CardTitle className="text-center">
-              {step === 1 && "Personal & Location Information"}
-              {step === 2 && "Emergency & Medical Info"}
-            </CardTitle>
+            <CardTitle className="text-center">Profile Information</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Step 1: Personal Info & Location */}
-            {step === 1 && (
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Full Name</label>
-                    <Input
-                      placeholder="Enter your full name"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
-                      className="h-12"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Phone Number</label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                      <Input
-                        placeholder="+254 712 345 678"
-                        value={formData.phone}
-                        onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                        className="pl-10 h-12"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Country</label>
-                    <Select 
-                      value={formData.country} 
-                      onValueChange={(value) => setFormData(prev => ({ ...prev, country: value }))}
-                    >
-                      <SelectTrigger className="h-12">
-                        <SelectValue placeholder="Select country" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {countries.map((country) => (
-                          <SelectItem key={country.code} value={country.code}>
-                            {country.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Region</label>
-                    <Select 
-                      value={formData.region} 
-                      onValueChange={(value) => setFormData(prev => ({ ...prev, region: value }))}
-                      disabled={!formData.country}
-                    >
-                      <SelectTrigger className="h-12">
-                        <SelectValue placeholder="Select region" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {regions.map((region) => (
-                          <SelectItem key={region.id} value={region.id}>
-                            {region.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">District</label>
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                      <Select 
-                        value={formData.district} 
-                        onValueChange={(value) => setFormData(prev => ({ ...prev, district: value }))}
-                        disabled={!formData.region || districts.length === 0}
-                      >
-                        <SelectTrigger className="pl-10 h-12">
-                          <SelectValue placeholder={
-                            !formData.region 
-                              ? "Select region first" 
-                              : districts.length === 0 
-                                ? "No districts available" 
-                                : "Select district"
-                          } />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {districts.map((district) => (
-                            <SelectItem key={district.id} value={district.id}>
-                              {district.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 2: Emergency & Medical */}
-            {step === 2 && (
-              <div className="space-y-4">
+            {/* Personal Info */}
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Emergency Contact</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Full Name</label>
+                  <Input
+                    placeholder="Enter your full name"
+                    value={formData.fullName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
+                    className="h-12"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Phone Number</label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                     <Input
-                      placeholder="Emergency contact number"
-                      value={formData.emergencyContact}
-                      onChange={(e) => setFormData(prev => ({ ...prev, emergencyContact: e.target.value }))}
+                      placeholder="+254 712 345 678"
+                      value={formData.phone}
+                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                       className="pl-10 h-12"
                     />
                   </div>
                 </div>
+              </div>
+
+              {/* Location */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Medical Conditions (Optional)</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Country</label>
+                  <Select 
+                    value={formData.country} 
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, country: value }))}
+                  >
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Select country" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {countries.map((country) => (
+                        <SelectItem key={country.code} value={country.code}>
+                          {country.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Region</label>
+                  <Select 
+                    value={formData.region} 
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, region: value }))}
+                    disabled={!formData.country}
+                  >
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Select region" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {regions.map((region) => (
+                        <SelectItem key={region.id} value={region.id}>
+                          {region.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">District</label>
                   <div className="relative">
-                    <Heart className="absolute left-3 top-3 w-5 h-5 text-muted-foreground" />
-                    <textarea
-                      placeholder="Any medical conditions, allergies, or special needs..."
-                      value={formData.medicalConditions}
-                      onChange={(e) => setFormData(prev => ({ ...prev, medicalConditions: e.target.value }))}
-                      className="w-full pl-10 pt-3 pb-3 pr-3 min-h-[100px] rounded-md border border-border/50 bg-muted/50 focus:border-primary focus:outline-none resize-none"
-                    />
+                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Select 
+                      value={formData.district} 
+                      onValueChange={(value) => setFormData(prev => ({ ...prev, district: value }))}
+                      disabled={!formData.region || districts.length === 0}
+                    >
+                      <SelectTrigger className="pl-10 h-12">
+                        <SelectValue placeholder={
+                          !formData.region 
+                            ? "Select region first" 
+                            : districts.length === 0 
+                              ? "No districts available" 
+                              : "Select district"
+                        } />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {districts.map((district) => (
+                          <SelectItem key={district.id} value={district.id}>
+                            {district.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>
-            )}
 
-            {/* Navigation Buttons */}
-            <div className="flex justify-between pt-6">
+              {/* Emergency Contact */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">Emergency Contact</label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    placeholder="Emergency contact number"
+                    value={formData.emergencyContact}
+                    onChange={(e) => setFormData(prev => ({ ...prev, emergencyContact: e.target.value }))}
+                    className="pl-10 h-12"
+                  />
+                </div>
+              </div>
+
+              {/* Medical Conditions */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">Medical Conditions (Optional)</label>
+                <div className="relative">
+                  <Heart className="absolute left-3 top-3 w-5 h-5 text-muted-foreground" />
+                  <textarea
+                    placeholder="Any medical conditions, allergies, or special needs..."
+                    value={formData.medicalConditions}
+                    onChange={(e) => setFormData(prev => ({ ...prev, medicalConditions: e.target.value }))}
+                    className="w-full pl-10 pt-3 pb-3 pr-3 min-h-[100px] rounded-md border border-border/50 bg-muted/50 focus:border-primary focus:outline-none resize-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-end pt-6">
               <Button
-                variant="outline"
-                onClick={() => setStep(step - 1)}
-                disabled={step === 1}
-                className="w-24"
-              >
-                Back
-              </Button>
-              <Button
-                onClick={handleNext}
-                disabled={!isStepValid() || loading}
-                className="w-32"
+                onClick={handleSubmit}
+                disabled={!isFormValid() || loading}
+                className="w-40"
               >
                 {loading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
                   <>
-                    {step === 2 ? "Complete Setup" : "Next"}
+                    Complete Setup
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </>
                 )}
