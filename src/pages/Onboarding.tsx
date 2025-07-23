@@ -132,6 +132,8 @@ const Onboarding = () => {
           district: formData.district,
           emergency_contact: formData.emergencyContact,
           medical_conditions: formData.medicalConditions,
+        }, {
+          onConflict: 'user_id'
         });
 
       if (error) throw error;
