@@ -165,7 +165,10 @@ const Onboarding = () => {
   const isStepValid = () => {
     switch (step) {
       case 1:
-        return formData.fullName && formData.phone && formData.country && formData.region && formData.district;
+        // Allow proceeding if districts are not available for the selected region
+        const districtRequired = districts.length > 0;
+        return formData.fullName && formData.phone && formData.country && formData.region && 
+               (districtRequired ? formData.district : true);
       case 2:
         return formData.emergencyContact;
       default:
@@ -296,17 +299,29 @@ const Onboarding = () => {
                       <Select 
                         value={formData.district} 
                         onValueChange={(value) => setFormData(prev => ({ ...prev, district: value }))}
-                        disabled={!formData.region}
+                        disabled={!formData.region || districts.length === 0}
                       >
                         <SelectTrigger className="pl-10 h-12">
-                          <SelectValue placeholder="Select district" />
+                          <SelectValue placeholder={
+                            !formData.region 
+                              ? "Select region first" 
+                              : districts.length === 0 
+                                ? "No districts available" 
+                                : "Select district"
+                          } />
                         </SelectTrigger>
                         <SelectContent>
-                          {districts.map((district) => (
-                            <SelectItem key={district.id} value={district.id}>
-                              {district.name}
+                          {districts.length > 0 ? (
+                            districts.map((district) => (
+                              <SelectItem key={district.id} value={district.id}>
+                                {district.name}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <SelectItem value="" disabled>
+                              No districts available for this region
                             </SelectItem>
-                          ))}
+                          )}
                         </SelectContent>
                       </Select>
                     </div>
