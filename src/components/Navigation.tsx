@@ -32,6 +32,14 @@ const Navigation = () => {
               Our Services
             </Link>
             <Link 
+              to="/ussd" 
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive('/ussd') ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              USSD Services
+            </Link>
+            <Link 
               to="/team" 
               className={`text-sm font-medium transition-colors hover:text-primary ${
                 isActive('/team') ? 'text-primary' : 'text-muted-foreground'
@@ -76,6 +84,13 @@ const Navigation = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Our Services
+            </Link>
+            <Link 
+              to="/ussd" 
+              className="block text-sm font-medium text-muted-foreground hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              USSD Services
             </Link>
             <Link 
               to="/team" 

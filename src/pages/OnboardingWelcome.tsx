@@ -16,51 +16,27 @@ const OnboardingWelcome = () => {
       icon: Heart,
       title: "Welcome to HealthDrive",
       subtitle: "Your Healthcare Journey Starts Here",
-      description: "We're excited to help you access quality healthcare services closer to your community.",
+      description: "Access quality healthcare services, find mobile clinics, book consultations, and use USSD services from any mobile device.",
       color: "text-red-500",
       bgColor: "bg-red-50"
     },
     {
-      icon: Truck,
-      title: "Mobile Clinics Near You",
-      subtitle: "Healthcare That Comes To You",
-      description: "Find and access mobile health clinics in your area. Get quality care without traveling far distances.",
-      color: "text-blue-500",
-      bgColor: "bg-blue-50"
-    },
-    {
       icon: Phone,
-      title: "USSD Services",
-      subtitle: "Healthcare at Your Fingertips",
-      description: "Access healthcare services via USSD codes on any mobile phone - even basic feature phones.",
+      title: "Get Started Now",
+      subtitle: "Ready to Access Healthcare?",
+      description: "Complete your quick profile setup to access all features including emergency services, clinic locations, and health consultations.",
       color: "text-green-500",
       bgColor: "bg-green-50"
-    },
-    {
-      icon: Users,
-      title: "Connect with Providers",
-      subtitle: "Expert Care, Personal Touch",
-      description: "Video consultations, appointments, and direct communication with qualified healthcare providers.",
-      color: "text-purple-500",
-      bgColor: "bg-purple-50"
-    },
-    {
-      icon: Shield,
-      title: "Your Data is Safe",
-      subtitle: "Privacy & Security First",
-      description: "We protect your health information with the highest security standards and privacy controls.",
-      color: "text-orange-500",
-      bgColor: "bg-orange-50"
     }
   ];
 
   const benefits = [
-    "Find healthcare facilities near you",
-    "Book appointments easily", 
-    "Access via USSD codes",
-    "Video consultations",
-    "Emergency services",
-    "Health information & tips"
+    "Find healthcare facilities instantly",
+    "Emergency USSD access (*911#)", 
+    "Video consultations with doctors",
+    "Mobile clinic locations",
+    "Book appointments easily",
+    "Secure health data"
   ];
 
   const handleNext = () => {
