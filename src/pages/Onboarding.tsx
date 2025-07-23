@@ -154,9 +154,7 @@ const Onboarding = () => {
   };
 
   const isFormValid = () => {
-    const districtRequired = districts.length > 0;
-    return formData.fullName && formData.phone && formData.country && formData.region && 
-           (districtRequired ? formData.district : true) && formData.emergencyContact;
+    return true; // Allow submission regardless of form completion
   };
 
   if (authLoading) {
