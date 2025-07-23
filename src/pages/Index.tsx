@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Cross, ArrowRight, Truck, Stethoscope, Calendar, MapPin, Phone } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Cross, ArrowRight, Truck, Stethoscope, Calendar, MapPin, Phone, Heart, MessageSquare, Users, Copy } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
+  const { toast } = useToast();
+  
   const features = [
     {
       icon: Phone,
@@ -23,6 +27,23 @@ const Index = () => {
       text: "Accessible via Safaricom USSD code for feature phones via *182#"
     }
   ];
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Copied!",
+      description: `${text} copied to clipboard`,
+    });
+  };
+
+  const dialUSSD = (code: string) => {
+    toast({
+      title: "Dialing USSD",
+      description: `Please dial ${code} on your mobile device`,
+    });
+    // Open phone dialer
+    window.open(`tel:${code}`, '_self');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-hero">
@@ -102,6 +123,208 @@ const Index = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* USSD Services Section */}
+      <section className="py-16 bg-muted/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Instant Access via USSD
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Access healthcare services instantly from any mobile device. No internet or smartphone required.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
+            {/* Emergency Services */}
+            <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare hover:shadow-lg transition-shadow">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Heart className="w-5 h-5 text-red-500" />
+                    <CardTitle className="text-base">Emergency</CardTitle>
+                  </div>
+                  <Badge variant="destructive" className="text-xs">Urgent</Badge>
+                </div>
+                <CardDescription className="text-sm">Quick emergency healthcare access</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="text-xl font-mono font-bold text-center text-red-600">*911#</div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="flex-1 text-xs"
+                      onClick={() => copyToClipboard("*911#")}
+                    >
+                      <Copy className="w-3 h-3 mr-1" />
+                      Copy
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="destructive"
+                      className="flex-1 text-xs"
+                      onClick={() => dialUSSD("*911#")}
+                    >
+                      <Phone className="w-3 h-3 mr-1" />
+                      Dial
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Find Clinics */}
+            <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare hover:shadow-lg transition-shadow">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <MapPin className="w-5 h-5 text-blue-500" />
+                    <CardTitle className="text-base">Find Clinics</CardTitle>
+                  </div>
+                  <Badge variant="secondary" className="text-xs">Popular</Badge>
+                </div>
+                <CardDescription className="text-sm">Locate nearby healthcare facilities</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="text-xl font-mono font-bold text-center text-blue-600">*123#</div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="flex-1 text-xs"
+                      onClick={() => copyToClipboard("*123#")}
+                    >
+                      <Copy className="w-3 h-3 mr-1" />
+                      Copy
+                    </Button>
+                    <Button 
+                      size="sm"
+                      className="flex-1 text-xs"
+                      onClick={() => dialUSSD("*123#")}
+                    >
+                      <Phone className="w-3 h-3 mr-1" />
+                      Dial
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Health Information */}
+            <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare hover:shadow-lg transition-shadow">
+              <CardHeader className="pb-4">
+                <div className="flex items-center space-x-2">
+                  <MessageSquare className="w-5 h-5 text-green-500" />
+                  <CardTitle className="text-base">Health Info</CardTitle>
+                </div>
+                <CardDescription className="text-sm">Get health tips and information</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="text-xl font-mono font-bold text-center text-green-600">*456#</div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="flex-1 text-xs"
+                      onClick={() => copyToClipboard("*456#")}
+                    >
+                      <Copy className="w-3 h-3 mr-1" />
+                      Copy
+                    </Button>
+                    <Button 
+                      size="sm"
+                      className="flex-1 text-xs"
+                      onClick={() => dialUSSD("*456#")}
+                    >
+                      <Phone className="w-3 h-3 mr-1" />
+                      Dial
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Community Health */}
+            <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare hover:shadow-lg transition-shadow">
+              <CardHeader className="pb-4">
+                <div className="flex items-center space-x-2">
+                  <Users className="w-5 h-5 text-purple-500" />
+                  <CardTitle className="text-base">Community</CardTitle>
+                </div>
+                <CardDescription className="text-sm">Connect with health workers</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="text-xl font-mono font-bold text-center text-purple-600">*789#</div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="flex-1 text-xs"
+                      onClick={() => copyToClipboard("*789#")}
+                    >
+                      <Copy className="w-3 h-3 mr-1" />
+                      Copy
+                    </Button>
+                    <Button 
+                      size="sm"
+                      className="flex-1 text-xs"
+                      onClick={() => dialUSSD("*789#")}
+                    >
+                      <Phone className="w-3 h-3 mr-1" />
+                      Dial
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* USSD Instructions */}
+          <Card className="mt-8 bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare max-w-4xl mx-auto">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-center">
+                <Phone className="w-5 h-5 mr-2" />
+                How to Use USSD Services
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">1</div>
+                  <p className="text-sm text-foreground">Dial the USSD code on your mobile phone</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">2</div>
+                  <p className="text-sm text-foreground">Follow the menu options displayed</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">3</div>
+                  <p className="text-sm text-foreground">Press the number for your choice</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">4</div>
+                  <p className="text-sm text-foreground">Receive instant assistance</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-center mt-8">
+            <Link to="/ussd">
+              <Button variant="outline" size="lg">
+                View Full USSD Interface
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
