@@ -353,43 +353,38 @@ const USSD = () => {
     );
   };
 
-  const renderMobileConnecting = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-primary">USSD Connection</h1>
-          <p className="text-lg text-foreground">Connecting to {ussdCode}</p>
-        </div>
-      </div>
+  const renderMobileConnecting = () => {
+    // Auto-connect after 2 seconds
+    setTimeout(() => {
+      setCurrentScreen(`mobile-${currentService}-main`);
+    }, 2000);
 
-      <FeaturePhone showKeypad={false}>
-        <div>
-          <div className="text-center mb-1">DIALING...</div>
-          <div className="text-center text-sm">{ussdCode}</div>
-          <div className="mt-2 text-xs">
-            <div className="animate-pulse">••• Connecting •••</div>
-            <div className="mt-1">HealthDrive Network</div>
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center space-x-4 mb-6">
+          <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
+            <ArrowLeft className="w-4 h-4" />
+          </Button>
+          <div>
+            <h1 className="text-2xl font-bold text-primary">USSD Connection</h1>
+            <p className="text-lg text-foreground">Connecting to {ussdCode}</p>
           </div>
         </div>
-      </FeaturePhone>
 
-      <div className="text-center space-y-4">
-        <Button 
-          onClick={() => {
-            setTimeout(() => {
-              setCurrentScreen(`mobile-${currentService}-main`);
-            }, 1500);
-          }}
-          className="w-full max-w-sm"
-        >
-          ⚡ Establish Connection
-        </Button>
+        <FeaturePhone showKeypad={false}>
+          <div>
+            <div className="text-center mb-1">DIALING...</div>
+            <div className="text-center text-sm">{ussdCode}</div>
+            <div className="mt-2 text-xs">
+              <div className="animate-pulse">••• Connecting •••</div>
+              <div className="mt-1">HealthDrive Network</div>
+              <div className="mt-1 text-center">Auto-connecting...</div>
+            </div>
+          </div>
+        </FeaturePhone>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderMobileEmergencyMain = () => (
     <div className="space-y-6">
