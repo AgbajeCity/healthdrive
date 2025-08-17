@@ -206,81 +206,152 @@ const USSD = () => {
     </div>
   );
 
-  // Authentic Feature Phone Component
-  const FeaturePhone = ({ children, showKeypad = false }) => (
-    <div className="mx-auto max-w-sm">
-      {/* Phone Frame */}
-      <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-3xl shadow-2xl border-2 border-gray-700 relative">
-        {/* Antenna */}
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-1 h-6 bg-gray-600 rounded-full"></div>
-        
-        {/* Phone Header */}
-        <div className="bg-black rounded-2xl mb-2 p-2">
-          {/* Speaker */}
-          <div className="w-16 h-2 bg-gray-700 rounded-full mx-auto mb-2"></div>
+  // Authentic Feature Phone Component with Functional Keypad
+  const FeaturePhone = ({ children, showKeypad = true, onKeyPress = null }) => {
+    const [input, setInput] = useState("");
+
+    const handleKeyPress = (key) => {
+      if (key === '*' || key === '#') {
+        setInput(prev => prev + key);
+      } else if (key >= '0' && key <= '9') {
+        setInput(prev => prev + key);
+      }
+      
+      if (onKeyPress) {
+        onKeyPress(key, input + key);
+      }
+    };
+
+    const handleCall = () => {
+      if (input.includes('*') && input.includes('#')) {
+        dialUSSD(input);
+        setInput("");
+      }
+    };
+
+    const handleClear = () => {
+      setInput(prev => prev.slice(0, -1));
+    };
+
+    return (
+      <div className="mx-auto max-w-sm">
+        {/* Phone Frame */}
+        <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-3xl shadow-2xl border-2 border-gray-700 relative">
+          {/* Antenna */}
+          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-1 h-6 bg-gray-600 rounded-full"></div>
           
-          {/* Screen */}
-          <div className="bg-black border border-gray-700 rounded-lg p-3 min-h-48 relative">
-            {/* Screen content with authentic USSD styling */}
-            <div className="text-green-400 font-mono text-xs leading-relaxed">
-              {children}
+          {/* Phone Header */}
+          <div className="bg-black rounded-2xl mb-2 p-2">
+            {/* Speaker */}
+            <div className="w-16 h-2 bg-gray-700 rounded-full mx-auto mb-2"></div>
+            
+            {/* Screen */}
+            <div className="bg-black border border-gray-700 rounded-lg p-3 min-h-48 relative">
+              {/* Input display */}
+              {showKeypad && input && (
+                <div className="text-yellow-400 font-mono text-sm mb-2 text-center border-b border-gray-600 pb-1">
+                  {input}
+                </div>
+              )}
+              
+              {/* Screen content with authentic USSD styling */}
+              <div className="text-green-400 font-mono text-xs leading-relaxed">
+                {children}
+              </div>
+              
+              {/* Screen reflection effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-lg pointer-events-none"></div>
             </div>
             
-            {/* Screen reflection effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-lg pointer-events-none"></div>
+            {/* Navigation keys */}
+            <div className="flex justify-center mt-2 space-x-1">
+              <div className="w-8 h-2 bg-gray-600 rounded"></div>
+              <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+              <div className="w-8 h-2 bg-gray-600 rounded"></div>
+            </div>
           </div>
           
-          {/* Navigation keys */}
-          <div className="flex justify-center mt-2 space-x-1">
-            <div className="w-8 h-2 bg-gray-600 rounded"></div>
-            <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
-            <div className="w-8 h-2 bg-gray-600 rounded"></div>
-          </div>
-        </div>
-        
-        {/* Keypad */}
-        {showKeypad && (
-          <div className="grid grid-cols-3 gap-1 mt-3">
-            {[
-              { key: '1', sub: '' }, { key: '2', sub: 'ABC' }, { key: '3', sub: 'DEF' },
-              { key: '4', sub: 'GHI' }, { key: '5', sub: 'JKL' }, { key: '6', sub: 'MNO' },
-              { key: '7', sub: 'PQRS' }, { key: '8', sub: 'TUV' }, { key: '9', sub: 'WXYZ' },
-              { key: '*', sub: '+' }, { key: '0', sub: ' ' }, { key: '#', sub: '' }
-            ].map(({ key, sub }) => (
-              <button
-                key={key}
-                className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-2 rounded text-sm transition-colors relative group"
+          {/* Functional Keypad */}
+          {showKeypad && (
+            <div className="grid grid-cols-3 gap-1 mt-3">
+              {[
+                { key: '1', sub: '' }, 
+                { key: '2', sub: 'ABC' }, 
+                { key: '3', sub: 'DEF' },
+                { key: '4', sub: 'GHI' }, 
+                { key: '5', sub: 'JKL' }, 
+                { key: '6', sub: 'MNO' },
+                { key: '7', sub: 'PQRS' }, 
+                { key: '8', sub: 'TUV' }, 
+                { key: '9', sub: 'WXYZ' },
+                { key: '*', sub: '+' }, 
+                { key: '0', sub: ' ' }, 
+                { key: '#', sub: '' }
+              ].map(({ key, sub }) => (
+                <button
+                  key={key}
+                  onClick={() => handleKeyPress(key)}
+                  className="bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white font-bold py-3 px-2 rounded text-sm transition-all duration-100 relative group shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95"
+                >
+                  <div className="text-base font-bold">{key}</div>
+                  {sub && <div className="text-xs text-gray-300 font-normal">{sub}</div>}
+                </button>
+              ))}
+            </div>
+          )}
+          
+          {/* Control Buttons */}
+          <div className="flex justify-between items-center mt-3 px-2">
+            <button 
+              onClick={handleCall}
+              className="bg-green-600 hover:bg-green-500 active:bg-green-400 text-white font-bold py-2 px-4 rounded-full text-xs flex items-center shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-100"
+            >
+              <Phone className="w-3 h-3 mr-1" />
+              CALL
+            </button>
+            <div className="flex space-x-1">
+              <button 
+                onClick={() => navigateToMobileScreen("mobile-connecting")}
+                className="bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white font-bold py-2 px-3 rounded text-xs transition-all duration-100 transform hover:scale-105 active:scale-95"
               >
-                <div className="text-base">{key}</div>
-                {sub && <div className="text-xs text-gray-300">{sub}</div>}
+                ↑
               </button>
-            ))}
+              <button 
+                onClick={() => {
+                  if (currentScreen.includes('mobile-')) {
+                    // Select current highlighted option
+                    const screens = {
+                      'mobile-emergency-main': () => navigateToMobileScreen("mobile-emergency-ambulance"),
+                      'mobile-clinics-main': () => navigateToMobileScreen("mobile-clinics-hospital"),
+                      'mobile-health-info-main': () => navigateToMobileScreen("mobile-health-info-topics"),
+                      'mobile-community-main': () => navigateToMobileScreen("mobile-community-workers")
+                    };
+                    screens[currentScreen]?.();
+                  }
+                }}
+                className="bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white font-bold py-2 px-3 rounded text-xs transition-all duration-100 transform hover:scale-105 active:scale-95"
+              >
+                OK
+              </button>
+              <button 
+                onClick={goBackMobile}
+                className="bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white font-bold py-2 px-3 rounded text-xs transition-all duration-100 transform hover:scale-105 active:scale-95"
+              >
+                ↓
+              </button>
+            </div>
+            <button 
+              onClick={handleClear}
+              className="bg-red-600 hover:bg-red-500 active:bg-red-400 text-white font-bold py-2 px-4 rounded-full text-xs shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-100"
+            >
+              <Cross className="w-3 h-3 mr-1" />
+              END
+            </button>
           </div>
-        )}
-        
-        {/* Control Buttons */}
-        <div className="flex justify-between items-center mt-3 px-2">
-          <button className="bg-green-600 hover:bg-green-500 text-white font-bold py-1 px-3 rounded-full text-xs flex items-center">
-            ☎ CALL
-          </button>
-          <div className="flex space-x-2">
-            <button className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-xs">
-              ↑
-            </button>
-            <button className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-xs">
-              OK
-            </button>
-            <button className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-xs">
-              ↓
-            </button>
-          </div>
-          <button className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-3 rounded-full text-xs">
-            ✖ END
-          </button>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderMobileConnecting = () => (
     <div className="space-y-6">
