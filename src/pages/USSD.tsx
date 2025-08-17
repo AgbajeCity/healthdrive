@@ -1556,6 +1556,174 @@ const USSD = () => {
     </div>
   );
 
+  // Missing render functions for complete functionality
+  const renderMobileHealthInfoTopics = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Health Topics</h1>
+          <p className="text-lg text-foreground">Health Information</p>
+        </div>
+      </div>
+
+      <FeaturePhone onKeyPress={(key) => {
+        if (key === '1') navigateToMobileScreen("mobile-health-prevention");
+        else if (key === '2') navigateToMobileScreen("mobile-health-vaccination");
+        else if (key === '3') navigateToMobileScreen("mobile-health-nutrition");
+        else if (key === '4') navigateToMobileScreen("mobile-health-mental");
+        else if (key === '5') navigateToMobileScreen("mobile-health-maternal");
+        else if (key === '6') navigateToMobileScreen("mobile-health-children");
+      }}>
+        <div>
+          <div className="text-center mb-1">HEALTH TOPICS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>1 Disease Prevention</div>
+            <div>2 Vaccination Info</div>
+            <div>3 Nutrition Tips</div>
+            <div>4 Mental Health</div>
+            <div>5 Maternal Health</div>
+            <div>6 Child Health</div>
+            <div>0 Main Menu</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Select a topic</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileCommunityWorkers = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-purple-600">Health Workers</h1>
+          <p className="text-lg text-foreground">Community Support</p>
+        </div>
+      </div>
+
+      <FeaturePhone onKeyPress={(key) => {
+        if (key === '1') navigateToMobileScreen("mobile-community-worker");
+        else if (key === '2') navigateToMobileScreen("mobile-community-programs");
+        else if (key === '3') navigateToMobileScreen("mobile-community-education");
+        else if (key === '4') navigateToMobileScreen("mobile-community-support");
+        else if (key === '5') navigateToMobileScreen("mobile-community-campaigns");
+        else if (key === '6') navigateToMobileScreen("mobile-community-report");
+      }}>
+        <div>
+          <div className="text-center mb-1">COMMUNITY HEALTH</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>1 Find Health Worker</div>
+            <div>2 Health Programs</div>
+            <div>3 Health Education</div>
+            <div>4 Support Groups</div>
+            <div>5 Health Campaigns</div>
+            <div>6 Report Issues</div>
+            <div>0 Main Menu</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Community care services</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Community
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthMaternal = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Maternal Health</h1>
+          <p className="text-lg text-foreground">Pregnancy & Birth</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">MATERNAL HEALTH</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>PREGNANCY CARE:</div>
+            <div className="mt-1">• Start care early</div>
+            <div>• Regular checkups</div>
+            <div>• Take folic acid</div>
+            <div>• Healthy diet</div>
+            <div>• Avoid alcohol/smoking</div>
+            <div>• Birth plan preparation</div>
+            <div className="mt-1">FREE prenatal services</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Healthy mother, healthy baby</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthChildren = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Child Health</h1>
+          <p className="text-lg text-foreground">Children's Wellbeing</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">CHILD HEALTH (0-5)</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>ESSENTIALS:</div>
+            <div className="mt-1">• Breastfeeding 0-6 months</div>
+            <div>• Balanced nutrition</div>
+            <div>• Clean water & hygiene</div>
+            <div>• Regular play & exercise</div>
+            <div>• Adequate sleep</div>
+            <div className="mt-1">WARNING SIGNS: Fever, poor feeding, lethargy</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Visit health center monthly</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
   // Additional missing community screens
   const renderMobileCommunityCampaigns = () => (
     <div className="space-y-6">
@@ -1869,17 +2037,24 @@ const USSD = () => {
           
           {/* Health Info Service Screens */}
           {currentScreen === "mobile-health-info-main" && renderMobileHealthInfoMain()}
+          {currentScreen === "mobile-health-info-topics" && renderMobileHealthInfoTopics()}
           {currentScreen === "mobile-health-prevention" && renderMobileHealthPrevention()}
           {currentScreen === "mobile-health-vaccination" && renderMobileHealthVaccination()}
           {currentScreen === "mobile-health-nutrition" && renderMobileHealthNutrition()}
           {currentScreen === "mobile-health-mental" && renderMobileHealthMental()}
+          {currentScreen === "mobile-health-maternal" && renderMobileHealthMaternal()}
+          {currentScreen === "mobile-health-children" && renderMobileHealthChildren()}
+          {currentScreen === "mobile-health-women" && renderMobileHealthWomen()}
           
           {/* Community Service Screens */}
           {currentScreen === "mobile-community-main" && renderMobileCommunityMain()}
+          {currentScreen === "mobile-community-workers" && renderMobileCommunityWorkers()}
           {currentScreen === "mobile-community-worker" && renderMobileCommunityWorker()}
           {currentScreen === "mobile-community-programs" && renderMobileCommunityPrograms()}
           {currentScreen === "mobile-community-education" && renderMobileCommunityEducation()}
           {currentScreen === "mobile-community-support" && renderMobileCommunitySuppport()}
+          {currentScreen === "mobile-community-campaigns" && renderMobileCommunityCampaigns()}
+          {currentScreen === "mobile-community-report" && renderMobileCommunityReport()}
         </div>
       </div>
     </div>
