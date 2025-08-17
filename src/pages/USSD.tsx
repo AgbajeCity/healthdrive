@@ -517,27 +517,54 @@ const USSD = () => {
     </div>
   );
 
-  // Mobile Screen Simulation Components
-  const MobileScreen = ({ children, title = "HealthDrive USSD" }) => (
-    <div className="max-w-sm mx-auto">
-      <div className="bg-gray-900 rounded-t-3xl p-4 text-center">
-        <div className="w-16 h-1 bg-white/30 rounded-full mx-auto mb-2"></div>
-        <div className="text-white text-xs">Mobile Simulation</div>
-      </div>
-      <div className="bg-black border-x-2 border-gray-800 min-h-[500px]">
-        <div className="bg-gray-800 text-white text-xs p-2 flex justify-between">
-          <span>Carrier</span>
-          <span>●●●●●</span>
-          <span>100%</span>
+  // Feature Phone Screen Component
+  const FeaturePhone = ({ children, title = "HealthDrive USSD" }) => (
+    <div className="max-w-xs mx-auto">
+      {/* Phone Body */}
+      <div className="bg-gray-800 rounded-2xl p-4 shadow-2xl">
+        {/* Screen */}
+        <div className="bg-gray-900 rounded-lg p-2 mb-4">
+          <div className="bg-black border border-gray-600 rounded h-48 overflow-hidden">
+            {/* Status Bar */}
+            <div className="bg-blue-900 text-blue-200 text-xs px-2 py-1 flex justify-between">
+              <span>Carrier</span>
+              <span>●●●</span>
+            </div>
+            {/* Screen Content */}
+            <div className="text-green-400 font-mono text-xs p-2 leading-tight h-full overflow-y-auto">
+              {children}
+            </div>
+          </div>
         </div>
-        <div className="text-green-400 font-mono text-xs p-4 leading-relaxed">
-          {children}
+        
+        {/* Physical Keypad */}
+        <div className="grid grid-cols-3 gap-1 mb-2">
+          {/* Number pad */}
+          {[1,2,3,4,5,6,7,8,9].map(num => (
+            <div key={num} className="bg-gray-700 hover:bg-gray-600 rounded text-white text-xs h-8 flex items-center justify-center font-mono cursor-pointer transition-colors">
+              {num}
+            </div>
+          ))}
+          <div className="bg-gray-700 hover:bg-gray-600 rounded text-white text-xs h-8 flex items-center justify-center font-mono cursor-pointer">
+            *
+          </div>
+          <div className="bg-gray-700 hover:bg-gray-600 rounded text-white text-xs h-8 flex items-center justify-center font-mono cursor-pointer">
+            0
+          </div>
+          <div className="bg-gray-700 hover:bg-gray-600 rounded text-white text-xs h-8 flex items-center justify-center font-mono cursor-pointer">
+            #
+          </div>
         </div>
-      </div>
-      <div className="bg-gray-900 rounded-b-3xl p-4 flex justify-center space-x-4">
-        <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-        <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-        <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
+        
+        {/* Action Buttons */}
+        <div className="flex justify-between">
+          <div className="bg-red-600 hover:bg-red-500 rounded px-3 py-1 text-white text-xs cursor-pointer transition-colors">
+            END
+          </div>
+          <div className="bg-green-600 hover:bg-green-500 rounded px-3 py-1 text-white text-xs cursor-pointer transition-colors">
+            CALL
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -549,19 +576,19 @@ const USSD = () => {
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-primary">Mobile USSD Simulation</h1>
+          <h1 className="text-2xl font-bold text-primary">Feature Phone USSD Simulation</h1>
           <p className="text-lg text-foreground">Connecting to {ussdCode}...</p>
         </div>
       </div>
 
-      <MobileScreen>
-        <div className="text-center space-y-2">
+      <FeaturePhone>
+        <div className="text-center space-y-1">
           <div className="animate-pulse">Connecting...</div>
           <div>USSD Code Running</div>
-          <div className="mt-4">{ussdCode}</div>
-          <div className="mt-2">Please wait...</div>
+          <div className="mt-2">{ussdCode}</div>
+          <div className="mt-1">Please wait...</div>
         </div>
-      </MobileScreen>
+      </FeaturePhone>
 
       <div className="text-center space-y-4">
         <Button 
@@ -571,7 +598,7 @@ const USSD = () => {
           Continue to Service Menu
         </Button>
         <p className="text-sm text-muted-foreground">
-          This simulates what appears on your mobile screen
+          This simulates what appears on your feature phone screen
         </p>
       </div>
     </div>
@@ -585,25 +612,25 @@ const USSD = () => {
         </Button>
         <div>
           <h1 className="text-2xl font-bold text-primary">Emergency Services *911#</h1>
-          <p className="text-lg text-foreground">Mobile Screen View</p>
+          <p className="text-lg text-foreground">Feature Phone View</p>
         </div>
       </div>
 
-      <MobileScreen>
+      <FeaturePhone>
         <div>
           <div className="font-bold text-red-400">EMERGENCY SERVICES</div>
-          <div className="mt-2">*911#</div>
-          <div className="mt-4">Select service:</div>
-          <div className="mt-2">1. Ambulance</div>
+          <div className="mt-1">*911#</div>
+          <div className="mt-2">Select service:</div>
+          <div className="mt-1">1. Ambulance</div>
           <div>2. Fire Department</div>
           <div>3. Police Emergency</div>
           <div>4. Poison Control</div>
           <div>5. Mental Health Crisis</div>
           <div>6. Nearest Hospital</div>
-          <div className="mt-4">0. Main Menu</div>
-          <div className="mt-4 text-white">Reply with option number</div>
+          <div className="mt-2">0. Main Menu</div>
+          <div className="mt-2 text-yellow-400">Reply with option number</div>
         </div>
-      </MobileScreen>
+      </FeaturePhone>
 
       <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
         {[1,2,3,4,5,6].map(num => (
@@ -635,25 +662,25 @@ const USSD = () => {
         </Button>
         <div>
           <h1 className="text-2xl font-bold text-primary">Find Clinics *123#</h1>
-          <p className="text-lg text-foreground">Mobile Screen View</p>
+          <p className="text-lg text-foreground">Feature Phone View</p>
         </div>
       </div>
 
-      <MobileScreen>
+      <FeaturePhone>
         <div>
           <div className="font-bold">HEALTHDRIVE CLINICS</div>
-          <div className="mt-2">*123#</div>
-          <div className="mt-4">Find healthcare near you:</div>
-          <div className="mt-2">1. Nearest Hospital</div>
+          <div className="mt-1">*123#</div>
+          <div className="mt-2">Find healthcare near you:</div>
+          <div className="mt-1">1. Nearest Hospital</div>
           <div>2. Primary Health Center</div>
           <div>3. Specialist Clinics</div>
           <div>4. Pharmacy Locations</div>
           <div>5. Mobile Clinic Schedule</div>
           <div>6. 24/7 Emergency Centers</div>
-          <div className="mt-4">0. Main Menu</div>
-          <div className="mt-4 text-white">Choose an option:</div>
+          <div className="mt-2">0. Main Menu</div>
+          <div className="mt-2 text-yellow-400">Choose an option:</div>
         </div>
-      </MobileScreen>
+      </FeaturePhone>
 
       <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
         {[1,2,3,4,5,6].map(num => (
@@ -685,26 +712,26 @@ const USSD = () => {
         </Button>
         <div>
           <h1 className="text-2xl font-bold text-primary">Health Info *456#</h1>
-          <p className="text-lg text-foreground">Mobile Screen View</p>
+          <p className="text-lg text-foreground">Feature Phone View</p>
         </div>
       </div>
 
-      <MobileScreen>
+      <FeaturePhone>
         <div>
           <div className="font-bold">HEALTH INFORMATION</div>
-          <div className="mt-2">*456#</div>
-          <div className="mt-4">Get health tips:</div>
-          <div className="mt-2">1. Disease Prevention</div>
+          <div className="mt-1">*456#</div>
+          <div className="mt-2">Get health tips:</div>
+          <div className="mt-1">1. Disease Prevention</div>
           <div>2. Vaccination Schedule</div>
           <div>3. Nutrition Tips</div>
           <div>4. Mental Health</div>
           <div>5. Child Health</div>
           <div>6. Women's Health</div>
           <div>7. COVID-19 Updates</div>
-          <div className="mt-4">0. Main Menu</div>
-          <div className="mt-4 text-white">Select topic:</div>
+          <div className="mt-2">0. Main Menu</div>
+          <div className="mt-2 text-yellow-400">Select topic:</div>
         </div>
-      </MobileScreen>
+      </FeaturePhone>
 
       <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
         {[1,2,3,4,5,6,7].map(num => (
@@ -736,26 +763,26 @@ const USSD = () => {
         </Button>
         <div>
           <h1 className="text-2xl font-bold text-primary">Community Health *789#</h1>
-          <p className="text-lg text-foreground">Mobile Screen View</p>
+          <p className="text-lg text-foreground">Feature Phone View</p>
         </div>
       </div>
 
-      <MobileScreen>
+      <FeaturePhone>
         <div>
           <div className="font-bold">COMMUNITY HEALTH</div>
-          <div className="mt-2">*789#</div>
-          <div className="mt-4">Connect with community:</div>
-          <div className="mt-2">1. Find Health Worker</div>
+          <div className="mt-1">*789#</div>
+          <div className="mt-2">Connect with community:</div>
+          <div className="mt-1">1. Find Health Worker</div>
           <div>2. Community Programs</div>
           <div>3. Health Education</div>
           <div>4. Support Groups</div>
           <div>5. Volunteer Programs</div>
           <div>6. Health Campaigns</div>
           <div>7. Report Health Issues</div>
-          <div className="mt-4">0. Main Menu</div>
-          <div className="mt-4 text-white">Choose service:</div>
+          <div className="mt-2">0. Main Menu</div>
+          <div className="mt-2 text-yellow-400">Choose service:</div>
         </div>
-      </MobileScreen>
+      </FeaturePhone>
 
       <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
         {[1,2,3,4,5,6,7].map(num => (
@@ -801,13 +828,13 @@ const USSD = () => {
           </div>
         </div>
 
-        <MobileScreen>
+        <FeaturePhone>
           <div>
             <div className="font-bold text-red-400">{optionData.title}</div>
-            <div className="mt-4 whitespace-pre-line">{optionData.content}</div>
-            <div className="mt-6 text-yellow-400">Press 0 to return to menu</div>
+            <div className="mt-2 whitespace-pre-line text-xs leading-tight">{optionData.content}</div>
+            <div className="mt-3 text-yellow-400">Press 0 to return to menu</div>
           </div>
-        </MobileScreen>
+        </FeaturePhone>
 
         <div className="flex justify-center space-x-4">
           <Button variant="outline" onClick={goBackMobile}>
@@ -841,13 +868,13 @@ const USSD = () => {
           </div>
         </div>
 
-        <MobileScreen>
+        <FeaturePhone>
           <div>
             <div className="font-bold text-blue-400">{optionData.title}</div>
-            <div className="mt-4 whitespace-pre-line">{optionData.content}</div>
-            <div className="mt-6 text-yellow-400">Press 0 for main menu</div>
+            <div className="mt-2 whitespace-pre-line text-xs leading-tight">{optionData.content}</div>
+            <div className="mt-3 text-yellow-400">Press 0 for main menu</div>
           </div>
-        </MobileScreen>
+        </FeaturePhone>
 
         <div className="flex justify-center space-x-4">
           <Button variant="outline" onClick={goBackMobile}>
