@@ -403,7 +403,12 @@ const USSD = () => {
         </div>
       </div>
 
-      <FeaturePhone showKeypad={false}>
+      <FeaturePhone showKeypad={false} onKeyPress={(key) => {
+        if (key === '1') navigateToMobileScreen("mobile-emergency-ambulance");
+        else if (key === '2') navigateToMobileScreen("mobile-emergency-fire");
+        else if (key === '3') navigateToMobileScreen("mobile-emergency-police");
+        else if (key === '6') navigateToMobileScreen("mobile-emergency-hospital");
+      }}>
         <div>
           <div className="text-center mb-1">EMERGENCY SERVICES</div>
           <div className="border-t border-green-600 pt-1 mt-1">
@@ -421,19 +426,36 @@ const USSD = () => {
         </div>
       </FeaturePhone>
 
-      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto text-sm">
-        <Button onClick={() => navigateToMobileScreen("mobile-emergency-ambulance")} variant="destructive" size="sm">
-          1. Ambulance
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-emergency-fire")} variant="destructive" size="sm">
-          2. Fire Dept
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-emergency-police")} variant="destructive" size="sm">
-          3. Police
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-emergency-hospital")} variant="destructive" size="sm">
-          6. Hospital
-        </Button>
+      {/* Feature Phone Keypad for Options */}
+      <div className="max-w-sm mx-auto">
+        <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-2xl shadow-xl border border-gray-700">
+          <div className="text-center text-white text-sm mb-3 font-mono">Select Emergency Service</div>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { key: '1', sub: 'Ambulance', action: () => navigateToMobileScreen("mobile-emergency-ambulance") }, 
+              { key: '2', sub: 'Fire Dept', action: () => navigateToMobileScreen("mobile-emergency-fire") }, 
+              { key: '3', sub: 'Police', action: () => navigateToMobileScreen("mobile-emergency-police") },
+              { key: '4', sub: 'Poison', action: () => {} }, 
+              { key: '5', sub: 'Mental', action: () => {} }, 
+              { key: '6', sub: 'Hospital', action: () => navigateToMobileScreen("mobile-emergency-hospital") },
+              { key: '7', sub: '', action: () => {} }, 
+              { key: '8', sub: '', action: () => {} }, 
+              { key: '9', sub: '', action: () => {} },
+              { key: '*', sub: '', action: () => {} }, 
+              { key: '0', sub: 'Main Menu', action: () => setCurrentScreen("main") }, 
+              { key: '#', sub: '', action: () => {} }
+            ].map(({ key, sub, action }) => (
+              <button
+                key={key}
+                onClick={action}
+                className="bg-gray-600 hover:bg-red-500 active:bg-red-400 text-white font-bold py-4 px-2 rounded-lg text-sm transition-all duration-100 relative shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 border border-gray-500"
+              >
+                <div className="text-lg font-bold">{key}</div>
+                {sub && <div className="text-xs text-gray-200 font-normal mt-1">{sub}</div>}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -508,19 +530,36 @@ const USSD = () => {
         </div>
       </FeaturePhone>
 
-      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto text-sm">
-        <Button onClick={() => navigateToMobileScreen("mobile-clinics-hospital")} size="sm">
-          1. Hospital
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-clinics-centers")} size="sm">
-          2. Health Centers
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-clinics-pharmacy")} size="sm">
-          4. Pharmacies
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-clinics-mobile")} size="sm">
-          5. Mobile Clinics
-        </Button>
+      {/* Feature Phone Keypad for Clinic Options */}
+      <div className="max-w-sm mx-auto">
+        <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-2xl shadow-xl border border-gray-700">
+          <div className="text-center text-white text-sm mb-3 font-mono">Select Clinic Service</div>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { key: '1', sub: 'Hospital', action: () => navigateToMobileScreen("mobile-clinics-hospital") }, 
+              { key: '2', sub: 'Health Center', action: () => navigateToMobileScreen("mobile-clinics-centers") }, 
+              { key: '3', sub: 'Specialist', action: () => {} },
+              { key: '4', sub: 'Pharmacy', action: () => navigateToMobileScreen("mobile-clinics-pharmacy") }, 
+              { key: '5', sub: 'Mobile Clinic', action: () => navigateToMobileScreen("mobile-clinics-mobile") }, 
+              { key: '6', sub: 'Emergency', action: () => {} },
+              { key: '7', sub: '', action: () => {} }, 
+              { key: '8', sub: '', action: () => {} }, 
+              { key: '9', sub: '', action: () => {} },
+              { key: '*', sub: '', action: () => {} }, 
+              { key: '0', sub: 'Main Menu', action: () => setCurrentScreen("main") }, 
+              { key: '#', sub: '', action: () => {} }
+            ].map(({ key, sub, action }) => (
+              <button
+                key={key}
+                onClick={action}
+                className="bg-gray-600 hover:bg-blue-500 active:bg-blue-400 text-white font-bold py-4 px-2 rounded-lg text-sm transition-all duration-100 relative shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 border border-gray-500"
+              >
+                <div className="text-lg font-bold">{key}</div>
+                {sub && <div className="text-xs text-gray-200 font-normal mt-1">{sub}</div>}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -597,19 +636,36 @@ const USSD = () => {
         </div>
       </FeaturePhone>
 
-      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto text-sm">
-        <Button onClick={() => navigateToMobileScreen("mobile-health-prevention")} size="sm">
-          1. Prevention
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-health-vaccination")} size="sm">
-          2. Vaccination
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-health-nutrition")} size="sm">
-          3. Nutrition
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-health-mental")} size="sm">
-          4. Mental Health
-        </Button>
+      {/* Feature Phone Keypad for Health Info Options */}
+      <div className="max-w-sm mx-auto">
+        <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-2xl shadow-xl border border-gray-700">
+          <div className="text-center text-white text-sm mb-3 font-mono">Select Health Topic</div>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { key: '1', sub: 'Prevention', action: () => navigateToMobileScreen("mobile-health-prevention") }, 
+              { key: '2', sub: 'Vaccination', action: () => navigateToMobileScreen("mobile-health-vaccination") }, 
+              { key: '3', sub: 'Nutrition', action: () => navigateToMobileScreen("mobile-health-nutrition") },
+              { key: '4', sub: 'Mental Health', action: () => navigateToMobileScreen("mobile-health-mental") }, 
+              { key: '5', sub: 'Child Health', action: () => {} }, 
+              { key: '6', sub: 'Women Health', action: () => {} },
+              { key: '7', sub: '', action: () => {} }, 
+              { key: '8', sub: '', action: () => {} }, 
+              { key: '9', sub: '', action: () => {} },
+              { key: '*', sub: '', action: () => {} }, 
+              { key: '0', sub: 'Main Menu', action: () => setCurrentScreen("main") }, 
+              { key: '#', sub: '', action: () => {} }
+            ].map(({ key, sub, action }) => (
+              <button
+                key={key}
+                onClick={action}
+                className="bg-gray-600 hover:bg-green-500 active:bg-green-400 text-white font-bold py-4 px-2 rounded-lg text-sm transition-all duration-100 relative shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 border border-gray-500"
+              >
+                <div className="text-lg font-bold">{key}</div>
+                {sub && <div className="text-xs text-gray-200 font-normal mt-1">{sub}</div>}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -683,19 +739,36 @@ const USSD = () => {
         </div>
       </FeaturePhone>
 
-      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto text-sm">
-        <Button onClick={() => navigateToMobileScreen("mobile-community-worker")} size="sm">
-          1. Health Worker
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-community-programs")} size="sm">
-          2. Programs
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-community-education")} size="sm">
-          3. Education
-        </Button>
-        <Button onClick={() => navigateToMobileScreen("mobile-community-support")} size="sm">
-          4. Support Groups
-        </Button>
+      {/* Feature Phone Keypad for Community Options */}
+      <div className="max-w-sm mx-auto">
+        <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-2xl shadow-xl border border-gray-700">
+          <div className="text-center text-white text-sm mb-3 font-mono">Select Community Service</div>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { key: '1', sub: 'Health Worker', action: () => navigateToMobileScreen("mobile-community-worker") }, 
+              { key: '2', sub: 'Programs', action: () => navigateToMobileScreen("mobile-community-programs") }, 
+              { key: '3', sub: 'Education', action: () => navigateToMobileScreen("mobile-community-education") },
+              { key: '4', sub: 'Support Groups', action: () => navigateToMobileScreen("mobile-community-support") }, 
+              { key: '5', sub: 'Campaigns', action: () => {} }, 
+              { key: '6', sub: 'Report Issues', action: () => {} },
+              { key: '7', sub: '', action: () => {} }, 
+              { key: '8', sub: '', action: () => {} }, 
+              { key: '9', sub: '', action: () => {} },
+              { key: '*', sub: '', action: () => {} }, 
+              { key: '0', sub: 'Main Menu', action: () => setCurrentScreen("main") }, 
+              { key: '#', sub: '', action: () => {} }
+            ].map(({ key, sub, action }) => (
+              <button
+                key={key}
+                onClick={action}
+                className="bg-gray-600 hover:bg-purple-500 active:bg-purple-400 text-white font-bold py-4 px-2 rounded-lg text-sm transition-all duration-100 relative shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 border border-gray-500"
+              >
+                <div className="text-lg font-bold">{key}</div>
+                {sub && <div className="text-xs text-gray-200 font-normal mt-1">{sub}</div>}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
