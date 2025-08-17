@@ -34,8 +34,8 @@ const USSD = () => {
   const renderMainMenu = () => (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-foreground mb-2">USSD Services</h1>
-        <p className="text-foreground/80">Access healthcare services instantly via USSD on any mobile device</p>
+        <h1 className="text-3xl font-bold text-primary mb-2">USSD Services</h1>
+        <p className="text-lg text-foreground">Access healthcare services instantly via USSD on any mobile device</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -192,23 +192,23 @@ const USSD = () => {
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Emergency Services</h1>
-          <p className="text-foreground/80">Immediate healthcare assistance</p>
+          <h1 className="text-2xl font-bold text-primary">Emergency Services</h1>
+          <p className="text-lg text-foreground">Immediate healthcare assistance</p>
         </div>
       </div>
 
       <div className="grid gap-4">
-        <Card className="bg-red-50 border-red-200">
+        <Card className="bg-red-50 border-red-200 dark:bg-red-950/50 dark:border-red-800">
           <CardHeader>
-            <CardTitle className="text-red-700 flex items-center">
+            <CardTitle className="text-red-700 dark:text-red-300 flex items-center">
               <Heart className="w-5 h-5 mr-2" />
               Medical Emergency
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-red-600 mb-4">For life-threatening emergencies</p>
+            <p className="text-red-600 dark:text-red-400 mb-4">For life-threatening emergencies</p>
             <div className="flex items-center justify-between">
-              <span className="text-2xl font-mono text-red-700">*911#</span>
+              <span className="text-2xl font-mono text-red-700 dark:text-red-300">*911#</span>
               <div className="space-x-2">
                 <Button 
                   size="sm" 
@@ -232,16 +232,17 @@ const USSD = () => {
 
         <Card className="bg-card/90 backdrop-blur-sm border-border/50">
           <CardHeader>
-            <CardTitle>Emergency Menu Preview</CardTitle>
+            <CardTitle className="text-foreground">Emergency Menu Preview</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="bg-black text-green-400 font-mono text-sm p-4 rounded">
-              <div>Emergency Services</div>
-              <div>1. Ambulance</div>
+            <div className="bg-black text-green-400 font-mono text-sm p-4 rounded leading-relaxed">
+              <div className="font-bold">Emergency Services *911#</div>
+              <div className="mt-2">1. Ambulance</div>
               <div>2. Fire Department</div>
               <div>3. Police</div>
               <div>4. Poison Control</div>
               <div>5. Mental Health Crisis</div>
+              <div>6. Nearest Hospital</div>
               <div>0. Main Menu</div>
             </div>
           </CardContent>
@@ -257,8 +258,8 @@ const USSD = () => {
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Dialing USSD</h1>
-          <p className="text-foreground/80">Please wait...</p>
+          <h1 className="text-2xl font-bold text-primary">Dialing USSD</h1>
+          <p className="text-lg text-foreground">Please wait...</p>
         </div>
       </div>
 
@@ -268,8 +269,8 @@ const USSD = () => {
             <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto animate-pulse">
               <Phone className="w-8 h-8 text-primary-foreground" />
             </div>
-            <h3 className="text-xl font-semibold">Connecting...</h3>
-            <p className="text-muted-foreground">Dialing {ussdCode}</p>
+            <h3 className="text-xl font-semibold text-foreground">Connecting...</h3>
+            <p className="text-lg text-foreground">Dialing {ussdCode}</p>
             
             <div className="bg-black text-green-400 font-mono text-sm p-4 rounded mt-4">
               <div className="animate-pulse">Please wait...</div>
@@ -299,6 +300,197 @@ const USSD = () => {
     </div>
   );
 
+  const renderClinicsScreen = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">Find Nearby Clinics</h1>
+          <p className="text-lg text-foreground">Locate healthcare facilities in your area</p>
+        </div>
+      </div>
+
+      <Card className="bg-blue-50 border-blue-200 dark:bg-blue-950/50 dark:border-blue-800">
+        <CardHeader>
+          <CardTitle className="text-blue-700 dark:text-blue-300 flex items-center">
+            <MapPin className="w-5 h-5 mr-2" />
+            Find Clinics Service
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-blue-600 dark:text-blue-400 mb-4">Get locations and contact information for nearby healthcare facilities</p>
+          <div className="flex items-center justify-between">
+            <span className="text-2xl font-mono text-blue-700 dark:text-blue-300">*123#</span>
+            <div className="space-x-2">
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => copyToClipboard("*123#")}
+              >
+                <Copy className="w-4 h-4" />
+              </Button>
+              <Button 
+                size="sm"
+                onClick={() => dialUSSD("*123#")}
+              >
+                <Phone className="w-4 h-4 mr-1" />
+                Dial
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-card/90 backdrop-blur-sm border-border/50">
+        <CardHeader>
+          <CardTitle className="text-foreground">Clinic Services Menu Preview</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="bg-black text-green-400 font-mono text-sm p-4 rounded leading-relaxed">
+            <div className="font-bold">Find Clinics *123#</div>
+            <div className="mt-2">1. Nearest Hospital</div>
+            <div>2. Primary Health Center</div>
+            <div>3. Specialist Clinics</div>
+            <div>4. Pharmacy Locations</div>
+            <div>5. Mobile Clinic Schedule</div>
+            <div>6. 24/7 Emergency Centers</div>
+            <div>0. Main Menu</div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderHealthInfoScreen = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">Health Information</h1>
+          <p className="text-lg text-foreground">Get health tips and disease prevention information</p>
+        </div>
+      </div>
+
+      <Card className="bg-green-50 border-green-200 dark:bg-green-950/50 dark:border-green-800">
+        <CardHeader>
+          <CardTitle className="text-green-700 dark:text-green-300 flex items-center">
+            <MessageSquare className="w-5 h-5 mr-2" />
+            Health Information Service
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-green-600 dark:text-green-400 mb-4">Access health tips, disease prevention, and wellness information</p>
+          <div className="flex items-center justify-between">
+            <span className="text-2xl font-mono text-green-700 dark:text-green-300">*456#</span>
+            <div className="space-x-2">
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => copyToClipboard("*456#")}
+              >
+                <Copy className="w-4 h-4" />
+              </Button>
+              <Button 
+                size="sm"
+                onClick={() => dialUSSD("*456#")}
+              >
+                <Phone className="w-4 h-4 mr-1" />
+                Dial
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-card/90 backdrop-blur-sm border-border/50">
+        <CardHeader>
+          <CardTitle className="text-foreground">Health Info Menu Preview</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="bg-black text-green-400 font-mono text-sm p-4 rounded leading-relaxed">
+            <div className="font-bold">Health Information *456#</div>
+            <div className="mt-2">1. Disease Prevention</div>
+            <div>2. Vaccination Schedule</div>
+            <div>3. Nutrition Tips</div>
+            <div>4. Mental Health</div>
+            <div>5. Child Health</div>
+            <div>6. Women's Health</div>
+            <div>7. COVID-19 Updates</div>
+            <div>0. Main Menu</div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderCommunityScreen = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">Community Health</h1>
+          <p className="text-lg text-foreground">Connect with local health workers and programs</p>
+        </div>
+      </div>
+
+      <Card className="bg-purple-50 border-purple-200 dark:bg-purple-950/50 dark:border-purple-800">
+        <CardHeader>
+          <CardTitle className="text-purple-700 dark:text-purple-300 flex items-center">
+            <Users className="w-5 h-5 mr-2" />
+            Community Health Service
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-purple-600 dark:text-purple-400 mb-4">Connect with community health workers and local health programs</p>
+          <div className="flex items-center justify-between">
+            <span className="text-2xl font-mono text-purple-700 dark:text-purple-300">*789#</span>
+            <div className="space-x-2">
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => copyToClipboard("*789#")}
+              >
+                <Copy className="w-4 h-4" />
+              </Button>
+              <Button 
+                size="sm"
+                onClick={() => dialUSSD("*789#")}
+              >
+                <Phone className="w-4 h-4 mr-1" />
+                Dial
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-card/90 backdrop-blur-sm border-border/50">
+        <CardHeader>
+          <CardTitle className="text-foreground">Community Health Menu Preview</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="bg-black text-green-400 font-mono text-sm p-4 rounded leading-relaxed">
+            <div className="font-bold">Community Health *789#</div>
+            <div className="mt-2">1. Find Health Worker</div>
+            <div>2. Community Programs</div>
+            <div>3. Health Education</div>
+            <div>4. Support Groups</div>
+            <div>5. Volunteer Programs</div>
+            <div>6. Health Campaigns</div>
+            <div>7. Report Health Issues</div>
+            <div>0. Main Menu</div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
@@ -319,33 +511,9 @@ const USSD = () => {
           {currentScreen === "emergency" && renderEmergencyScreen()}
           {currentScreen === "dialing" && renderDialingScreen()}
           
-          {/* Add other screens similarly */}
-          {currentScreen === "clinics" && (
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4 mb-6">
-                <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
-                  <ArrowLeft className="w-4 h-4" />
-                </Button>
-                <div>
-                  <h1 className="text-2xl font-bold text-foreground">Find Nearby Clinics</h1>
-                  <p className="text-foreground/80">Locate healthcare facilities</p>
-                </div>
-              </div>
-              <Card className="bg-card/90 backdrop-blur-sm border-border/50">
-                <CardContent className="pt-6">
-                  <div className="bg-black text-green-400 font-mono text-sm p-4 rounded">
-                    <div>Find Clinics</div>
-                    <div>1. Nearest Hospital</div>
-                    <div>2. Primary Health Center</div>
-                    <div>3. Specialist Clinics</div>
-                    <div>4. Pharmacy</div>
-                    <div>5. Mobile Clinic Schedule</div>
-                    <div>0. Main Menu</div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
+          {currentScreen === "clinics" && renderClinicsScreen()}
+          {currentScreen === "health-info" && renderHealthInfoScreen()}
+          {currentScreen === "community" && renderCommunityScreen()}
         </div>
       </div>
     </div>
