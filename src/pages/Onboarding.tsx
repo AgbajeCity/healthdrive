@@ -208,6 +208,7 @@ const Onboarding = () => {
                     onChange={(value) => setFormData(prev => ({ ...prev, phone: value }))}
                     placeholder="Enter phone number"
                     className="w-full"
+                    countries={countries.map(country => country.code)}
                   />
                 </div>
               </div>
@@ -291,6 +292,7 @@ const Onboarding = () => {
                   onChange={(value) => setFormData(prev => ({ ...prev, emergencyContact: value }))}
                   placeholder="Emergency contact number"
                   className="w-full"
+                  countries={countries.map(country => country.code)}
                 />
               </div>
 

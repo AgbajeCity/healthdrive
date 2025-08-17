@@ -9,10 +9,11 @@ interface PhoneInputComponentProps {
   placeholder?: string;
   className?: string;
   disabled?: boolean;
+  countries?: string[]; // Array of country codes to limit options
 }
 
 const PhoneInputComponent = React.forwardRef<HTMLInputElement, PhoneInputComponentProps>(
-  ({ value, onChange, placeholder, className, disabled, ...props }, ref) => {
+  ({ value, onChange, placeholder, className, disabled, countries, ...props }, ref) => {
     
     useEffect(() => {
       // Add global styles for phone input
@@ -69,6 +70,7 @@ const PhoneInputComponent = React.forwardRef<HTMLInputElement, PhoneInputCompone
           international
           countryCallingCodeEditable={false}
           defaultCountry="UG"
+          countries={countries as any}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
