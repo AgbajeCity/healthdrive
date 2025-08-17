@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PhoneInput } from "@/components/ui/phone-input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Cross, MapPin, Phone, Heart, ArrowRight, CheckCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
+import { Value as PhoneValue } from 'react-phone-number-input';
 
 interface Country {
   id: string;
@@ -35,11 +37,11 @@ const Onboarding = () => {
   
   const [formData, setFormData] = useState({
     fullName: "",
-    phone: "",
+    phone: "" as PhoneValue,
     country: "",
     region: "",
     district: "",
-    emergencyContact: "",
+    emergencyContact: "" as PhoneValue,
     medicalConditions: "",
   });
 
@@ -126,11 +128,11 @@ const Onboarding = () => {
           user_id: user.id,
           full_name: formData.fullName,
           email: user.email,
-          phone: formData.phone,
+          phone: formData.phone || "",
           country: formData.country,
           region: formData.region,
           district: formData.district,
-          emergency_contact: formData.emergencyContact,
+          emergency_contact: formData.emergencyContact || "",
           medical_conditions: formData.medicalConditions,
         }, {
           onConflict: 'user_id'
@@ -201,15 +203,12 @@ const Onboarding = () => {
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Phone Number</label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                    <Input
-                      placeholder="+254 712 345 678"
-                      value={formData.phone}
-                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                      className="pl-10 h-12"
-                    />
-                  </div>
+                  <PhoneInput
+                    value={formData.phone}
+                    onChange={(value) => setFormData(prev => ({ ...prev, phone: value }))}
+                    placeholder="Enter phone number"
+                    className="w-full"
+                  />
                 </div>
               </div>
 
@@ -286,16 +285,13 @@ const Onboarding = () => {
 
               {/* Emergency Contact */}
               <div>
-                <label className="text-sm font-medium text-foreground mb-2 block">Emergency Contact</label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                  <Input
-                    placeholder="Emergency contact number"
-                    value={formData.emergencyContact}
-                    onChange={(e) => setFormData(prev => ({ ...prev, emergencyContact: e.target.value }))}
-                    className="pl-10 h-12"
-                  />
-                </div>
+                <label className="text-sm font-medium text-foreground mb-2 block">Emergency Contact (Optional)</label>
+                <PhoneInput
+                  value={formData.emergencyContact}
+                  onChange={(value) => setFormData(prev => ({ ...prev, emergencyContact: value }))}
+                  placeholder="Emergency contact number"
+                  className="w-full"
+                />
               </div>
 
               {/* Medical Conditions */}
