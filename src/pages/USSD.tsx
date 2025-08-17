@@ -35,11 +35,6 @@ const USSD = () => {
     
     setCurrentService(serviceMap[code] || "unknown");
     setCurrentScreen("mobile-connecting");
-    
-    toast({
-      title: "Starting Mobile Simulation",
-      description: `Simulating ${code} on mobile device`,
-    });
   };
 
   const navigateToMobileScreen = (screen: string) => {
@@ -211,6 +206,471 @@ const USSD = () => {
     </div>
   );
 
+  // Authentic Feature Phone Component
+  const FeaturePhone = ({ children, showKeypad = false }) => (
+    <div className="mx-auto max-w-sm">
+      {/* Phone Frame */}
+      <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-3xl shadow-2xl border-2 border-gray-700 relative">
+        {/* Antenna */}
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-1 h-6 bg-gray-600 rounded-full"></div>
+        
+        {/* Phone Header */}
+        <div className="bg-black rounded-2xl mb-2 p-2">
+          {/* Speaker */}
+          <div className="w-16 h-2 bg-gray-700 rounded-full mx-auto mb-2"></div>
+          
+          {/* Screen */}
+          <div className="bg-black border border-gray-700 rounded-lg p-3 min-h-48 relative">
+            {/* Screen content with authentic USSD styling */}
+            <div className="text-green-400 font-mono text-xs leading-relaxed">
+              {children}
+            </div>
+            
+            {/* Screen reflection effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-lg pointer-events-none"></div>
+          </div>
+          
+          {/* Navigation keys */}
+          <div className="flex justify-center mt-2 space-x-1">
+            <div className="w-8 h-2 bg-gray-600 rounded"></div>
+            <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+            <div className="w-8 h-2 bg-gray-600 rounded"></div>
+          </div>
+        </div>
+        
+        {/* Keypad */}
+        {showKeypad && (
+          <div className="grid grid-cols-3 gap-1 mt-3">
+            {[
+              { key: '1', sub: '' }, { key: '2', sub: 'ABC' }, { key: '3', sub: 'DEF' },
+              { key: '4', sub: 'GHI' }, { key: '5', sub: 'JKL' }, { key: '6', sub: 'MNO' },
+              { key: '7', sub: 'PQRS' }, { key: '8', sub: 'TUV' }, { key: '9', sub: 'WXYZ' },
+              { key: '*', sub: '+' }, { key: '0', sub: ' ' }, { key: '#', sub: '' }
+            ].map(({ key, sub }) => (
+              <button
+                key={key}
+                className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-2 rounded text-sm transition-colors relative group"
+              >
+                <div className="text-base">{key}</div>
+                {sub && <div className="text-xs text-gray-300">{sub}</div>}
+              </button>
+            ))}
+          </div>
+        )}
+        
+        {/* Control Buttons */}
+        <div className="flex justify-between items-center mt-3 px-2">
+          <button className="bg-green-600 hover:bg-green-500 text-white font-bold py-1 px-3 rounded-full text-xs flex items-center">
+            ☎ CALL
+          </button>
+          <div className="flex space-x-2">
+            <button className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-xs">
+              ↑
+            </button>
+            <button className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-xs">
+              OK
+            </button>
+            <button className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-xs">
+              ↓
+            </button>
+          </div>
+          <button className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-3 rounded-full text-xs">
+            ✖ END
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderMobileConnecting = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">USSD Connection</h1>
+          <p className="text-lg text-foreground">Connecting to {ussdCode}</p>
+        </div>
+      </div>
+
+      <FeaturePhone showKeypad={false}>
+        <div>
+          <div className="text-center mb-1">DIALING...</div>
+          <div className="text-center text-sm">{ussdCode}</div>
+          <div className="mt-2 text-xs">
+            <div className="animate-pulse">••• Connecting •••</div>
+            <div className="mt-1">HealthDrive Network</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="text-center space-y-4">
+        <Button 
+          onClick={() => {
+            setTimeout(() => {
+              setCurrentScreen(`mobile-${currentService}-main`);
+            }, 1500);
+          }}
+          className="w-full max-w-sm"
+        >
+          ⚡ Establish Connection
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileEmergencyMain = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-red-600">Emergency Services</h1>
+          <p className="text-lg text-foreground">USSD *911# Active</p>
+        </div>
+      </div>
+
+      <FeaturePhone showKeypad={false}>
+        <div>
+          <div className="text-center mb-1">EMERGENCY SERVICES</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>1 Ambulance</div>
+            <div>2 Fire Department</div>
+            <div>3 Police</div>
+            <div>4 Poison Control</div>
+            <div>5 Mental Health</div>
+            <div>6 Nearest Hospital</div>
+            <div>0 Main Menu</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Reply with option number</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto text-sm">
+        <Button onClick={() => navigateToMobileScreen("mobile-emergency-ambulance")} variant="destructive" size="sm">
+          1. Ambulance
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-emergency-fire")} variant="destructive" size="sm">
+          2. Fire Dept
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-emergency-police")} variant="destructive" size="sm">
+          3. Police
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-emergency-hospital")} variant="destructive" size="sm">
+          6. Hospital
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileEmergencyAmbulance = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-red-600">Ambulance Service</h1>
+          <p className="text-lg text-foreground">Emergency Response Active</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">AMBULANCE DISPATCH</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>Location: Kigali Central</div>
+            <div>Status: DISPATCHED</div>
+            <div>ETA: 8 minutes</div>
+            <div className="mt-1">Contact: 0788123456</div>
+            <div className="mt-1">Ref: AMB2024001</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Stay calm. Help is coming.</div>
+            <div>Call if critical.</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="destructive" size="sm">
+          📞 Call Emergency Line
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Emergency Menu
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileClinicsMain = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-blue-600">Find Clinics</h1>
+          <p className="text-lg text-foreground">USSD *123# Active</p>
+        </div>
+      </div>
+
+      <FeaturePhone showKeypad={false}>
+        <div>
+          <div className="text-center mb-1">HEALTHDRIVE CLINICS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>1 Nearest Hospital</div>
+            <div>2 Health Centers</div>
+            <div>3 Specialist Clinics</div>
+            <div>4 Pharmacies</div>
+            <div>5 Mobile Clinics</div>
+            <div>6 Emergency Centers</div>
+            <div>0 Main Menu</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Choose an option</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto text-sm">
+        <Button onClick={() => navigateToMobileScreen("mobile-clinics-hospital")} size="sm">
+          1. Hospital
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-clinics-centers")} size="sm">
+          2. Health Centers
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-clinics-pharmacy")} size="sm">
+          4. Pharmacies
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-clinics-mobile")} size="sm">
+          5. Mobile Clinics
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileClinicsHospital = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-blue-600">Nearest Hospital</h1>
+          <p className="text-lg text-foreground">Healthcare Facilities</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">NEAREST HOSPITALS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>KIGALI UNIVERSITY HOSPITAL</div>
+            <div>Distance: 2.3km</div>
+            <div>Phone: 0788112233</div>
+            <div>Emergency: 24/7</div>
+            <div className="mt-1">KIBAGABAGA HOSPITAL</div>
+            <div>Distance: 4.1km</div>
+            <div>Phone: 0788445566</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Press * for directions</div>
+            <div>Press 0 for main menu</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📞 Call Hospital
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Clinics
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthInfoMain = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Health Information</h1>
+          <p className="text-lg text-foreground">USSD *456# Active</p>
+        </div>
+      </div>
+
+      <FeaturePhone showKeypad={false}>
+        <div>
+          <div className="text-center mb-1">HEALTH INFORMATION</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>1 Disease Prevention</div>
+            <div>2 Vaccination Schedule</div>
+            <div>3 Nutrition Tips</div>
+            <div>4 Mental Health</div>
+            <div>5 Child Health</div>
+            <div>6 Women's Health</div>
+            <div>0 Main Menu</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Select topic</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto text-sm">
+        <Button onClick={() => navigateToMobileScreen("mobile-health-prevention")} size="sm">
+          1. Prevention
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-health-vaccination")} size="sm">
+          2. Vaccination
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-health-nutrition")} size="sm">
+          3. Nutrition
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-health-mental")} size="sm">
+          4. Mental Health
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthPrevention = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Disease Prevention</h1>
+          <p className="text-lg text-foreground">Health Tips</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">DISEASE PREVENTION</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>BASIC PREVENTION TIPS:</div>
+            <div className="mt-1">• Wash hands regularly</div>
+            <div>• Drink clean water</div>
+            <div>• Eat balanced meals</div>
+            <div>• Exercise regularly</div>
+            <div>• Get enough sleep</div>
+            <div>• Regular checkups</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Stay healthy!</div>
+            <div>Press 0 for main menu</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileCommunityMain = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-purple-600">Community Health</h1>
+          <p className="text-lg text-foreground">USSD *789# Active</p>
+        </div>
+      </div>
+
+      <FeaturePhone showKeypad={false}>
+        <div>
+          <div className="text-center mb-1">COMMUNITY HEALTH</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>1 Find Health Worker</div>
+            <div>2 Community Programs</div>
+            <div>3 Health Education</div>
+            <div>4 Support Groups</div>
+            <div>5 Health Campaigns</div>
+            <div>6 Report Issues</div>
+            <div>0 Main Menu</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Choose service</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto text-sm">
+        <Button onClick={() => navigateToMobileScreen("mobile-community-worker")} size="sm">
+          1. Health Worker
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-community-programs")} size="sm">
+          2. Programs
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-community-education")} size="sm">
+          3. Education
+        </Button>
+        <Button onClick={() => navigateToMobileScreen("mobile-community-support")} size="sm">
+          4. Support Groups
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileCommunityWorker = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-purple-600">Health Workers</h1>
+          <p className="text-lg text-foreground">Community Support</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">HEALTH WORKERS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>MARIE UWIMANA</div>
+            <div>Community Health Worker</div>
+            <div>Area: Gasabo District</div>
+            <div>Phone: 0788998877</div>
+            <div className="mt-1">JEAN CLAUDE</div>
+            <div>Maternal Health Specialist</div>
+            <div>Phone: 0788776655</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Available for consultations</div>
+            <div>Press 0 for main menu</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📞 Contact Worker
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Community
+        </Button>
+      </div>
+    </div>
+  );
+
   const renderEmergencyScreen = () => (
     <div className="space-y-6">
       <div className="flex items-center space-x-4 mb-6">
@@ -255,74 +715,7 @@ const USSD = () => {
             </div>
           </CardContent>
         </Card>
-
-        <Card className="bg-card/90 backdrop-blur-sm border-border/50">
-          <CardHeader>
-            <CardTitle className="text-foreground">Emergency Menu Preview</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-black text-green-400 font-mono text-sm p-4 rounded leading-relaxed">
-              <div className="font-bold">Emergency Services *911#</div>
-              <div className="mt-2">1. Ambulance</div>
-              <div>2. Fire Department</div>
-              <div>3. Police</div>
-              <div>4. Poison Control</div>
-              <div>5. Mental Health Crisis</div>
-              <div>6. Nearest Hospital</div>
-              <div>0. Main Menu</div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
-    </div>
-  );
-
-  const renderDialingScreen = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-primary">Dialing USSD</h1>
-          <p className="text-lg text-foreground">Please wait...</p>
-        </div>
-      </div>
-
-      <Card className="bg-card/90 backdrop-blur-sm border-border/50">
-        <CardContent className="pt-6">
-          <div className="text-center space-y-4">
-            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto animate-pulse">
-              <Phone className="w-8 h-8 text-primary-foreground" />
-            </div>
-            <h3 className="text-xl font-semibold text-foreground">Connecting...</h3>
-            <p className="text-lg text-foreground">Dialing {ussdCode}</p>
-            
-            <div className="bg-black text-green-400 font-mono text-sm p-4 rounded mt-4">
-              <div className="animate-pulse">Please wait...</div>
-              <div className="mt-2">Connecting to HealthDrive</div>
-              <div className="mt-1">USSD Service</div>
-            </div>
-
-            <div className="space-y-2">
-              <Button 
-                className="w-full"
-                onClick={() => toast({ title: "Connection Established", description: "USSD service is now active on your mobile device" })}
-              >
-                Simulate Connection
-              </Button>
-              <Button 
-                variant="outline" 
-                className="w-full"
-                onClick={() => window.open(`tel:${ussdCode}`, '_self')}
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Open Phone Dialer
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 
@@ -365,24 +758,6 @@ const USSD = () => {
                 Dial
               </Button>
             </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="bg-card/90 backdrop-blur-sm border-border/50">
-        <CardHeader>
-          <CardTitle className="text-foreground">Clinic Services Menu Preview</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="bg-black text-green-400 font-mono text-sm p-4 rounded leading-relaxed">
-            <div className="font-bold">Find Clinics *123#</div>
-            <div className="mt-2">1. Nearest Hospital</div>
-            <div>2. Primary Health Center</div>
-            <div>3. Specialist Clinics</div>
-            <div>4. Pharmacy Locations</div>
-            <div>5. Mobile Clinic Schedule</div>
-            <div>6. 24/7 Emergency Centers</div>
-            <div>0. Main Menu</div>
           </div>
         </CardContent>
       </Card>
@@ -431,25 +806,6 @@ const USSD = () => {
           </div>
         </CardContent>
       </Card>
-
-      <Card className="bg-card/90 backdrop-blur-sm border-border/50">
-        <CardHeader>
-          <CardTitle className="text-foreground">Health Info Menu Preview</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="bg-black text-green-400 font-mono text-sm p-4 rounded leading-relaxed">
-            <div className="font-bold">Health Information *456#</div>
-            <div className="mt-2">1. Disease Prevention</div>
-            <div>2. Vaccination Schedule</div>
-            <div>3. Nutrition Tips</div>
-            <div>4. Mental Health</div>
-            <div>5. Child Health</div>
-            <div>6. Women's Health</div>
-            <div>7. COVID-19 Updates</div>
-            <div>0. Main Menu</div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 
@@ -495,398 +851,8 @@ const USSD = () => {
           </div>
         </CardContent>
       </Card>
-
-      <Card className="bg-card/90 backdrop-blur-sm border-border/50">
-        <CardHeader>
-          <CardTitle className="text-foreground">Community Health Menu Preview</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="bg-black text-green-400 font-mono text-sm p-4 rounded leading-relaxed">
-            <div className="font-bold">Community Health *789#</div>
-            <div className="mt-2">1. Find Health Worker</div>
-            <div>2. Community Programs</div>
-            <div>3. Health Education</div>
-            <div>4. Support Groups</div>
-            <div>5. Volunteer Programs</div>
-            <div>6. Health Campaigns</div>
-            <div>7. Report Health Issues</div>
-            <div>0. Main Menu</div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
-
-  // Feature Phone Screen Component
-  const FeaturePhone = ({ children, title = "HealthDrive USSD" }) => (
-    <div className="max-w-xs mx-auto">
-      {/* Phone Body */}
-      <div className="bg-gray-800 rounded-2xl p-4 shadow-2xl">
-        {/* Screen */}
-        <div className="bg-gray-900 rounded-lg p-2 mb-4">
-          <div className="bg-black border border-gray-600 rounded h-48 overflow-hidden">
-            {/* Status Bar */}
-            <div className="bg-blue-900 text-blue-200 text-xs px-2 py-1 flex justify-between">
-              <span>Carrier</span>
-              <span>●●●</span>
-            </div>
-            {/* Screen Content */}
-            <div className="text-green-400 font-mono text-xs p-2 leading-tight h-full overflow-y-auto">
-              {children}
-            </div>
-          </div>
-        </div>
-        
-        {/* Physical Keypad */}
-        <div className="grid grid-cols-3 gap-1 mb-2">
-          {/* Number pad */}
-          {[1,2,3,4,5,6,7,8,9].map(num => (
-            <div key={num} className="bg-gray-700 hover:bg-gray-600 rounded text-white text-xs h-8 flex items-center justify-center font-mono cursor-pointer transition-colors">
-              {num}
-            </div>
-          ))}
-          <div className="bg-gray-700 hover:bg-gray-600 rounded text-white text-xs h-8 flex items-center justify-center font-mono cursor-pointer">
-            *
-          </div>
-          <div className="bg-gray-700 hover:bg-gray-600 rounded text-white text-xs h-8 flex items-center justify-center font-mono cursor-pointer">
-            0
-          </div>
-          <div className="bg-gray-700 hover:bg-gray-600 rounded text-white text-xs h-8 flex items-center justify-center font-mono cursor-pointer">
-            #
-          </div>
-        </div>
-        
-        {/* Action Buttons */}
-        <div className="flex justify-between">
-          <div className="bg-red-600 hover:bg-red-500 rounded px-3 py-1 text-white text-xs cursor-pointer transition-colors">
-            END
-          </div>
-          <div className="bg-green-600 hover:bg-green-500 rounded px-3 py-1 text-white text-xs cursor-pointer transition-colors">
-            CALL
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderMobileConnecting = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-primary">Feature Phone USSD Simulation</h1>
-          <p className="text-lg text-foreground">Connecting to {ussdCode}...</p>
-        </div>
-      </div>
-
-      <FeaturePhone>
-        <div className="text-center space-y-1">
-          <div className="animate-pulse">Connecting...</div>
-          <div>USSD Code Running</div>
-          <div className="mt-2">{ussdCode}</div>
-          <div className="mt-1">Please wait...</div>
-        </div>
-      </FeaturePhone>
-
-      <div className="text-center space-y-4">
-        <Button 
-          onClick={() => navigateToMobileScreen(`mobile-${currentService}-menu`)}
-          className="w-full max-w-sm"
-        >
-          Continue to Service Menu
-        </Button>
-        <p className="text-sm text-muted-foreground">
-          This simulates what appears on your feature phone screen
-        </p>
-      </div>
-    </div>
-  );
-
-  const renderMobileEmergencyMenu = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <Button variant="ghost" onClick={goBackMobile}>
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-primary">Emergency Services *911#</h1>
-          <p className="text-lg text-foreground">Feature Phone View</p>
-        </div>
-      </div>
-
-      <FeaturePhone>
-        <div>
-          <div className="font-bold text-red-400">EMERGENCY SERVICES</div>
-          <div className="mt-1">*911#</div>
-          <div className="mt-2">Select service:</div>
-          <div className="mt-1">1. Ambulance</div>
-          <div>2. Fire Department</div>
-          <div>3. Police Emergency</div>
-          <div>4. Poison Control</div>
-          <div>5. Mental Health Crisis</div>
-          <div>6. Nearest Hospital</div>
-          <div className="mt-2">0. Main Menu</div>
-          <div className="mt-2 text-yellow-400">Reply with option number</div>
-        </div>
-      </FeaturePhone>
-
-      <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
-        {[1,2,3,4,5,6].map(num => (
-          <Button 
-            key={num}
-            variant="outline" 
-            onClick={() => navigateToMobileScreen(`mobile-emergency-option-${num}`)}
-            className="aspect-square"
-          >
-            {num}
-          </Button>
-        ))}
-        <Button 
-          variant="destructive" 
-          onClick={goBackMobile}
-          className="aspect-square"
-        >
-          0
-        </Button>
-      </div>
-    </div>
-  );
-
-  const renderMobileClinicsMenu = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <Button variant="ghost" onClick={goBackMobile}>
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-primary">Find Clinics *123#</h1>
-          <p className="text-lg text-foreground">Feature Phone View</p>
-        </div>
-      </div>
-
-      <FeaturePhone>
-        <div>
-          <div className="font-bold">HEALTHDRIVE CLINICS</div>
-          <div className="mt-1">*123#</div>
-          <div className="mt-2">Find healthcare near you:</div>
-          <div className="mt-1">1. Nearest Hospital</div>
-          <div>2. Primary Health Center</div>
-          <div>3. Specialist Clinics</div>
-          <div>4. Pharmacy Locations</div>
-          <div>5. Mobile Clinic Schedule</div>
-          <div>6. 24/7 Emergency Centers</div>
-          <div className="mt-2">0. Main Menu</div>
-          <div className="mt-2 text-yellow-400">Choose an option:</div>
-        </div>
-      </FeaturePhone>
-
-      <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
-        {[1,2,3,4,5,6].map(num => (
-          <Button 
-            key={num}
-            variant="outline" 
-            onClick={() => navigateToMobileScreen(`mobile-clinics-option-${num}`)}
-            className="aspect-square"
-          >
-            {num}
-          </Button>
-        ))}
-        <Button 
-          variant="secondary" 
-          onClick={goBackMobile}
-          className="aspect-square"
-        >
-          0
-        </Button>
-      </div>
-    </div>
-  );
-
-  const renderMobileHealthInfoMenu = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <Button variant="ghost" onClick={goBackMobile}>
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-primary">Health Info *456#</h1>
-          <p className="text-lg text-foreground">Feature Phone View</p>
-        </div>
-      </div>
-
-      <FeaturePhone>
-        <div>
-          <div className="font-bold">HEALTH INFORMATION</div>
-          <div className="mt-1">*456#</div>
-          <div className="mt-2">Get health tips:</div>
-          <div className="mt-1">1. Disease Prevention</div>
-          <div>2. Vaccination Schedule</div>
-          <div>3. Nutrition Tips</div>
-          <div>4. Mental Health</div>
-          <div>5. Child Health</div>
-          <div>6. Women's Health</div>
-          <div>7. COVID-19 Updates</div>
-          <div className="mt-2">0. Main Menu</div>
-          <div className="mt-2 text-yellow-400">Select topic:</div>
-        </div>
-      </FeaturePhone>
-
-      <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
-        {[1,2,3,4,5,6,7].map(num => (
-          <Button 
-            key={num}
-            variant="outline" 
-            onClick={() => navigateToMobileScreen(`mobile-health-info-option-${num}`)}
-            className="aspect-square"
-          >
-            {num}
-          </Button>
-        ))}
-        <Button 
-          variant="secondary" 
-          onClick={goBackMobile}
-          className="aspect-square"
-        >
-          0
-        </Button>
-      </div>
-    </div>
-  );
-
-  const renderMobileCommunityMenu = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <Button variant="ghost" onClick={goBackMobile}>
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-primary">Community Health *789#</h1>
-          <p className="text-lg text-foreground">Feature Phone View</p>
-        </div>
-      </div>
-
-      <FeaturePhone>
-        <div>
-          <div className="font-bold">COMMUNITY HEALTH</div>
-          <div className="mt-1">*789#</div>
-          <div className="mt-2">Connect with community:</div>
-          <div className="mt-1">1. Find Health Worker</div>
-          <div>2. Community Programs</div>
-          <div>3. Health Education</div>
-          <div>4. Support Groups</div>
-          <div>5. Volunteer Programs</div>
-          <div>6. Health Campaigns</div>
-          <div>7. Report Health Issues</div>
-          <div className="mt-2">0. Main Menu</div>
-          <div className="mt-2 text-yellow-400">Choose service:</div>
-        </div>
-      </FeaturePhone>
-
-      <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
-        {[1,2,3,4,5,6,7].map(num => (
-          <Button 
-            key={num}
-            variant="outline" 
-            onClick={() => navigateToMobileScreen(`mobile-community-option-${num}`)}
-            className="aspect-square"
-          >
-            {num}
-          </Button>
-        ))}
-        <Button 
-          variant="secondary" 
-          onClick={goBackMobile}
-          className="aspect-square"
-        >
-          0
-        </Button>
-      </div>
-    </div>
-  );
-
-  // Sample detail screens for different options
-  const renderMobileEmergencyOption = (option) => {
-    const options = {
-      1: { title: "AMBULANCE SERVICE", content: "Dispatching ambulance to your location.\n\nEstimated arrival: 8-12 mins\n\nAmbulance ID: AMB-2024-001\n\nDriver: John Doe\n\nContact: +1-555-EMERGENCY\n\nPlease stay on the line..." },
-      2: { title: "FIRE DEPARTMENT", content: "Fire emergency reported.\n\nUnit dispatched: FIRE-001\n\nEstimated arrival: 5-8 mins\n\nCaptain: Sarah Smith\n\nFor safety:\n- Evacuate if possible\n- Stay low if smoke\n- Meet firefighters outside" },
-      6: { title: "NEAREST HOSPITAL", content: "CENTRAL CITY HOSPITAL\n📍 123 Health St, City\n📞 +1-555-HOSPITAL\n🚗 2.3 km away\n\nEMERGENCY DEPT: Open 24/7\n\nOTHER NEARBY:\n• Metro General (3.1km)\n• St. Mary's (4.2km)\n\nPress * for directions" }
-    };
-    
-    const optionData = options[option] || { title: "SERVICE", content: "Service information will be displayed here." };
-    
-    return (
-      <div className="space-y-6">
-        <div className="flex items-center space-x-4 mb-6">
-          <Button variant="ghost" onClick={goBackMobile}>
-            <ArrowLeft className="w-4 h-4" />
-          </Button>
-          <div>
-            <h1 className="text-2xl font-bold text-primary">{optionData.title}</h1>
-            <p className="text-lg text-foreground">Emergency Response</p>
-          </div>
-        </div>
-
-        <FeaturePhone>
-          <div>
-            <div className="font-bold text-red-400">{optionData.title}</div>
-            <div className="mt-2 whitespace-pre-line text-xs leading-tight">{optionData.content}</div>
-            <div className="mt-3 text-yellow-400">Press 0 to return to menu</div>
-          </div>
-        </FeaturePhone>
-
-        <div className="flex justify-center space-x-4">
-          <Button variant="outline" onClick={goBackMobile}>
-            Back to Menu
-          </Button>
-          <Button variant="destructive" onClick={() => setCurrentScreen("main")}>
-            End Session
-          </Button>
-        </div>
-      </div>
-    );
-  };
-
-  const renderMobileClinicsOption = (option) => {
-    const options = {
-      1: { title: "NEAREST HOSPITAL", content: "CENTRAL CITY HOSPITAL\n📍 123 Health St, Downtown\n📞 +1-555-HOSPITAL\n🚗 2.3 km from your location\n\nSERVICES:\n• Emergency 24/7\n• General Medicine\n• Surgery\n• Maternity\n\nWAIT TIME: ~30 mins\n\nPress 1 for directions\nPress 2 to call hospital" },
-      4: { title: "PHARMACIES", content: "NEARBY PHARMACIES:\n\n1. HealthPlus Pharmacy\n   📍 45 Main St (1.2km)\n   ⏰ Open 8AM-10PM\n   📞 +1-555-PILLS\n\n2. City Drug Store\n   📍 67 Oak Ave (1.8km)\n   ⏰ 24/7 Service\n   📞 +1-555-DRUGS\n\n3. MediCare Corner\n   📍 89 Pine Rd (2.1km)\n   ⏰ Open 9AM-9PM" }
-    };
-    
-    const optionData = options[option] || { title: "CLINIC INFO", content: "Healthcare facility information will be displayed here." };
-    
-    return (
-      <div className="space-y-6">
-        <div className="flex items-center space-x-4 mb-6">
-          <Button variant="ghost" onClick={goBackMobile}>
-            <ArrowLeft className="w-4 h-4" />
-          </Button>
-          <div>
-            <h1 className="text-2xl font-bold text-primary">{optionData.title}</h1>
-            <p className="text-lg text-foreground">Healthcare Facilities</p>
-          </div>
-        </div>
-
-        <FeaturePhone>
-          <div>
-            <div className="font-bold text-blue-400">{optionData.title}</div>
-            <div className="mt-2 whitespace-pre-line text-xs leading-tight">{optionData.content}</div>
-            <div className="mt-3 text-yellow-400">Press 0 for main menu</div>
-          </div>
-        </FeaturePhone>
-
-        <div className="flex justify-center space-x-4">
-          <Button variant="outline" onClick={goBackMobile}>
-            Back to Menu
-          </Button>
-          <Button onClick={() => setCurrentScreen("main")}>
-            End Session
-          </Button>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className="min-h-screen bg-gradient-hero">
@@ -906,23 +872,28 @@ const USSD = () => {
 
           {currentScreen === "main" && renderMainMenu()}
           {currentScreen === "emergency" && renderEmergencyScreen()}
-          {currentScreen === "dialing" && renderDialingScreen()}
           {currentScreen === "clinics" && renderClinicsScreen()}
           {currentScreen === "health-info" && renderHealthInfoScreen()}
           {currentScreen === "community" && renderCommunityScreen()}
           
           {/* Mobile Screen Simulations */}
           {currentScreen === "mobile-connecting" && renderMobileConnecting()}
-          {currentScreen === "mobile-emergency-menu" && renderMobileEmergencyMenu()}
-          {currentScreen === "mobile-clinics-menu" && renderMobileClinicsMenu()}
-          {currentScreen === "mobile-health-info-menu" && renderMobileHealthInfoMenu()}
-          {currentScreen === "mobile-community-menu" && renderMobileCommunityMenu()}
           
-          {/* Mobile Option Screens */}
-          {currentScreen.startsWith("mobile-emergency-option-") && 
-            renderMobileEmergencyOption(parseInt(currentScreen.split("-")[3]))}
-          {currentScreen.startsWith("mobile-clinics-option-") && 
-            renderMobileClinicsOption(parseInt(currentScreen.split("-")[3]))}
+          {/* Emergency Service Screens */}
+          {currentScreen === "mobile-emergency-main" && renderMobileEmergencyMain()}
+          {currentScreen === "mobile-emergency-ambulance" && renderMobileEmergencyAmbulance()}
+          
+          {/* Clinics Service Screens */}
+          {currentScreen === "mobile-clinics-main" && renderMobileClinicsMain()}
+          {currentScreen === "mobile-clinics-hospital" && renderMobileClinicsHospital()}
+          
+          {/* Health Info Service Screens */}
+          {currentScreen === "mobile-health-info-main" && renderMobileHealthInfoMain()}
+          {currentScreen === "mobile-health-prevention" && renderMobileHealthPrevention()}
+          
+          {/* Community Service Screens */}
+          {currentScreen === "mobile-community-main" && renderMobileCommunityMain()}
+          {currentScreen === "mobile-community-worker" && renderMobileCommunityWorker()}
         </div>
       </div>
     </div>
