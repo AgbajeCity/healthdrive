@@ -64,11 +64,12 @@ const Auth = () => {
           navigate('/onboarding');
         }
       } else {
+        const redirectUrl = `${window.location.origin}/onboarding`;
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/onboarding`,
+            emailRedirectTo: redirectUrl,
             data: {
               full_name: fullName,
             }
