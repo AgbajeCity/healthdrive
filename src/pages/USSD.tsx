@@ -9,6 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 const USSD = () => {
   const [currentScreen, setCurrentScreen] = useState("main");
   const [ussdCode, setUssdCode] = useState("*123#");
+  const [currentService, setCurrentService] = useState("");
+  const [mobileScreenStack, setMobileScreenStack] = useState([]);
   const { toast } = useToast();
 
   const copyToClipboard = (text: string) => {
@@ -20,15 +22,39 @@ const USSD = () => {
   };
 
   const dialUSSD = (code: string) => {
-    // Simulate dialing USSD code
-    toast({
-      title: "Dialing USSD",
-      description: `Please dial ${code} on your mobile device`,
-    });
-    
-    // Show simulation screen
-    setCurrentScreen("dialing");
     setUssdCode(code);
+    setMobileScreenStack([]);
+    
+    // Determine service type
+    const serviceMap = {
+      "*911#": "emergency",
+      "*123#": "clinics", 
+      "*456#": "health-info",
+      "*789#": "community"
+    };
+    
+    setCurrentService(serviceMap[code] || "unknown");
+    setCurrentScreen("mobile-connecting");
+    
+    toast({
+      title: "Starting Mobile Simulation",
+      description: `Simulating ${code} on mobile device`,
+    });
+  };
+
+  const navigateToMobileScreen = (screen: string) => {
+    setMobileScreenStack(prev => [...prev, currentScreen]);
+    setCurrentScreen(screen);
+  };
+
+  const goBackMobile = () => {
+    if (mobileScreenStack.length > 0) {
+      const previousScreen = mobileScreenStack[mobileScreenStack.length - 1];
+      setMobileScreenStack(prev => prev.slice(0, -1));
+      setCurrentScreen(previousScreen);
+    } else {
+      setCurrentScreen("main");
+    }
   };
 
   const renderMainMenu = () => (
@@ -491,6 +517,350 @@ const USSD = () => {
     </div>
   );
 
+  // Mobile Screen Simulation Components
+  const MobileScreen = ({ children, title = "HealthDrive USSD" }) => (
+    <div className="max-w-sm mx-auto">
+      <div className="bg-gray-900 rounded-t-3xl p-4 text-center">
+        <div className="w-16 h-1 bg-white/30 rounded-full mx-auto mb-2"></div>
+        <div className="text-white text-xs">Mobile Simulation</div>
+      </div>
+      <div className="bg-black border-x-2 border-gray-800 min-h-[500px]">
+        <div className="bg-gray-800 text-white text-xs p-2 flex justify-between">
+          <span>Carrier</span>
+          <span>●●●●●</span>
+          <span>100%</span>
+        </div>
+        <div className="text-green-400 font-mono text-xs p-4 leading-relaxed">
+          {children}
+        </div>
+      </div>
+      <div className="bg-gray-900 rounded-b-3xl p-4 flex justify-center space-x-4">
+        <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
+        <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
+        <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
+      </div>
+    </div>
+  );
+
+  const renderMobileConnecting = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">Mobile USSD Simulation</h1>
+          <p className="text-lg text-foreground">Connecting to {ussdCode}...</p>
+        </div>
+      </div>
+
+      <MobileScreen>
+        <div className="text-center space-y-2">
+          <div className="animate-pulse">Connecting...</div>
+          <div>USSD Code Running</div>
+          <div className="mt-4">{ussdCode}</div>
+          <div className="mt-2">Please wait...</div>
+        </div>
+      </MobileScreen>
+
+      <div className="text-center space-y-4">
+        <Button 
+          onClick={() => navigateToMobileScreen(`mobile-${currentService}-menu`)}
+          className="w-full max-w-sm"
+        >
+          Continue to Service Menu
+        </Button>
+        <p className="text-sm text-muted-foreground">
+          This simulates what appears on your mobile screen
+        </p>
+      </div>
+    </div>
+  );
+
+  const renderMobileEmergencyMenu = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">Emergency Services *911#</h1>
+          <p className="text-lg text-foreground">Mobile Screen View</p>
+        </div>
+      </div>
+
+      <MobileScreen>
+        <div>
+          <div className="font-bold text-red-400">EMERGENCY SERVICES</div>
+          <div className="mt-2">*911#</div>
+          <div className="mt-4">Select service:</div>
+          <div className="mt-2">1. Ambulance</div>
+          <div>2. Fire Department</div>
+          <div>3. Police Emergency</div>
+          <div>4. Poison Control</div>
+          <div>5. Mental Health Crisis</div>
+          <div>6. Nearest Hospital</div>
+          <div className="mt-4">0. Main Menu</div>
+          <div className="mt-4 text-white">Reply with option number</div>
+        </div>
+      </MobileScreen>
+
+      <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
+        {[1,2,3,4,5,6].map(num => (
+          <Button 
+            key={num}
+            variant="outline" 
+            onClick={() => navigateToMobileScreen(`mobile-emergency-option-${num}`)}
+            className="aspect-square"
+          >
+            {num}
+          </Button>
+        ))}
+        <Button 
+          variant="destructive" 
+          onClick={goBackMobile}
+          className="aspect-square"
+        >
+          0
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileClinicsMenu = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">Find Clinics *123#</h1>
+          <p className="text-lg text-foreground">Mobile Screen View</p>
+        </div>
+      </div>
+
+      <MobileScreen>
+        <div>
+          <div className="font-bold">HEALTHDRIVE CLINICS</div>
+          <div className="mt-2">*123#</div>
+          <div className="mt-4">Find healthcare near you:</div>
+          <div className="mt-2">1. Nearest Hospital</div>
+          <div>2. Primary Health Center</div>
+          <div>3. Specialist Clinics</div>
+          <div>4. Pharmacy Locations</div>
+          <div>5. Mobile Clinic Schedule</div>
+          <div>6. 24/7 Emergency Centers</div>
+          <div className="mt-4">0. Main Menu</div>
+          <div className="mt-4 text-white">Choose an option:</div>
+        </div>
+      </MobileScreen>
+
+      <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
+        {[1,2,3,4,5,6].map(num => (
+          <Button 
+            key={num}
+            variant="outline" 
+            onClick={() => navigateToMobileScreen(`mobile-clinics-option-${num}`)}
+            className="aspect-square"
+          >
+            {num}
+          </Button>
+        ))}
+        <Button 
+          variant="secondary" 
+          onClick={goBackMobile}
+          className="aspect-square"
+        >
+          0
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthInfoMenu = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">Health Info *456#</h1>
+          <p className="text-lg text-foreground">Mobile Screen View</p>
+        </div>
+      </div>
+
+      <MobileScreen>
+        <div>
+          <div className="font-bold">HEALTH INFORMATION</div>
+          <div className="mt-2">*456#</div>
+          <div className="mt-4">Get health tips:</div>
+          <div className="mt-2">1. Disease Prevention</div>
+          <div>2. Vaccination Schedule</div>
+          <div>3. Nutrition Tips</div>
+          <div>4. Mental Health</div>
+          <div>5. Child Health</div>
+          <div>6. Women's Health</div>
+          <div>7. COVID-19 Updates</div>
+          <div className="mt-4">0. Main Menu</div>
+          <div className="mt-4 text-white">Select topic:</div>
+        </div>
+      </MobileScreen>
+
+      <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
+        {[1,2,3,4,5,6,7].map(num => (
+          <Button 
+            key={num}
+            variant="outline" 
+            onClick={() => navigateToMobileScreen(`mobile-health-info-option-${num}`)}
+            className="aspect-square"
+          >
+            {num}
+          </Button>
+        ))}
+        <Button 
+          variant="secondary" 
+          onClick={goBackMobile}
+          className="aspect-square"
+        >
+          0
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileCommunityMenu = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-primary">Community Health *789#</h1>
+          <p className="text-lg text-foreground">Mobile Screen View</p>
+        </div>
+      </div>
+
+      <MobileScreen>
+        <div>
+          <div className="font-bold">COMMUNITY HEALTH</div>
+          <div className="mt-2">*789#</div>
+          <div className="mt-4">Connect with community:</div>
+          <div className="mt-2">1. Find Health Worker</div>
+          <div>2. Community Programs</div>
+          <div>3. Health Education</div>
+          <div>4. Support Groups</div>
+          <div>5. Volunteer Programs</div>
+          <div>6. Health Campaigns</div>
+          <div>7. Report Health Issues</div>
+          <div className="mt-4">0. Main Menu</div>
+          <div className="mt-4 text-white">Choose service:</div>
+        </div>
+      </MobileScreen>
+
+      <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
+        {[1,2,3,4,5,6,7].map(num => (
+          <Button 
+            key={num}
+            variant="outline" 
+            onClick={() => navigateToMobileScreen(`mobile-community-option-${num}`)}
+            className="aspect-square"
+          >
+            {num}
+          </Button>
+        ))}
+        <Button 
+          variant="secondary" 
+          onClick={goBackMobile}
+          className="aspect-square"
+        >
+          0
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Sample detail screens for different options
+  const renderMobileEmergencyOption = (option) => {
+    const options = {
+      1: { title: "AMBULANCE SERVICE", content: "Dispatching ambulance to your location.\n\nEstimated arrival: 8-12 mins\n\nAmbulance ID: AMB-2024-001\n\nDriver: John Doe\n\nContact: +1-555-EMERGENCY\n\nPlease stay on the line..." },
+      2: { title: "FIRE DEPARTMENT", content: "Fire emergency reported.\n\nUnit dispatched: FIRE-001\n\nEstimated arrival: 5-8 mins\n\nCaptain: Sarah Smith\n\nFor safety:\n- Evacuate if possible\n- Stay low if smoke\n- Meet firefighters outside" },
+      6: { title: "NEAREST HOSPITAL", content: "CENTRAL CITY HOSPITAL\n📍 123 Health St, City\n📞 +1-555-HOSPITAL\n🚗 2.3 km away\n\nEMERGENCY DEPT: Open 24/7\n\nOTHER NEARBY:\n• Metro General (3.1km)\n• St. Mary's (4.2km)\n\nPress * for directions" }
+    };
+    
+    const optionData = options[option] || { title: "SERVICE", content: "Service information will be displayed here." };
+    
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center space-x-4 mb-6">
+          <Button variant="ghost" onClick={goBackMobile}>
+            <ArrowLeft className="w-4 h-4" />
+          </Button>
+          <div>
+            <h1 className="text-2xl font-bold text-primary">{optionData.title}</h1>
+            <p className="text-lg text-foreground">Emergency Response</p>
+          </div>
+        </div>
+
+        <MobileScreen>
+          <div>
+            <div className="font-bold text-red-400">{optionData.title}</div>
+            <div className="mt-4 whitespace-pre-line">{optionData.content}</div>
+            <div className="mt-6 text-yellow-400">Press 0 to return to menu</div>
+          </div>
+        </MobileScreen>
+
+        <div className="flex justify-center space-x-4">
+          <Button variant="outline" onClick={goBackMobile}>
+            Back to Menu
+          </Button>
+          <Button variant="destructive" onClick={() => setCurrentScreen("main")}>
+            End Session
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
+  const renderMobileClinicsOption = (option) => {
+    const options = {
+      1: { title: "NEAREST HOSPITAL", content: "CENTRAL CITY HOSPITAL\n📍 123 Health St, Downtown\n📞 +1-555-HOSPITAL\n🚗 2.3 km from your location\n\nSERVICES:\n• Emergency 24/7\n• General Medicine\n• Surgery\n• Maternity\n\nWAIT TIME: ~30 mins\n\nPress 1 for directions\nPress 2 to call hospital" },
+      4: { title: "PHARMACIES", content: "NEARBY PHARMACIES:\n\n1. HealthPlus Pharmacy\n   📍 45 Main St (1.2km)\n   ⏰ Open 8AM-10PM\n   📞 +1-555-PILLS\n\n2. City Drug Store\n   📍 67 Oak Ave (1.8km)\n   ⏰ 24/7 Service\n   📞 +1-555-DRUGS\n\n3. MediCare Corner\n   📍 89 Pine Rd (2.1km)\n   ⏰ Open 9AM-9PM" }
+    };
+    
+    const optionData = options[option] || { title: "CLINIC INFO", content: "Healthcare facility information will be displayed here." };
+    
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center space-x-4 mb-6">
+          <Button variant="ghost" onClick={goBackMobile}>
+            <ArrowLeft className="w-4 h-4" />
+          </Button>
+          <div>
+            <h1 className="text-2xl font-bold text-primary">{optionData.title}</h1>
+            <p className="text-lg text-foreground">Healthcare Facilities</p>
+          </div>
+        </div>
+
+        <MobileScreen>
+          <div>
+            <div className="font-bold text-blue-400">{optionData.title}</div>
+            <div className="mt-4 whitespace-pre-line">{optionData.content}</div>
+            <div className="mt-6 text-yellow-400">Press 0 for main menu</div>
+          </div>
+        </MobileScreen>
+
+        <div className="flex justify-center space-x-4">
+          <Button variant="outline" onClick={goBackMobile}>
+            Back to Menu
+          </Button>
+          <Button onClick={() => setCurrentScreen("main")}>
+            End Session
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
@@ -510,10 +880,22 @@ const USSD = () => {
           {currentScreen === "main" && renderMainMenu()}
           {currentScreen === "emergency" && renderEmergencyScreen()}
           {currentScreen === "dialing" && renderDialingScreen()}
-          
           {currentScreen === "clinics" && renderClinicsScreen()}
           {currentScreen === "health-info" && renderHealthInfoScreen()}
           {currentScreen === "community" && renderCommunityScreen()}
+          
+          {/* Mobile Screen Simulations */}
+          {currentScreen === "mobile-connecting" && renderMobileConnecting()}
+          {currentScreen === "mobile-emergency-menu" && renderMobileEmergencyMenu()}
+          {currentScreen === "mobile-clinics-menu" && renderMobileClinicsMenu()}
+          {currentScreen === "mobile-health-info-menu" && renderMobileHealthInfoMenu()}
+          {currentScreen === "mobile-community-menu" && renderMobileCommunityMenu()}
+          
+          {/* Mobile Option Screens */}
+          {currentScreen.startsWith("mobile-emergency-option-") && 
+            renderMobileEmergencyOption(parseInt(currentScreen.split("-")[3]))}
+          {currentScreen.startsWith("mobile-clinics-option-") && 
+            renderMobileClinicsOption(parseInt(currentScreen.split("-")[3]))}
         </div>
       </div>
     </div>
