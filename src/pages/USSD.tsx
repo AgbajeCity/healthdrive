@@ -430,8 +430,8 @@ const USSD = () => {
               { key: '1', sub: 'Ambulance', action: () => navigateToMobileScreen("mobile-emergency-ambulance") }, 
               { key: '2', sub: 'Fire Dept', action: () => navigateToMobileScreen("mobile-emergency-fire") }, 
               { key: '3', sub: 'Police', action: () => navigateToMobileScreen("mobile-emergency-police") },
-              { key: '4', sub: 'Poison', action: () => {} }, 
-              { key: '5', sub: 'Mental', action: () => {} }, 
+              { key: '4', sub: 'Poison', action: () => navigateToMobileScreen("mobile-emergency-poison") }, 
+              { key: '5', sub: 'Mental', action: () => navigateToMobileScreen("mobile-emergency-mental") },
               { key: '6', sub: 'Hospital', action: () => navigateToMobileScreen("mobile-emergency-hospital") },
               { key: '7', sub: '', action: () => {} }, 
               { key: '8', sub: '', action: () => {} }, 
@@ -495,6 +495,130 @@ const USSD = () => {
     </div>
   );
 
+  const renderMobileEmergencyFire = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-red-600">Fire Department</h1>
+          <p className="text-lg text-foreground">Fire Emergency Response</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">FIRE DEPARTMENT</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>KIGALI FIRE BRIGADE</div>
+            <div>Status: DISPATCHED</div>
+            <div>Units: 2 Fire Trucks</div>
+            <div>ETA: 6 minutes</div>
+            <div className="mt-1">Emergency: 112</div>
+            <div className="mt-1">Ref: FIRE2024001</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Evacuate if needed</div>
+            <div>Fire crew en route</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="destructive" size="sm">
+          📞 Call Fire Emergency
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Emergency Menu
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileEmergencyPolice = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-red-600">Police Service</h1>
+          <p className="text-lg text-foreground">Police Emergency Response</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">POLICE DISPATCH</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>KIGALI POLICE</div>
+            <div>Status: DISPATCHED</div>
+            <div>Unit: Patrol Car 245</div>
+            <div>ETA: 5 minutes</div>
+            <div className="mt-1">Emergency: 112</div>
+            <div className="mt-1">Ref: POL2024001</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Stay safe. Help coming</div>
+            <div>Call if urgent</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="destructive" size="sm">
+          📞 Call Police Emergency
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Emergency Menu
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileEmergencyHospital = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-red-600">Emergency Hospital</h1>
+          <p className="text-lg text-foreground">Hospital Emergency Info</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">EMERGENCY HOSPITALS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>KIGALI UNIVERSITY HOSPITAL</div>
+            <div>Emergency: 24/7 Open</div>
+            <div>Distance: 2.3km</div>
+            <div>Phone: 0788112233</div>
+            <div className="mt-1">KING FAISAL HOSPITAL</div>
+            <div>Emergency: 24/7 Open</div>
+            <div>Distance: 3.1km</div>
+            <div>Phone: 0788445566</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Call for directions</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="destructive" size="sm">
+          📞 Call Hospital
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Emergency Menu
+        </Button>
+      </div>
+    </div>
+  );
+
   const renderMobileClinicsMain = () => (
     <div className="space-y-6">
       <div className="flex items-center space-x-4 mb-6">
@@ -533,10 +657,10 @@ const USSD = () => {
             {[
               { key: '1', sub: 'Hospital', action: () => navigateToMobileScreen("mobile-clinics-hospital") }, 
               { key: '2', sub: 'Health Center', action: () => navigateToMobileScreen("mobile-clinics-centers") }, 
-              { key: '3', sub: 'Specialist', action: () => {} },
+              { key: '3', sub: 'Specialist', action: () => navigateToMobileScreen("mobile-clinics-specialist") },
               { key: '4', sub: 'Pharmacy', action: () => navigateToMobileScreen("mobile-clinics-pharmacy") }, 
               { key: '5', sub: 'Mobile Clinic', action: () => navigateToMobileScreen("mobile-clinics-mobile") }, 
-              { key: '6', sub: 'Emergency', action: () => {} },
+              { key: '6', sub: 'Emergency', action: () => navigateToMobileScreen("mobile-clinics-emergency") },
               { key: '7', sub: '', action: () => {} }, 
               { key: '8', sub: '', action: () => {} }, 
               { key: '9', sub: '', action: () => {} },
@@ -641,8 +765,8 @@ const USSD = () => {
               { key: '2', sub: 'Vaccination', action: () => navigateToMobileScreen("mobile-health-vaccination") }, 
               { key: '3', sub: 'Nutrition', action: () => navigateToMobileScreen("mobile-health-nutrition") },
               { key: '4', sub: 'Mental Health', action: () => navigateToMobileScreen("mobile-health-mental") }, 
-              { key: '5', sub: 'Child Health', action: () => {} }, 
-              { key: '6', sub: 'Women Health', action: () => {} },
+              { key: '5', sub: 'Child Health', action: () => navigateToMobileScreen("mobile-health-child") }, 
+              { key: '6', sub: 'Women Health', action: () => navigateToMobileScreen("mobile-health-women") },
               { key: '7', sub: '', action: () => {} }, 
               { key: '8', sub: '', action: () => {} }, 
               { key: '9', sub: '', action: () => {} },
@@ -744,8 +868,8 @@ const USSD = () => {
               { key: '2', sub: 'Programs', action: () => navigateToMobileScreen("mobile-community-programs") }, 
               { key: '3', sub: 'Education', action: () => navigateToMobileScreen("mobile-community-education") },
               { key: '4', sub: 'Support Groups', action: () => navigateToMobileScreen("mobile-community-support") }, 
-              { key: '5', sub: 'Campaigns', action: () => {} }, 
-              { key: '6', sub: 'Report Issues', action: () => {} },
+              { key: '5', sub: 'Campaigns', action: () => navigateToMobileScreen("mobile-community-campaigns") }, 
+              { key: '6', sub: 'Report Issues', action: () => navigateToMobileScreen("mobile-community-report") },
               { key: '7', sub: '', action: () => {} }, 
               { key: '8', sub: '', action: () => {} }, 
               { key: '9', sub: '', action: () => {} },
@@ -802,6 +926,715 @@ const USSD = () => {
       <div className="space-y-2 max-w-md mx-auto">
         <Button className="w-full" size="sm">
           📞 Contact Worker
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Community
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Additional missing screens for complete functionality
+  
+  const renderMobileClinicsPharmacy = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-blue-600">Pharmacies</h1>
+          <p className="text-lg text-foreground">Medicine & Supplies</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">NEARBY PHARMACIES</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>KIGALI PHARMACY</div>
+            <div>Distance: 0.8km</div>
+            <div>Phone: 0788334455</div>
+            <div>Hours: 24/7</div>
+            <div className="mt-1">HEALTH PLUS PHARMACY</div>
+            <div>Distance: 1.2km</div>
+            <div>Phone: 0788667788</div>
+            <div>Hours: 8AM-10PM</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Medicine delivery available</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📞 Call Pharmacy
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Clinics
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileClinicsCenters = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-blue-600">Health Centers</h1>
+          <p className="text-lg text-foreground">Primary Healthcare</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">HEALTH CENTERS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>GASABO HEALTH CENTER</div>
+            <div>Distance: 1.5km</div>
+            <div>Phone: 0788556677</div>
+            <div>Services: General Care</div>
+            <div className="mt-1">KIMISAGARA HC</div>
+            <div>Distance: 2.8km</div>
+            <div>Phone: 0788998811</div>
+            <div>Services: Maternal Care</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Walk-ins welcome</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📞 Call Health Center
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Clinics
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileClinicsMobile = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-blue-600">Mobile Clinics</h1>
+          <p className="text-lg text-foreground">Mobile Healthcare</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">MOBILE CLINICS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>TODAY'S SCHEDULE:</div>
+            <div className="mt-1">KACYIRU MARKET</div>
+            <div>Time: 9AM - 12PM</div>
+            <div>Services: Checkups, Vaccines</div>
+            <div className="mt-1">KIMIRONKO</div>
+            <div>Time: 2PM - 5PM</div>
+            <div>Services: General Care</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Free basic health services</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📍 Get Location
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Clinics
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthVaccination = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Vaccination</h1>
+          <p className="text-lg text-foreground">Immunization Schedule</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">VACCINATION SCHEDULE</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>CHILDREN (0-5 years):</div>
+            <div className="mt-1">• BCG - At birth</div>
+            <div>• Polio - 6, 10, 14 weeks</div>
+            <div>• DPT - 6, 10, 14 weeks</div>
+            <div>• Measles - 9 months</div>
+            <div className="mt-1">ADULTS:</div>
+            <div>• COVID-19 - Every 6 months</div>
+            <div>• Flu - Annually</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Free at all health centers</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthNutrition = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Nutrition Tips</h1>
+          <p className="text-lg text-foreground">Healthy Eating</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">NUTRITION GUIDELINES</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>DAILY ESSENTIALS:</div>
+            <div className="mt-1">• 5 servings fruits/vegetables</div>
+            <div>• Whole grains (rice, bread)</div>
+            <div>• Lean proteins (beans, fish)</div>
+            <div>• 8 glasses of water</div>
+            <div>• Limit sugar & salt</div>
+            <div>• Eat breakfast daily</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Balanced diet = healthy life</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthMental = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Mental Health</h1>
+          <p className="text-lg text-foreground">Emotional Wellbeing</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">MENTAL HEALTH TIPS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>DAILY PRACTICES:</div>
+            <div className="mt-1">• Talk to someone you trust</div>
+            <div>• Exercise regularly</div>
+            <div>• Get enough sleep</div>
+            <div>• Practice deep breathing</div>
+            <div>• Limit alcohol/drugs</div>
+            <div className="mt-1">CRISIS HELPLINE: 114</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>You are not alone</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="destructive" size="sm">
+          📞 Crisis Helpline
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileCommunityPrograms = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-purple-600">Health Programs</h1>
+          <p className="text-lg text-foreground">Community Initiatives</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">HEALTH PROGRAMS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>MATERNAL HEALTH PROGRAM</div>
+            <div>Free prenatal care</div>
+            <div>Contact: 0788111222</div>
+            <div className="mt-1">CHILD NUTRITION</div>
+            <div>Growth monitoring</div>
+            <div>Contact: 0788333444</div>
+            <div className="mt-1">MALARIA PREVENTION</div>
+            <div>Free bed nets</div>
+            <div>Contact: 0788555666</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Community-driven healthcare</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📞 Join Program
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Community
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileCommunityEducation = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-purple-600">Health Education</h1>
+          <p className="text-lg text-foreground">Learn & Share</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">HEALTH EDUCATION</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>UPCOMING SESSIONS:</div>
+            <div className="mt-1">DIABETES AWARENESS</div>
+            <div>Date: Every Tuesday</div>
+            <div>Time: 2PM - 4PM</div>
+            <div className="mt-1">HIV PREVENTION</div>
+            <div>Date: Every Friday</div>
+            <div>Time: 10AM - 12PM</div>
+            <div className="mt-1">Venue: Community Center</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Free attendance</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📅 Register for Session
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Community
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileCommunitySuppport = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-purple-600">Support Groups</h1>
+          <p className="text-lg text-foreground">Peer Support</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">SUPPORT GROUPS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>DIABETES SUPPORT</div>
+            <div>Meets: Wednesdays 3PM</div>
+            <div>Contact: 0788777888</div>
+            <div className="mt-1">CANCER SURVIVORS</div>
+            <div>Meets: Saturdays 10AM</div>
+            <div>Contact: 0788999000</div>
+            <div className="mt-1">NEW MOTHERS</div>
+            <div>Meets: Mondays 2PM</div>
+            <div>Contact: 0788111000</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>You are not alone</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📞 Join Support Group
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Community
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Additional missing emergency screens
+  const renderMobileEmergencyPoison = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-red-600">Poison Control</h1>
+          <p className="text-lg text-foreground">Emergency Poisoning Response</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">POISON CONTROL CENTER</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>IMMEDIATE STEPS:</div>
+            <div>1. Call 911 if unconscious</div>
+            <div>2. Do NOT induce vomiting</div>
+            <div>3. Keep poison container</div>
+            <div className="mt-1">HOTLINE: 0788-POISON</div>
+            <div>KIGALI UNIVERSITY HOSPITAL</div>
+            <div>Emergency Room: 24/7</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Time is critical</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="destructive" size="sm">
+          📞 Call Poison Hotline
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Emergency Menu
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileEmergencyMental = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-red-600">Mental Health Crisis</h1>
+          <p className="text-lg text-foreground">Mental Health Emergency</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">MENTAL HEALTH CRISIS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>IMMEDIATE SUPPORT:</div>
+            <div>Crisis Hotline: 114</div>
+            <div>Available: 24/7</div>
+            <div>Confidential & Free</div>
+            <div className="mt-1">NDERA HOSPITAL</div>
+            <div>Mental Health Unit</div>
+            <div>Emergency: 0788123789</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>You matter. Help is available.</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="destructive" size="sm">
+          📞 Crisis Hotline 114
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Emergency Menu
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Additional missing clinic screens
+  const renderMobileClinicsSpecialist = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-blue-600">Specialist Clinics</h1>
+          <p className="text-lg text-foreground">Specialized Care</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">SPECIALIST CLINICS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>CARDIOLOGY CLINIC</div>
+            <div>Location: King Faisal Hospital</div>
+            <div>Phone: 0788111333</div>
+            <div className="mt-1">DIABETES CENTER</div>
+            <div>Location: Rwanda Military Hospital</div>
+            <div>Phone: 0788222444</div>
+            <div className="mt-1">CANCER CENTER</div>
+            <div>Location: Butaro Hospital</div>
+            <div>Phone: 0788333555</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Appointments required</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📞 Book Appointment
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Clinics
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileClinicsEmergency = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-blue-600">Emergency Centers</h1>
+          <p className="text-lg text-foreground">Emergency Care</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">EMERGENCY CENTERS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>KIGALI UNIVERSITY HOSPITAL</div>
+            <div>Emergency: 24/7</div>
+            <div>Phone: 0788112233</div>
+            <div className="mt-1">KING FAISAL HOSPITAL</div>
+            <div>Emergency: 24/7</div>
+            <div>Phone: 0788445566</div>
+            <div className="mt-1">RWANDA MILITARY HOSPITAL</div>
+            <div>Emergency: 24/7</div>
+            <div>Phone: 0788778899</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>No appointment needed</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="destructive" size="sm">
+          📞 Call Emergency
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Clinics
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Additional missing health info screens
+  const renderMobileHealthChild = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Child Health</h1>
+          <p className="text-lg text-foreground">Children's Wellbeing</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">CHILD HEALTH TIPS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>KEY MILESTONES:</div>
+            <div className="mt-1">• Monthly weight checks</div>
+            <div>• Complete vaccinations</div>
+            <div>• Balanced nutrition</div>
+            <div>• Clean water & hygiene</div>
+            <div>• Regular play & exercise</div>
+            <div>• Adequate sleep</div>
+            <div className="mt-1">WARNING SIGNS: Fever, poor feeding, lethargy</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Visit health center monthly</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileHealthWomen = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-green-600">Women's Health</h1>
+          <p className="text-lg text-foreground">Women's Wellbeing</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">WOMEN'S HEALTH</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>REPRODUCTIVE HEALTH:</div>
+            <div className="mt-1">• Regular checkups</div>
+            <div>• Cervical cancer screening</div>
+            <div>• Family planning services</div>
+            <div>• Prenatal care</div>
+            <div>• Safe delivery</div>
+            <div>• Postnatal care</div>
+            <div className="mt-1">FREE at health centers</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Your health matters</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Health Info
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Additional missing community screens
+  const renderMobileCommunityCampaigns = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-purple-600">Health Campaigns</h1>
+          <p className="text-lg text-foreground">Community Campaigns</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">HEALTH CAMPAIGNS</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>CURRENT CAMPAIGNS:</div>
+            <div className="mt-1">MALARIA PREVENTION</div>
+            <div>Free bed nets distribution</div>
+            <div>Date: This weekend</div>
+            <div className="mt-1">VACCINATION DRIVE</div>
+            <div>COVID-19 boosters</div>
+            <div>Location: All health centers</div>
+            <div className="mt-1">NUTRITION AWARENESS</div>
+            <div>Cooking demonstrations</div>
+            <div>Every Friday</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Free participation</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📅 Register for Campaign
+        </Button>
+        <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
+          ← Back to Community
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderMobileCommunityReport = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4 mb-6">
+        <Button variant="ghost" onClick={goBackMobile}>
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-purple-600">Report Issues</h1>
+          <p className="text-lg text-foreground">Community Feedback</p>
+        </div>
+      </div>
+
+      <FeaturePhone>
+        <div>
+          <div className="text-center mb-1">REPORT HEALTH ISSUES</div>
+          <div className="border-t border-green-600 pt-1 mt-1">
+            <div>REPORT TYPES:</div>
+            <div className="mt-1">1. Disease outbreak</div>
+            <div>2. Water contamination</div>
+            <div>3. Facility problems</div>
+            <div>4. Staff misconduct</div>
+            <div>5. Drug shortage</div>
+            <div className="mt-1">HOTLINE: 114</div>
+            <div>Anonymous reporting available</div>
+          </div>
+          <div className="mt-2 text-xs text-center">
+            <div>Your voice matters</div>
+          </div>
+        </div>
+      </FeaturePhone>
+
+      <div className="space-y-2 max-w-md mx-auto">
+        <Button className="w-full" size="sm">
+          📞 Report Issue
         </Button>
         <Button className="w-full" variant="outline" onClick={goBackMobile} size="sm">
           ← Back to Community
@@ -1021,18 +1854,32 @@ const USSD = () => {
           {/* Emergency Service Screens */}
           {currentScreen === "mobile-emergency-main" && renderMobileEmergencyMain()}
           {currentScreen === "mobile-emergency-ambulance" && renderMobileEmergencyAmbulance()}
+          {currentScreen === "mobile-emergency-fire" && renderMobileEmergencyFire()}
+          {currentScreen === "mobile-emergency-police" && renderMobileEmergencyPolice()}
+          {currentScreen === "mobile-emergency-hospital" && renderMobileEmergencyHospital()}
+          {currentScreen === "mobile-emergency-poison" && renderMobileEmergencyPoison()}
+          {currentScreen === "mobile-emergency-mental" && renderMobileEmergencyMental()}
           
           {/* Clinics Service Screens */}
           {currentScreen === "mobile-clinics-main" && renderMobileClinicsMain()}
           {currentScreen === "mobile-clinics-hospital" && renderMobileClinicsHospital()}
+          {currentScreen === "mobile-clinics-centers" && renderMobileClinicsCenters()}
+          {currentScreen === "mobile-clinics-pharmacy" && renderMobileClinicsPharmacy()}
+          {currentScreen === "mobile-clinics-mobile" && renderMobileClinicsMobile()}
           
           {/* Health Info Service Screens */}
           {currentScreen === "mobile-health-info-main" && renderMobileHealthInfoMain()}
           {currentScreen === "mobile-health-prevention" && renderMobileHealthPrevention()}
+          {currentScreen === "mobile-health-vaccination" && renderMobileHealthVaccination()}
+          {currentScreen === "mobile-health-nutrition" && renderMobileHealthNutrition()}
+          {currentScreen === "mobile-health-mental" && renderMobileHealthMental()}
           
           {/* Community Service Screens */}
           {currentScreen === "mobile-community-main" && renderMobileCommunityMain()}
           {currentScreen === "mobile-community-worker" && renderMobileCommunityWorker()}
+          {currentScreen === "mobile-community-programs" && renderMobileCommunityPrograms()}
+          {currentScreen === "mobile-community-education" && renderMobileCommunityEducation()}
+          {currentScreen === "mobile-community-support" && renderMobileCommunitySuppport()}
         </div>
       </div>
     </div>
