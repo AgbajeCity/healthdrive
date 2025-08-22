@@ -97,35 +97,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tech Solution Section */}
-      <section className="py-16 bg-card/10 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
-          <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare max-w-4xl mx-auto">
-            <CardContent className="p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-                  Our Tech Solution: HealthDrive
-                </h2>
-                <p className="text-xl text-muted-foreground">
-                  Our interactive telehealth Web App:
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <feature.icon className="w-4 h-4 text-primary" />
-                    </div>
-                    <p className="text-foreground font-medium">{feature.text}</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
       {/* USSD Services Section */}
       <section className="py-16 bg-muted/20">
         <div className="container mx-auto px-4">
@@ -325,6 +296,35 @@ const Index = () => {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Tech Solution Section */}
+      <section className="py-16 bg-card/10 backdrop-blur-sm">
+        <div className="container mx-auto px-4">
+          <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare max-w-4xl mx-auto">
+            <CardContent className="p-8">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+                  Our Tech Solution: HealthDrive
+                </h2>
+                <p className="text-xl text-muted-foreground">
+                  Our interactive telehealth Web App:
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {features.map((feature, index) => (
+                  <div key={index} className="flex items-start space-x-4">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <feature.icon className="w-4 h-4 text-primary" />
+                    </div>
+                    <p className="text-foreground font-medium">{feature.text}</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
