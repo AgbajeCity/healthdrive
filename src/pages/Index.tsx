@@ -75,7 +75,7 @@ const Index = () => {
               <div className="bg-card/90 backdrop-blur-sm border border-red-500/30 rounded-lg p-4">
                 <Heart className="w-6 h-6 text-red-500 mx-auto mb-2" />
                 <div className="text-2xl font-mono font-bold text-red-600">*911#</div>
-                <p className="text-xs text-muted-foreground mb-2">Emergency</p>
+                <p className="text-xs text-muted-foreground mb-2">Emergency Services</p>
                 <Button 
                   size="sm" 
                   variant="destructive"
@@ -89,7 +89,7 @@ const Index = () => {
               <div className="bg-card/90 backdrop-blur-sm border border-blue-500/30 rounded-lg p-4">
                 <MapPin className="w-6 h-6 text-blue-500 mx-auto mb-2" />
                 <div className="text-2xl font-mono font-bold text-blue-600">*123#</div>
-                <p className="text-xs text-muted-foreground mb-2">Find Clinics</p>
+                <p className="text-xs text-muted-foreground mb-2">Find Nearby Clinics</p>
                 <Button 
                   size="sm"
                   className="w-full text-xs bg-blue-600 hover:bg-blue-700"
@@ -102,7 +102,7 @@ const Index = () => {
               <div className="bg-card/90 backdrop-blur-sm border border-green-500/30 rounded-lg p-4">
                 <MessageSquare className="w-6 h-6 text-green-500 mx-auto mb-2" />
                 <div className="text-2xl font-mono font-bold text-green-600">*456#</div>
-                <p className="text-xs text-muted-foreground mb-2">Health Info</p>
+                <p className="text-xs text-muted-foreground mb-2">Health Information</p>
                 <Button 
                   size="sm"
                   className="w-full text-xs bg-green-600 hover:bg-green-700"
@@ -115,7 +115,7 @@ const Index = () => {
               <div className="bg-card/90 backdrop-blur-sm border border-purple-500/30 rounded-lg p-4">
                 <Users className="w-6 h-6 text-purple-500 mx-auto mb-2" />
                 <div className="text-2xl font-mono font-bold text-purple-600">*789#</div>
-                <p className="text-xs text-muted-foreground mb-2">Community</p>
+                <p className="text-xs text-muted-foreground mb-2">Community Health</p>
                 <Button 
                   size="sm"
                   className="w-full text-xs bg-purple-600 hover:bg-purple-700"
@@ -176,11 +176,11 @@ const Index = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Heart className="w-5 h-5 text-red-500" />
-                    <CardTitle className="text-base">Emergency</CardTitle>
+                    <CardTitle className="text-base">Emergency Services</CardTitle>
                   </div>
                   <Badge variant="destructive" className="text-xs">Urgent</Badge>
                 </div>
-                <CardDescription className="text-sm">Quick emergency healthcare access</CardDescription>
+                <CardDescription className="text-sm">Quick access to emergency healthcare services</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -215,11 +215,11 @@ const Index = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <MapPin className="w-5 h-5 text-blue-500" />
-                    <CardTitle className="text-base">Find Clinics</CardTitle>
+                    <CardTitle className="text-base">Find Nearby Clinics</CardTitle>
                   </div>
                   <Badge variant="secondary" className="text-xs">Popular</Badge>
                 </div>
-                <CardDescription className="text-sm">Locate nearby healthcare facilities</CardDescription>
+                <CardDescription className="text-sm">Locate healthcare facilities in your area</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -252,9 +252,9 @@ const Index = () => {
               <CardHeader className="pb-4">
                 <div className="flex items-center space-x-2">
                   <MessageSquare className="w-5 h-5 text-green-500" />
-                  <CardTitle className="text-base">Health Info</CardTitle>
+                  <CardTitle className="text-base">Health Information</CardTitle>
                 </div>
-                <CardDescription className="text-sm">Get health tips and information</CardDescription>
+                <CardDescription className="text-sm">Get health tips and disease prevention info</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -287,9 +287,9 @@ const Index = () => {
               <CardHeader className="pb-4">
                 <div className="flex items-center space-x-2">
                   <Users className="w-5 h-5 text-purple-500" />
-                  <CardTitle className="text-base">Community</CardTitle>
+                  <CardTitle className="text-base">Community Health</CardTitle>
                 </div>
-                <CardDescription className="text-sm">Connect with health workers</CardDescription>
+                <CardDescription className="text-sm">Connect with local health workers and programs</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
