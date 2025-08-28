@@ -1,18 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Cross, ArrowLeft, ArrowRight, Truck, Stethoscope, Calendar, MapPin, Phone, Heart, MessageSquare, Users, Copy, ExternalLink } from "lucide-react";
+import { ArrowRight, Truck, Stethoscope, Calendar, MapPin, Phone, Heart, MessageSquare, Users, Copy } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
-  const [currentScreen, setCurrentScreen] = useState("main");
-  const [ussdCode, setUssdCode] = useState("*123#");
-  const [currentService, setCurrentService] = useState("");
-  const [mobileScreenStack, setMobileScreenStack] = useState([]);
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const features = [
     {
@@ -42,304 +39,14 @@ const Index = () => {
   };
 
   const dialUSSD = (code: string) => {
-    setUssdCode(code);
-    setMobileScreenStack([]);
-    
-    // Determine service type
-    const serviceMap = {
-      "*911#": "emergency",
-      "*123#": "clinics", 
-      "*456#": "health-info",
-      "*789#": "community"
-    };
-    
-    setCurrentService(serviceMap[code] || "unknown");
-    setCurrentScreen("mobile-connecting");
-  };
-
-  const navigateToMobileScreen = (screen: string) => {
-    setMobileScreenStack(prev => [...prev, currentScreen]);
-    setCurrentScreen(screen);
-  };
-
-  const goBackMobile = () => {
-    if (mobileScreenStack.length > 0) {
-      const previousScreen = mobileScreenStack[mobileScreenStack.length - 1];
-      setMobileScreenStack(prev => prev.slice(0, -1));
-      setCurrentScreen(previousScreen);
-    } else {
-      setCurrentScreen("main");
-    }
-  };
-
-  // Authentic Feature Phone Component with Functional Keypad
-  const FeaturePhone = ({ children, showKeypad = true, onKeyPress = null }) => {
-    const [input, setInput] = useState("");
-
-    const handleKeyPress = (key) => {
-      if (key === '*' || key === '#') {
-        setInput(prev => prev + key);
-      } else if (key >= '0' && key <= '9') {
-        setInput(prev => prev + key);
-      }
-      
-      if (onKeyPress) {
-        onKeyPress(key, input + key);
-      }
-    };
-
-    const handleCall = () => {
-      if (input.includes('*') && input.includes('#')) {
-        dialUSSD(input);
-        setInput("");
-      }
-    };
-
-    const handleClear = () => {
-      setInput(prev => prev.slice(0, -1));
-    };
-
-    return (
-      <div className="mx-auto max-w-sm">
-        {/* Phone Frame */}
-        <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-3xl shadow-2xl border-2 border-gray-700 relative">
-          {/* Antenna */}
-          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-1 h-6 bg-gray-600 rounded-full"></div>
-          
-          {/* Phone Header */}
-          <div className="bg-black rounded-2xl mb-2 p-2">
-            {/* Speaker */}
-            <div className="w-16 h-2 bg-gray-700 rounded-full mx-auto mb-2"></div>
-            
-            {/* Screen */}
-            <div className="bg-black border border-gray-700 rounded-lg p-3 min-h-48 relative">
-              {/* Input display */}
-              {showKeypad && input && (
-                <div className="text-yellow-400 font-mono text-sm mb-2 text-center border-b border-gray-600 pb-1">
-                  {input}
-                </div>
-              )}
-              
-              {/* Screen content with authentic USSD styling */}
-              <div className="text-green-400 font-mono text-xs leading-relaxed">
-                {children}
-              </div>
-              
-              {/* Screen reflection effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-lg pointer-events-none"></div>
-            </div>
-            
-            {/* Navigation keys */}
-            <div className="flex justify-center mt-2 space-x-1">
-              <div className="w-8 h-2 bg-gray-600 rounded"></div>
-              <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
-              <div className="w-8 h-2 bg-gray-600 rounded"></div>
-            </div>
-          </div>
-          
-          {/* Functional Keypad */}
-          {showKeypad && (
-            <div className="grid grid-cols-3 gap-1 mt-3">
-              {[
-                { key: '1', sub: '' }, 
-                { key: '2', sub: 'ABC' }, 
-                { key: '3', sub: 'DEF' },
-                { key: '4', sub: 'GHI' }, 
-                { key: '5', sub: 'JKL' }, 
-                { key: '6', sub: 'MNO' },
-                { key: '7', sub: 'PQRS' }, 
-                { key: '8', sub: 'TUV' }, 
-                { key: '9', sub: 'WXYZ' },
-                { key: '*', sub: '+' }, 
-                { key: '0', sub: ' ' }, 
-                { key: '#', sub: '' }
-              ].map(({ key, sub }) => (
-                <button
-                  key={key}
-                  onClick={() => handleKeyPress(key)}
-                  className="bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white font-bold py-3 px-2 rounded text-sm transition-all duration-100 relative group shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95"
-                >
-                  <div className="text-base font-bold">{key}</div>
-                  {sub && <div className="text-xs text-gray-300 font-normal">{sub}</div>}
-                </button>
-              ))}
-            </div>
-          )}
-          
-          {/* Control Buttons */}
-          <div className="flex justify-between items-center mt-3 px-2">
-            <button 
-              onClick={handleCall}
-              className="bg-green-600 hover:bg-green-500 active:bg-green-400 text-white font-bold py-2 px-4 rounded-full text-xs flex items-center shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-100"
-            >
-              <Phone className="w-3 h-3 mr-1" />
-              CALL
-            </button>
-            <div className="flex space-x-1">
-              <button 
-                onClick={() => navigateToMobileScreen("mobile-connecting")}
-                className="bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white font-bold py-2 px-3 rounded text-xs transition-all duration-100 transform hover:scale-105 active:scale-95"
-              >
-                ↑
-              </button>
-              <button 
-                onClick={() => {
-                  if (currentScreen.includes('mobile-')) {
-                    // Select current highlighted option
-                    const screens = {
-                      'mobile-emergency-main': () => navigateToMobileScreen("mobile-emergency-ambulance"),
-                      'mobile-clinics-main': () => navigateToMobileScreen("mobile-clinics-hospital"),
-                      'mobile-health-info-main': () => navigateToMobileScreen("mobile-health-info-topics"),
-                      'mobile-community-main': () => navigateToMobileScreen("mobile-community-workers")
-                    };
-                    screens[currentScreen]?.();
-                  }
-                }}
-                className="bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white font-bold py-2 px-3 rounded text-xs transition-all duration-100 transform hover:scale-105 active:scale-95"
-              >
-                OK
-              </button>
-              <button 
-                onClick={goBackMobile}
-                className="bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white font-bold py-2 px-3 rounded text-xs transition-all duration-100 transform hover:scale-105 active:scale-95"
-              >
-                ↓
-              </button>
-            </div>
-            <button 
-              onClick={handleClear}
-              className="bg-red-600 hover:bg-red-500 active:bg-red-400 text-white font-bold py-2 px-4 rounded-full text-xs shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-100"
-            >
-              <Cross className="w-3 h-3 mr-1" />
-              END
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderMobileConnecting = () => {
-    // Auto-connect after 2 seconds
+    // Navigate to USSD Services page and trigger the dial functionality there
+    navigate('/ussd');
+    // Small delay to ensure navigation completes, then trigger the dial
     setTimeout(() => {
-      setCurrentScreen(`mobile-${currentService}-main`);
-    }, 2000);
-
-    return (
-      <div className="min-h-screen bg-gradient-hero">
-        <Navigation />
-        <div className="pt-20 min-h-screen flex items-center">
-          <div className="container mx-auto px-4">
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4 mb-6">
-                <Button variant="ghost" onClick={() => setCurrentScreen("main")}>
-                  <ArrowLeft className="w-4 h-4" />
-                </Button>
-                <div>
-                  <h1 className="text-2xl font-bold text-primary">USSD Connection</h1>
-                  <p className="text-lg text-foreground">Connecting to {ussdCode}</p>
-                </div>
-              </div>
-
-              <FeaturePhone showKeypad={false}>
-                <div>
-                  <div className="text-center mb-1">DIALING...</div>
-                  <div className="text-center text-sm">{ussdCode}</div>
-                  <div className="mt-2 text-xs">
-                    <div className="animate-pulse">••• Connecting •••</div>
-                    <div className="mt-1">HealthDrive Network</div>
-                    <div className="mt-1 text-center">Auto-connecting...</div>
-                  </div>
-                </div>
-              </FeaturePhone>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+      const event = new CustomEvent('dialUSSD', { detail: { code } });
+      window.dispatchEvent(event);
+    }, 100);
   };
-
-  const renderMobileEmergencyMain = () => (
-    <div className="min-h-screen bg-gradient-hero">
-      <Navigation />
-      <div className="pt-20 min-h-screen flex items-center">
-        <div className="container mx-auto px-4">
-          <div className="space-y-6">
-            <div className="flex items-center space-x-4 mb-6">
-              <Button variant="ghost" onClick={goBackMobile}>
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-              <div>
-                <h1 className="text-2xl font-bold text-red-600">Emergency Services</h1>
-                <p className="text-lg text-foreground">USSD *911# Active</p>
-              </div>
-            </div>
-
-            <FeaturePhone showKeypad={false}>
-              <div>
-                <div className="text-center mb-1">EMERGENCY SERVICES</div>
-                <div className="border-t border-green-600 pt-1 mt-1">
-                  <div>1 Ambulance</div>
-                  <div>2 Fire Department</div>
-                  <div>3 Police</div>
-                  <div>4 Poison Control</div>
-                  <div>5 Mental Health</div>
-                  <div>6 Nearest Hospital</div>
-                  <div>0 Main Menu</div>
-                </div>
-                <div className="mt-2 text-xs text-center">
-                  <div>Reply with option number</div>
-                </div>
-              </div>
-            </FeaturePhone>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // Render based on current screen
-  if (currentScreen === "mobile-connecting") {
-    return renderMobileConnecting();
-  }
-  
-  if (currentScreen === "mobile-emergency-main") {
-    return renderMobileEmergencyMain();
-  }
-
-  // Add other mobile screens as needed
-  if (currentScreen.includes('mobile-')) {
-    return (
-      <div className="min-h-screen bg-gradient-hero">
-        <Navigation />
-        <div className="pt-20 min-h-screen flex items-center">
-          <div className="container mx-auto px-4">
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4 mb-6">
-                <Button variant="ghost" onClick={goBackMobile}>
-                  <ArrowLeft className="w-4 h-4" />
-                </Button>
-                <div>
-                  <h1 className="text-2xl font-bold text-primary">USSD Service</h1>
-                  <p className="text-lg text-foreground">Active: {ussdCode}</p>
-                </div>
-              </div>
-
-              <FeaturePhone showKeypad={false}>
-                <div>
-                  <div className="text-center mb-1">SERVICE ACTIVE</div>
-                  <div className="border-t border-green-600 pt-1 mt-1">
-                    <div>Service connected successfully</div>
-                    <div className="mt-2">Press any key to continue</div>
-                  </div>
-                </div>
-              </FeaturePhone>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-hero">
@@ -699,38 +406,27 @@ const Index = () => {
               <h3 className="text-4xl md:text-6xl font-bold text-foreground">
                 CLINIC NEAR YOU
               </h3>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Locate the nearest mobile health clinic for immediate medical assistance and consultation
+              </p>
             </div>
-            
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Use your location to view HealthDrive mobile clinics in your area.
-            </p>
 
             <Button 
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-healthcare"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
               asChild
             >
-              <Link to="/map">
-                VIEW MAP
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
+              <Link to="/map">Find Mobile Clinics</Link>
             </Button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-border/30">
+      <footer className="py-8 bg-card/10 backdrop-blur-sm">
         <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Cross className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-lg font-bold text-foreground">HealthDrive</span>
-          </div>
-          <p className="text-muted-foreground">
-            Bringing primary healthcare closer to underserved communities
-          </p>
+          <h3 className="text-2xl font-bold text-primary mb-2">HealthDrive</h3>
+          <p className="text-muted-foreground">Bridging the healthcare gap through technology</p>
         </div>
       </footer>
     </div>

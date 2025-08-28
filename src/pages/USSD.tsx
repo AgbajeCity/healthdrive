@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +12,17 @@ const USSD = () => {
   const [currentService, setCurrentService] = useState("");
   const [mobileScreenStack, setMobileScreenStack] = useState([]);
   const { toast } = useToast();
+
+  // Listen for dial events from homepage
+  useEffect(() => {
+    const handleDialUSSD = (event) => {
+      const { code } = event.detail;
+      dialUSSD(code);
+    };
+
+    window.addEventListener('dialUSSD', handleDialUSSD);
+    return () => window.removeEventListener('dialUSSD', handleDialUSSD);
+  }, []);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
