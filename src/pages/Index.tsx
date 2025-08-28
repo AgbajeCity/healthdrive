@@ -75,22 +75,55 @@ const Index = () => {
               <div className="bg-card/90 backdrop-blur-sm border border-red-500/30 rounded-lg p-4">
                 <Heart className="w-6 h-6 text-red-500 mx-auto mb-2" />
                 <div className="text-2xl font-mono font-bold text-red-600">*911#</div>
-                <p className="text-xs text-muted-foreground">Emergency</p>
+                <p className="text-xs text-muted-foreground mb-2">Emergency</p>
+                <Button 
+                  size="sm" 
+                  variant="destructive"
+                  className="w-full text-xs"
+                  onClick={() => dialUSSD("*911#")}
+                >
+                  <Phone className="w-3 h-3 mr-1" />
+                  Dial Now
+                </Button>
               </div>
               <div className="bg-card/90 backdrop-blur-sm border border-blue-500/30 rounded-lg p-4">
                 <MapPin className="w-6 h-6 text-blue-500 mx-auto mb-2" />
                 <div className="text-2xl font-mono font-bold text-blue-600">*123#</div>
-                <p className="text-xs text-muted-foreground">Find Clinics</p>
+                <p className="text-xs text-muted-foreground mb-2">Find Clinics</p>
+                <Button 
+                  size="sm"
+                  className="w-full text-xs bg-blue-600 hover:bg-blue-700"
+                  onClick={() => dialUSSD("*123#")}
+                >
+                  <Phone className="w-3 h-3 mr-1" />
+                  Dial Now
+                </Button>
               </div>
               <div className="bg-card/90 backdrop-blur-sm border border-green-500/30 rounded-lg p-4">
                 <MessageSquare className="w-6 h-6 text-green-500 mx-auto mb-2" />
                 <div className="text-2xl font-mono font-bold text-green-600">*456#</div>
-                <p className="text-xs text-muted-foreground">Health Info</p>
+                <p className="text-xs text-muted-foreground mb-2">Health Info</p>
+                <Button 
+                  size="sm"
+                  className="w-full text-xs bg-green-600 hover:bg-green-700"
+                  onClick={() => dialUSSD("*456#")}
+                >
+                  <Phone className="w-3 h-3 mr-1" />
+                  Dial Now
+                </Button>
               </div>
               <div className="bg-card/90 backdrop-blur-sm border border-purple-500/30 rounded-lg p-4">
                 <Users className="w-6 h-6 text-purple-500 mx-auto mb-2" />
                 <div className="text-2xl font-mono font-bold text-purple-600">*789#</div>
-                <p className="text-xs text-muted-foreground">Community</p>
+                <p className="text-xs text-muted-foreground mb-2">Community</p>
+                <Button 
+                  size="sm"
+                  className="w-full text-xs bg-purple-600 hover:bg-purple-700"
+                  onClick={() => dialUSSD("*789#")}
+                >
+                  <Phone className="w-3 h-3 mr-1" />
+                  Dial Now
+                </Button>
               </div>
             </div>
 
