@@ -22,12 +22,19 @@ const USSD = () => {
   };
 
   const dialUSSD = (code: string) => {
-    toast({
-      title: "Dialing USSD",
-      description: `Please dial ${code} on your mobile device`,
-    });
-    // Open phone dialer
-    window.open(`tel:${code}`, '_self');
+    setUssdCode(code);
+    setMobileScreenStack([]);
+    
+    // Determine service type
+    const serviceMap = {
+      "*911#": "emergency",
+      "*123#": "clinics", 
+      "*456#": "health-info",
+      "*789#": "community"
+    };
+    
+    setCurrentService(serviceMap[code] || "unknown");
+    setCurrentScreen("mobile-connecting");
   };
 
   const navigateToMobileScreen = (screen: string) => {
@@ -72,7 +79,10 @@ const USSD = () => {
               <Button 
                 size="sm" 
                 variant="destructive"
-                onClick={() => dialUSSD("*911#")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dialUSSD("*911#");
+                }}
               >
                 <Phone className="w-4 h-4 mr-1" />
                 Dial Now
@@ -99,7 +109,10 @@ const USSD = () => {
               <span className="text-2xl font-mono">*123#</span>
               <Button 
                 size="sm"
-                onClick={() => dialUSSD("*123#")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dialUSSD("*123#");
+                }}
               >
                 <Phone className="w-4 h-4 mr-1" />
                 Dial Now
@@ -123,7 +136,10 @@ const USSD = () => {
               <span className="text-2xl font-mono">*456#</span>
               <Button 
                 size="sm"
-                onClick={() => dialUSSD("*456#")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dialUSSD("*456#");
+                }}
               >
                 <Phone className="w-4 h-4 mr-1" />
                 Dial Now
@@ -147,7 +163,10 @@ const USSD = () => {
               <span className="text-2xl font-mono">*789#</span>
               <Button 
                 size="sm"
-                onClick={() => dialUSSD("*789#")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dialUSSD("*789#");
+                }}
               >
                 <Phone className="w-4 h-4 mr-1" />
                 Dial Now
