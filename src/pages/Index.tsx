@@ -49,32 +49,59 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       
-      {/* Hero Section */}
+      {/* Hero Section - USSD Focus */}
       <section className="pt-20 min-h-screen flex items-center">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-8">
-            {/* Main Heading */}
+            {/* Main USSD Heading */}
             <div className="space-y-6">
-              <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-                BRINGING PRIMARY HEALTHCARE
+              <div className="flex items-center justify-center mb-8">
+                <Phone className="w-16 h-16 text-primary mr-4" />
+                <div className="text-6xl md:text-8xl font-mono font-bold text-primary">*</div>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
+                INSTANT HEALTHCARE ACCESS
               </h1>
-              <h2 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-                CLOSER TO UNDERSERVED
+              <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
+                FROM ANY MOBILE PHONE
               </h2>
-              <h3 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-                COMMUNITIES
-              </h3>
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+                No internet required • Works on any phone • Immediate assistance
+              </p>
+            </div>
+
+            {/* Featured USSD Codes */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
+              <div className="bg-card/90 backdrop-blur-sm border border-red-500/30 rounded-lg p-4">
+                <Heart className="w-6 h-6 text-red-500 mx-auto mb-2" />
+                <div className="text-2xl font-mono font-bold text-red-600">*911#</div>
+                <p className="text-xs text-muted-foreground">Emergency</p>
+              </div>
+              <div className="bg-card/90 backdrop-blur-sm border border-blue-500/30 rounded-lg p-4">
+                <MapPin className="w-6 h-6 text-blue-500 mx-auto mb-2" />
+                <div className="text-2xl font-mono font-bold text-blue-600">*123#</div>
+                <p className="text-xs text-muted-foreground">Find Clinics</p>
+              </div>
+              <div className="bg-card/90 backdrop-blur-sm border border-green-500/30 rounded-lg p-4">
+                <MessageSquare className="w-6 h-6 text-green-500 mx-auto mb-2" />
+                <div className="text-2xl font-mono font-bold text-green-600">*456#</div>
+                <p className="text-xs text-muted-foreground">Health Info</p>
+              </div>
+              <div className="bg-card/90 backdrop-blur-sm border border-purple-500/30 rounded-lg p-4">
+                <Users className="w-6 h-6 text-purple-500 mx-auto mb-2" />
+                <div className="text-2xl font-mono font-bold text-purple-600">*789#</div>
+                <p className="text-xs text-muted-foreground">Community</p>
+              </div>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
               <Button 
-                size="lg" 
-                variant="outline"
-                className="border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 asChild
               >
-                <Link to="/register">Create Account</Link>
+                <Link to="/ussd">Try USSD Services</Link>
               </Button>
               <Button 
                 size="lg" 
@@ -82,7 +109,7 @@ const Index = () => {
                 className="border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
                 asChild
               >
-                <Link to="/auth">Sign In</Link>
+                <Link to="/register">Create Account</Link>
               </Button>
               <Button 
                 size="lg" 
