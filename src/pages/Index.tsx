@@ -60,10 +60,10 @@ const Index = () => {
                 <div className="text-6xl md:text-8xl font-mono font-bold text-primary">*</div>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                INSTANT HEALTHCARE ACCESS
+                PRIMARY HEALTHCARE ACCESS
               </h1>
               <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                FROM ANY MOBILE PHONE
+                FOR RURAL COMMUNITIES
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
                 No internet required • Works on any phone • Immediate assistance
