@@ -103,6 +103,51 @@ export type Database = {
         }
         Relationships: []
       }
+      referrals: {
+        Row: {
+          assigned_chv: string | null
+          created_at: string
+          full_name: string
+          hub_slug: string
+          id: string
+          location: string
+          notes: string | null
+          phone: string
+          reference_code: string
+          services: string[]
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_chv?: string | null
+          created_at?: string
+          full_name: string
+          hub_slug: string
+          id?: string
+          location: string
+          notes?: string | null
+          phone: string
+          reference_code: string
+          services?: string[]
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_chv?: string | null
+          created_at?: string
+          full_name?: string
+          hub_slug?: string
+          id?: string
+          location?: string
+          notes?: string | null
+          phone?: string
+          reference_code?: string
+          services?: string[]
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       regions: {
         Row: {
           country_code: string
@@ -134,7 +179,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_referral_status: {
+        Args: { _code: string }
+        Returns: {
+          assigned_chv: string
+          created_at: string
+          full_name: string
+          hub_slug: string
+          location: string
+          reference_code: string
+          services: string[]
+          status: string
+          updated_at: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

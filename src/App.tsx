@@ -21,6 +21,7 @@ import Map from "./pages/Map";
 import HealthHubs from "./pages/HealthHubs";
 import HubDetail from "./pages/HubDetail";
 import Schedule from "./pages/Schedule";
+import ReferralStatus from "./pages/ReferralStatus";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,8 @@ const App = () => (
           <Route path="/health-hubs" element={<HealthHubs />} />
           <Route path="/health-hubs/:slug" element={<HubDetail />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/referrals" element={<ReferralStatus />} />
+          <Route path="/referrals/:code" element={<ReferralStatus />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

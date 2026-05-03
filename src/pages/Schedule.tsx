@@ -2,9 +2,14 @@ import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Truck, Calendar, MapPin, Sun } from "lucide-react";
+import { Truck, Calendar, MapPin, Sun, ArrowRight } from "lucide-react";
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import RouteMap from "@/components/RouteMap";
+import { hubs } from "@/data/hubs";
+
+const findHubSlug = (coords: [number, number]) =>
+  hubs.find((h) => Math.abs(h.coords[0] - coords[0]) < 0.05 && Math.abs(h.coords[1] - coords[1]) < 0.05)?.slug;
 
 interface Visit {
   date: string;
@@ -72,9 +77,18 @@ const Schedule = () => {
             <CardContent>
               <RouteMap
                 country={mapCountry}
-                stops={filtered.map((v) => ({ name: v.location.split(",")[0], coords: v.coords, date: v.date }))}
+                stops={filtered.map((v) => ({
+                  name: v.location.split(",")[0],
+                  coords: v.coords,
+                  date: v.date,
+                  hubSlug: findHubSlug(v.coords),
+                }))}
                 highlightIndex={activeIdx}
+                onStopClick={(i) => setActiveIdx(i)}
               />
+              <p className="text-xs text-muted-foreground mt-2">
+                Tip: tap a stop on the map to open that Health Hub's details.
+              </p>
             </CardContent>
           </Card>
 
@@ -104,12 +118,19 @@ const Schedule = () => {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="space-y-3">
                     <div className="flex flex-wrap gap-2">
                       {v.services.map((s, idx) => (
                         <span key={idx} className="text-xs bg-muted px-2 py-1 rounded-full text-foreground">{s}</span>
                       ))}
                     </div>
+                    {findHubSlug(v.coords) && (
+                      <Button asChild variant="outline" size="sm" onClick={(e) => e.stopPropagation()}>
+                        <Link to={`/health-hubs/${findHubSlug(v.coords)}`}>
+                          View Health Hub <ArrowRight className="w-3 h-3 ml-1" />
+                        </Link>
+                      </Button>
+                    )}
                   </CardContent>
                 </Card>
               );
