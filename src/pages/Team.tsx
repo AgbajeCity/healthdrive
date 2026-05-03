@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Star, Users, Calendar, Stethoscope } from "lucide-react";
@@ -11,6 +12,8 @@ const Team = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
+      <Seo title="Our Team" description="Meet the HealthDrive team of healthcare professionals serving refugee and rural communities." path="/team" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       
       <div className="pt-20">
         {/* Header Section */}

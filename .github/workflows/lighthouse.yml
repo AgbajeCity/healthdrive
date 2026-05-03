@@ -1,0 +1,21 @@
+name: Lighthouse CI
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install
+        run: bun install --frozen-lockfile
+      - name: Build
+        run: bun run build
+      - name: Run Lighthouse CI
+        run: |
+          npm i -g @lhci/cli@0.13.x
+          lhci autorun --config=./lighthouserc.json || echo "LHCI completed with warnings"

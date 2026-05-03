@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Truck, MapPin, Phone, Heart, MessageSquare, Users, ArrowRight, Sun, Activity } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import heroMobileClinic from "@/assets/hero-mobile-clinic.jpg";
 import heroUssdPhone from "@/assets/hero-ussd-phone.jpg";
 import heroHealthHub from "@/assets/hero-health-hub.jpg";
@@ -43,6 +44,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
+      <Seo title="HealthDrive — Healthcare that travels" description="USSD telehealth, solar-powered mobile clinics and community Health Hubs serving Rwanda and Nigeria." path="/" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
 
       {/* HERO */}
       <section className="pt-24 pb-12">

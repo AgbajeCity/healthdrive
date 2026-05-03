@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +12,8 @@ const Map = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
+      <Seo title="Find Care Near You" description="Browse Health Hubs across Rwanda and Nigeria and locate the nearest mobile clinic stop." path="/map" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-8 items-center mb-10">

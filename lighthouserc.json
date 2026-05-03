@@ -1,0 +1,40 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./dist",
+      "url": [
+        "http://localhost/index.html",
+        "http://localhost/services",
+        "http://localhost/health-hubs",
+        "http://localhost/schedule",
+        "http://localhost/team",
+        "http://localhost/ussd",
+        "http://localhost/map"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "preset": "desktop",
+        "emulatedFormFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "budgetsPath": "./budgets.json"
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": ["warn", { "minScore": 0.85 }],
+        "categories:accessibility": ["error", { "minScore": 0.95 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }],
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "performance-budget": "error",
+        "uses-responsive-images": "warn",
+        "modern-image-formats": "warn",
+        "offscreen-images": "warn",
+        "unused-javascript": "warn"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

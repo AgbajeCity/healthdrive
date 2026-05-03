@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -46,6 +47,8 @@ const HealthHubs = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
+      <Seo title="Health Hubs Directory" description="Find community Health Hubs and CHVs across Rwanda and Nigeria. Submit a referral and track its status." path="/health-hubs" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-8 items-center mb-10">

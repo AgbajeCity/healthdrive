@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -66,6 +67,8 @@ const ReferralStatus = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
+      <Seo title="Track Your Referral" description="Enter your reference code to see the status of your CHV referral." path="/referrals" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-2xl">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center">Track your referral</h1>
