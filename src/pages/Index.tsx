@@ -372,10 +372,10 @@ const Index = () => {
             <CardContent className="p-8">
               <div className="text-center mb-8">
                 <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-                  Our Tech Solution: HealthDrive
+                  How HealthDrive Works
                 </h2>
-                <p className="text-xl text-muted-foreground">
-                  Our interactive telehealth Web App:
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                  Two integrated delivery channels reinforce each other — USSD telehealth maintains contact between visits, while solar-powered mobile clinics deliver in-person care to communities outside the digital divide.
                 </p>
               </div>
 
