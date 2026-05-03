@@ -46,6 +46,8 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/ussd" element={<USSD />} />
           <Route path="/map" element={<Map />} />
+          <Route path="/health-hubs" element={<HealthHubs />} />
+          <Route path="/schedule" element={<Schedule />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
