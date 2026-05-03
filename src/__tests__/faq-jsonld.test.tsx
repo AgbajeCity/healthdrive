@@ -1,4 +1,10 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
+
+// Avoid embla-carousel ESM/jsdom issues in this test
+vi.mock("embla-carousel-react", () => ({
+  default: () => [() => {}, undefined],
+}));
+
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
