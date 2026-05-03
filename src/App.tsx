@@ -18,6 +18,8 @@ import OnboardingComplete from "./pages/OnboardingComplete";
 import Profile from "./pages/Profile";
 import USSD from "./pages/USSD";
 import Map from "./pages/Map";
+import HealthHubs from "./pages/HealthHubs";
+import Schedule from "./pages/Schedule";
 
 const queryClient = new QueryClient();
 
