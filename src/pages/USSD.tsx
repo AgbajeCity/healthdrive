@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Cross, Phone, MessageSquare, Heart, Users, MapPin, Clock, ArrowLeft, Copy, ExternalLink } from "lucide-react";
+import { Cross, Phone, MessageSquare, Heart, Users, MapPin, Clock, ArrowLeft, Copy, ExternalLink, CalendarDays } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Seo from "@/components/Seo";
 import { useToast } from "@/hooks/use-toast";
+import { USSD_SHORTCUTS, ussdServiceMap } from "@/data/ussd-shortcuts";
 
 const USSD = () => {
   const [currentScreen, setCurrentScreen] = useState("main");
@@ -36,16 +38,7 @@ const USSD = () => {
   const dialUSSD = (code: string) => {
     setUssdCode(code);
     setMobileScreenStack([]);
-    
-    // Determine service type
-    const serviceMap = {
-      "*911#": "emergency",
-      "*123#": "clinics", 
-      "*456#": "health-info",
-      "*789#": "community"
-    };
-    
-    setCurrentService(serviceMap[code] || "unknown");
+    setCurrentService(ussdServiceMap[code] || "unknown");
     setCurrentScreen("mobile-connecting");
   };
 
