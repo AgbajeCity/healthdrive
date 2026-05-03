@@ -204,26 +204,17 @@ const Services = () => {
             <Card className="bg-primary/10 border-primary/20 max-w-4xl mx-auto">
               <CardContent className="p-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                  Ready to Access Our Services?
+                  Get primary care today.
                 </h2>
                 <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                  Join thousands of patients who have already benefited from our 
-                  innovative healthcare solutions. Get started today.
+                  No login. No data. Dial a USSD code or check the next mobile clinic stop near you.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
-                    size="lg" 
-                    className="bg-primary hover:bg-primary/90 shadow-healthcare"
-                    asChild
-                  >
-                    <Link to="/login">Get Started</Link>
+                  <Button size="lg" asChild>
+                    <Link to="/schedule">See the schedule <ArrowRight className="w-4 h-4 ml-1" /></Link>
                   </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    asChild
-                  >
-                    <Link to="/team">Meet Our Team</Link>
+                  <Button size="lg" variant="outline" asChild>
+                    <Link to="/ussd">Try USSD</Link>
                   </Button>
                 </div>
               </CardContent>
