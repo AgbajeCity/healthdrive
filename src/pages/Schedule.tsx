@@ -13,6 +13,7 @@ import { useMatchRadiusKm } from "@/hooks/use-match-radius";
 const Schedule = () => {
   const [filter, setFilter] = useState<"All" | "Rwanda" | "Nigeria">("All");
   const [activeIdx, setActiveIdx] = useState(0);
+  const radius = useMatchRadiusKm();
 
   const filtered = useMemo(
     () => visits.filter((v) => filter === "All" || v.country === filter),
