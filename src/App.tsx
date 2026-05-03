@@ -22,6 +22,7 @@ import HealthHubs from "./pages/HealthHubs";
 import HubDetail from "./pages/HubDetail";
 import Schedule from "./pages/Schedule";
 import ReferralStatus from "./pages/ReferralStatus";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
