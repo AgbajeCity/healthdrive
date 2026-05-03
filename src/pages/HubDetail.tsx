@@ -39,6 +39,7 @@ const HubDetail = () => {
       <div className="min-h-screen bg-gradient-hero">
         <Navigation />
       <Seo title="Health Hub Details" description="Hub services, CHV contact, upcoming mobile clinic visits and how to request assistance." path="/health-hubs" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
         <div className="pt-24 container mx-auto px-4 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Hub not found</h1>
           <Button asChild variant="outline">

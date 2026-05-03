@@ -13,6 +13,7 @@ const Map = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       <Seo title="Find Care Near You" description="Browse Health Hubs across Rwanda and Nigeria and locate the nearest mobile clinic stop." path="/map" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-8 items-center mb-10">

@@ -27,6 +27,7 @@ const Schedule = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       <Seo title="Mobile Clinic Schedule" description="Upcoming solar-powered mobile clinic visits across refugee settlements and rural communities." path="/schedule" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="grid lg:grid-cols-2 gap-8 items-center mb-10">

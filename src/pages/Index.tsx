@@ -45,6 +45,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       <Seo title="HealthDrive — Healthcare that travels" description="USSD telehealth, solar-powered mobile clinics and community Health Hubs serving Rwanda and Nigeria." path="/" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
 
       {/* HERO */}
       <section className="pt-24 pb-12">

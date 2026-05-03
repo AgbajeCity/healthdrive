@@ -58,6 +58,7 @@ const Services = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       <Seo title="Our Services" description="USSD codes, solar mobile clinics, Health Hubs and AI triage delivering care across Rwanda and Nigeria." path="/services" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       
       <div className="pt-20">
         {/* Header Section */}

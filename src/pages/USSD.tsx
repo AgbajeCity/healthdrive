@@ -2010,6 +2010,7 @@ const USSD = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       <Seo title="USSD Health Services" description="Dial *911#, *123#, *456#, or *789# for instant healthcare access on any feature phone." path="/ussd" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       
       <div className="pt-20 min-h-screen p-4">
         <div className="max-w-4xl mx-auto">

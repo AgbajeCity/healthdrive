@@ -64,6 +64,7 @@ const BookConsultation = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       <Seo title="Book a Consultation" description="Schedule an appointment with a HealthDrive specialist." path="/book-consultation" />
+      <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       
       <div className="pt-20 pb-8">
         <div className="container mx-auto px-4 max-w-4xl">
