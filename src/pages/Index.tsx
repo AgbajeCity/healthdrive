@@ -177,7 +177,7 @@ const Index = () => {
             <p className="text-muted-foreground">
               Diagnostics, screenings and treatment delivered where clinics are scarce.
             </p>
-            <Button asChild><Link to="/schedule">View routes <ArrowRight className="w-4 h-4 ml-1" /></Link></Button>
+            <Button asChild><Link to="/schedule" aria-label="See the mobile clinic schedule"><CalendarDays className="w-4 h-4 mr-2" /> See the schedule</Link></Button>
           </div>
         </div>
       </section>
