@@ -2026,28 +2026,41 @@ const USSD = () => {
 
           {/* Shortcuts at-a-glance */}
           {currentScreen === "main" && (
-            <Card className="bg-card/90 backdrop-blur-sm border-border/50 mb-6">
-              <CardContent className="p-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-                  {[
-                    { code: "*911#", label: "Emergency triage", icon: Heart, color: "text-red-500" },
-                    { code: "*123#", label: "Find a clinic / van stop", icon: MapPin, color: "text-blue-500" },
-                    { code: "*456#", label: "AI symptom guidance", icon: MessageSquare, color: "text-green-500" },
-                    { code: "*789#", label: "Reach a CHV", icon: Users, color: "text-purple-500" },
-                  ].map((s) => (
-                    <button
-                      key={s.code}
-                      onClick={() => dialUSSD(s.code)}
-                      className="rounded-lg border border-border/50 p-3 hover:ring-2 hover:ring-primary/30 transition"
-                    >
-                      <s.icon className={`w-5 h-5 mx-auto mb-1 ${s.color}`} />
-                      <div className="font-mono font-bold text-foreground text-sm">{s.code}</div>
-                      <div className="text-[11px] text-muted-foreground mt-0.5">{s.label}</div>
-                    </button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <>
+              <Card className="bg-card/90 backdrop-blur-sm border-border/50 mb-4" data-testid="ussd-shortcuts">
+                <CardContent className="p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                    {USSD_SHORTCUTS.map((s) => {
+                      const iconMap: Record<string, any> = { emergency: Heart, clinics: MapPin, "health-info": MessageSquare, community: Users };
+                      const colorMap: Record<string, string> = { emergency: "text-red-500", clinics: "text-blue-500", "health-info": "text-green-500", community: "text-purple-500" };
+                      const Icon = iconMap[s.service];
+                      return (
+                        <button
+                          key={s.code}
+                          data-testid={`ussd-shortcut-${s.service}`}
+                          data-code={s.code}
+                          data-screen={s.screen}
+                          onClick={() => dialUSSD(s.code)}
+                          className="rounded-lg border border-border/50 p-3 hover:ring-2 hover:ring-primary/30 transition"
+                          aria-label={`Dial ${s.code} — ${s.label}`}
+                        >
+                          <Icon className={`w-5 h-5 mx-auto mb-1 ${colorMap[s.service]}`} />
+                          <div className="font-mono font-bold text-foreground text-sm">{s.code}</div>
+                          <div className="text-[11px] text-muted-foreground mt-0.5">{s.label}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+              <div className="flex justify-center mb-6">
+                <Button asChild size="sm" variant="outline">
+                  <Link to="/schedule" aria-label="See the mobile clinic schedule">
+                    <CalendarDays className="w-4 h-4 mr-2" /> See the schedule
+                  </Link>
+                </Button>
+              </div>
+            </>
           )}
 
           {currentScreen === "main" && renderMainMenu()}
