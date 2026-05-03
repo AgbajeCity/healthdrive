@@ -14,19 +14,19 @@ const Index = () => {
   const features = [
     {
       icon: Phone,
-      text: "Connects doctors & rural patients via video calls"
+      text: "USSD-based telehealth on any basic feature phone — no smartphone or internet required"
     },
     {
       icon: Truck,
-      text: "Accessible at local mobile clinics"
+      text: "Solar-powered mobile clinics travelling to refugee settlements and remote rural areas"
     },
     {
-      icon: Calendar,
-      text: "Online appointment scheduling feature"
+      icon: Users,
+      text: "Community Health Hubs and CHWs sustain follow-up care after the van leaves"
     },
     {
-      icon: Phone,
-      text: "Accessible via Safaricom USSD code for feature phones via *182#"
+      icon: Heart,
+      text: "AI-assisted triage fine-tuned on Llama-3-8B for symptom classification and referral"
     }
   ];
 
@@ -63,13 +63,16 @@ const Index = () => {
                 <div className="text-6xl md:text-8xl font-mono font-bold text-primary">*</div>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                PRIMARY HEALTHCARE ACCESS
+                PRIMARY HEALTHCARE FOR
               </h1>
               <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                FOR RURAL COMMUNITIES
+                REFUGEE & RURAL COMMUNITIES
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                No internet required • Works on any phone • Immediate assistance
+                Bringing affordable, high-quality care directly to underserved communities in Rwanda and Nigeria — through USSD-based digital health, solar-powered mobile clinics, and local health workers.
+              </p>
+              <p className="text-base md:text-lg text-muted-foreground/80 max-w-3xl mx-auto italic">
+                Where a person lives should not determine whether they will live.
               </p>
             </div>
 
@@ -369,10 +372,10 @@ const Index = () => {
             <CardContent className="p-8">
               <div className="text-center mb-8">
                 <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-                  Our Tech Solution: HealthDrive
+                  How HealthDrive Works
                 </h2>
-                <p className="text-xl text-muted-foreground">
-                  Our interactive telehealth Web App:
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                  Two integrated delivery channels reinforce each other — USSD telehealth maintains contact between visits, while solar-powered mobile clinics deliver in-person care to communities outside the digital divide.
                 </p>
               </div>
 
@@ -401,13 +404,13 @@ const Index = () => {
                 <Truck className="w-12 h-12 text-foreground" />
               </div>
               <h2 className="text-4xl md:text-6xl font-bold text-foreground">
-                FIND A MOBILE
+                SOLAR-POWERED
               </h2>
               <h3 className="text-4xl md:text-6xl font-bold text-foreground">
-                CLINIC NEAR YOU
+                MOBILE CLINICS
               </h3>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Locate the nearest mobile health clinic for immediate medical assistance and consultation
+                Our vans are equipped with diagnostic tools and staffed by medical professionals who provide consultations, screenings, and treatment close to where people live — in refugee settlements and remote rural areas where clinics and hospitals are scarce. Community health volunteers and telehealth services connect patients to continuity of care through community-based Health Hubs.
               </p>
             </div>
 
@@ -422,11 +425,38 @@ const Index = () => {
         </div>
       </section>
 
+      {/* The Problem & Impact */}
+      <section className="py-16 bg-muted/20">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">The Gap We're Closing</h2>
+            <p className="text-muted-foreground max-w-3xl mx-auto">
+              Sub-Saharan Africa carries 25% of the global disease burden with just 3% of the world's health workforce. In Rwanda, one doctor serves approximately 8,294 people — and the ratio worsens sharply in rural areas and refugee settlements. HealthDrive brings care to people, not the other way around.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { stat: "1,247", label: "USSD sessions in pilot" },
+              { stat: "78%", label: "90-day retention" },
+              { stat: "89%", label: "Elderly (55+) retention" },
+              { stat: "97.8%", label: "Rwanda mobile SIM coverage" },
+            ].map((item, i) => (
+              <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
+                <CardContent className="p-6">
+                  <div className="text-3xl font-bold text-primary mb-2">{item.stat}</div>
+                  <div className="text-sm text-muted-foreground">{item.label}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-8 bg-card/10 backdrop-blur-sm">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold text-primary mb-2">HealthDrive</h3>
-          <p className="text-muted-foreground">Bridging the healthcare gap through technology</p>
+          <p className="text-muted-foreground">Healthcare that travels to refugee and rural communities — because where you live should not determine whether you live.</p>
         </div>
       </footer>
     </div>
