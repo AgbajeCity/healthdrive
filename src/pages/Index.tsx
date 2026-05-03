@@ -7,6 +7,7 @@ import heroMobileClinic from "@/assets/hero-mobile-clinic.jpg";
 import heroUssdPhone from "@/assets/hero-ussd-phone.jpg";
 import heroHealthHub from "@/assets/hero-health-hub.jpg";
 import heroRouteMap from "@/assets/hero-route-map.jpg";
+import Testimonials from "@/components/Testimonials";
 
 const Index = () => {
   const navigate = useNavigate();
