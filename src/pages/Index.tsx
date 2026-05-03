@@ -115,7 +115,31 @@ const Index = () => {
         </div>
       </section>
 
-      {/* HOW IT WORKS - 4 PILLARS */}
+      {/* PRIMARY CARE CTA */}
+      <section className="py-14" aria-labelledby="primary-care-cta">
+        <div className="container mx-auto px-4">
+          <Card className="bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border-primary/20 max-w-5xl mx-auto">
+            <CardContent className="p-8 md:p-10 grid md:grid-cols-[auto_1fr_auto] items-center gap-6">
+              <div className="w-16 h-16 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto md:mx-0">
+                <Stethoscope className="w-8 h-8 text-primary" />
+              </div>
+              <div className="text-center md:text-left">
+                <h2 id="primary-care-cta" className="text-2xl md:text-3xl font-bold text-foreground">Primary care, on the road.</h2>
+                <p className="text-muted-foreground mt-2 max-w-2xl">
+                  Screenings, treatment, maternal & child care, and chronic disease follow-up — delivered by our solar mobile clinics on a fixed weekly route. See when we're near you.
+                </p>
+              </div>
+              <Button size="lg" asChild className="shrink-0">
+                <Link to="/schedule" aria-label="See the mobile clinic schedule">
+                  <CalendarDays className="w-4 h-4 mr-2" /> See the schedule
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+
       <section className="py-14">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-4 max-w-5xl mx-auto">
