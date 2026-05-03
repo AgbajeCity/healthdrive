@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +38,7 @@ const HubDetail = () => {
     return (
       <div className="min-h-screen bg-gradient-hero">
         <Navigation />
+      <Seo title="Health Hub Details" description="Hub services, CHV contact, upcoming mobile clinic visits and how to request assistance." path="/health-hubs" />
         <div className="pt-24 container mx-auto px-4 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Hub not found</h1>
           <Button asChild variant="outline">

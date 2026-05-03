@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -62,6 +63,7 @@ const BookConsultation = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
+      <Seo title="Book a Consultation" description="Schedule an appointment with a HealthDrive specialist." path="/book-consultation" />
       
       <div className="pt-20 pb-8">
         <div className="container mx-auto px-4 max-w-4xl">

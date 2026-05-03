@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Truck, Phone, Users, Heart, Cross, Activity } from "lucide-react";
@@ -56,6 +57,7 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
+      <Seo title="Our Services" description="USSD codes, solar mobile clinics, Health Hubs and AI triage delivering care across Rwanda and Nigeria." path="/services" />
       
       <div className="pt-20">
         {/* Header Section */}

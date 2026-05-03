@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import Seo from "@/components/Seo";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ const Schedule = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
+      <Seo title="Mobile Clinic Schedule" description="Upcoming solar-powered mobile clinic visits across refugee settlements and rural communities." path="/schedule" />
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="grid lg:grid-cols-2 gap-8 items-center mb-10">
