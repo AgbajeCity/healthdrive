@@ -63,13 +63,16 @@ const Index = () => {
                 <div className="text-6xl md:text-8xl font-mono font-bold text-primary">*</div>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                PRIMARY HEALTHCARE ACCESS
+                PRIMARY HEALTHCARE FOR
               </h1>
               <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                FOR RURAL COMMUNITIES
+                REFUGEE & RURAL COMMUNITIES
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                No internet required • Works on any phone • Immediate assistance
+                Bringing affordable, high-quality care directly to underserved communities in Rwanda and Nigeria — through USSD-based digital health, solar-powered mobile clinics, and local health workers.
+              </p>
+              <p className="text-base md:text-lg text-muted-foreground/80 max-w-3xl mx-auto italic">
+                Where a person lives should not determine whether they will live.
               </p>
             </div>
 
