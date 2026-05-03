@@ -77,9 +77,18 @@ const Schedule = () => {
             <CardContent>
               <RouteMap
                 country={mapCountry}
-                stops={filtered.map((v) => ({ name: v.location.split(",")[0], coords: v.coords, date: v.date }))}
+                stops={filtered.map((v) => ({
+                  name: v.location.split(",")[0],
+                  coords: v.coords,
+                  date: v.date,
+                  hubSlug: findHubSlug(v.coords),
+                }))}
                 highlightIndex={activeIdx}
+                onStopClick={(i) => setActiveIdx(i)}
               />
+              <p className="text-xs text-muted-foreground mt-2">
+                Tip: tap a stop on the map to open that Health Hub's details.
+              </p>
             </CardContent>
           </Card>
 
