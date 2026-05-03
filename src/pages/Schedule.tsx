@@ -26,7 +26,7 @@ const Schedule = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="Mobile Clinic Schedule" description="Upcoming solar-powered mobile clinic visits across refugee settlements and rural communities." path="/schedule" />
+      <Seo title="Mobile Clinic Schedule — Primary Care Stops" description="Upcoming primary healthcare visits by HealthDrive's solar-powered mobile clinics across refugee settlements and rural communities in Rwanda and Nigeria." path="/schedule" />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-5xl">

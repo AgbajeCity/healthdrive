@@ -63,7 +63,7 @@ const BookConsultation = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="Book a Consultation" description="Schedule an appointment with a HealthDrive specialist." path="/book-consultation" />
+      <Seo title="Book a Primary Care Consultation" description="Schedule a primary healthcare consultation with a HealthDrive clinician." path="/book-consultation" />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       
       <div className="pt-20 pb-8">

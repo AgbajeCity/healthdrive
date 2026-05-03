@@ -12,7 +12,7 @@ const Team = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="Our Team" description="Meet the HealthDrive team of healthcare professionals serving refugee and rural communities." path="/team" />
+      <Seo title="Our Team — Primary Care Clinicians" description="Meet the HealthDrive team delivering primary healthcare to refugee and rural communities in Rwanda and Nigeria." path="/team" />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       
       <div className="pt-20">

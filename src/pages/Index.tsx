@@ -9,6 +9,8 @@ import heroUssdPhone from "@/assets/hero-ussd-phone.jpg";
 import heroHealthHub from "@/assets/hero-health-hub.jpg";
 import heroRouteMap from "@/assets/hero-route-map.jpg";
 import Testimonials from "@/components/Testimonials";
+import PrimaryCareFAQ from "@/components/PrimaryCareFAQ";
+import { Stethoscope, CalendarDays } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -44,7 +46,20 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="HealthDrive — Primary healthcare that travels" description="Primary healthcare delivered via USSD telehealth, solar-powered mobile clinics and community Health Hubs serving Rwanda and Nigeria." path="/" />
+      <Seo
+        title="HealthDrive — Primary healthcare that travels"
+        description="Primary healthcare delivered via USSD telehealth, solar-powered mobile clinics and community Health Hubs serving Rwanda and Nigeria."
+        path="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            { "@type": "Question", name: "What is primary healthcare and what does it cover?", acceptedAnswer: { "@type": "Answer", text: "Primary healthcare is everyday first-contact care: screenings, common illness treatment, maternal & child health, NCD follow-up, mental wellness check-ins and referrals." } },
+            { "@type": "Question", name: "Do I need a smartphone or internet to use HealthDrive?", acceptedAnswer: { "@type": "Answer", text: "No. Any basic feature phone works via USSD short-codes — no data, no app, no account." } },
+            { "@type": "Question", name: "Which USSD code should I dial?", acceptedAnswer: { "@type": "Answer", text: "*911# emergencies, *123# find a clinic, *456# AI symptom guidance, *789# reach a CHV." } },
+          ],
+        }}
+      />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
 
       {/* HERO */}
@@ -97,6 +112,30 @@ const Index = () => {
               </button>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* PRIMARY CARE CTA */}
+      <section className="py-14" aria-labelledby="primary-care-cta">
+        <div className="container mx-auto px-4">
+          <Card className="bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border-primary/20 max-w-5xl mx-auto">
+            <CardContent className="p-8 md:p-10 grid md:grid-cols-[auto_1fr_auto] items-center gap-6">
+              <div className="w-16 h-16 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto md:mx-0">
+                <Stethoscope className="w-8 h-8 text-primary" />
+              </div>
+              <div className="text-center md:text-left">
+                <h2 id="primary-care-cta" className="text-2xl md:text-3xl font-bold text-foreground">Primary care, on the road.</h2>
+                <p className="text-muted-foreground mt-2 max-w-2xl">
+                  Screenings, treatment, maternal & child care, and chronic disease follow-up — delivered by our solar mobile clinics on a fixed weekly route. See when we're near you.
+                </p>
+              </div>
+              <Button size="lg" asChild className="shrink-0">
+                <Link to="/schedule" aria-label="See the mobile clinic schedule">
+                  <CalendarDays className="w-4 h-4 mr-2" /> See the schedule
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -189,6 +228,9 @@ const Index = () => {
 
       {/* TESTIMONIALS */}
       <Testimonials />
+
+      {/* PRIMARY CARE FAQ */}
+      <PrimaryCareFAQ />
 
       {/* USSD HERO IMAGE BAND */}
       <section className="relative h-72 md:h-96 overflow-hidden">
