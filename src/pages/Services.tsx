@@ -64,8 +64,7 @@ const Services = () => {
               OUR SERVICES
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive healthcare solutions designed to bridge the gap between 
-              medical professionals and underserved communities across Kenya.
+              Healthcare delivered directly to refugee settlements and rural communities in Rwanda and Nigeria — through low-tech USSD, solar-powered mobile clinics, and community-based Health Hubs.
             </p>
           </div>
         </section>
@@ -73,7 +72,7 @@ const Services = () => {
         {/* Services Grid */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {services.map((service, index) => (
                 <Card 
                   key={index} 
