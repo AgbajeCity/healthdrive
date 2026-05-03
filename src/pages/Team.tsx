@@ -4,33 +4,33 @@ import { Button } from "@/components/ui/button";
 import { MessageCircle, Star, Users, Calendar, Stethoscope } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ayomideImage from "@/assets/ayomide-agbaje.jpg";
-import jadeImage from "@/assets/jade-tuzinde.jpg";
-import inezaImage from "@/assets/ineza-agape.jpg";
+import florenceImage from "@/assets/florence-kabeya.jpg";
+import nadiaImage from "@/assets/nadia-gikundiro.jpg";
 
 const Team = () => {
   const navigate = useNavigate();
   const teamMembers = [
     {
       name: "AYOMIDE AGBAJE",
-      role: "Health Specialist",
+      role: "Co-Founder & CEO",
       image: ayomideImage,
-      specialties: ["General Medicine", "Preventive Care", "Community Health"],
+      specialties: ["Primary Healthcare", "Rural Health", "Community Health"],
       rating: 4.9,
       consultations: 150
     },
     {
-      name: "JADE ISIMBI TUZINDE", 
-      role: "Health Specialist",
-      image: jadeImage,
-      specialties: ["Pediatrics", "Women's Health", "Telemedicine"],
+      name: "FLORENCE KABEYA",
+      role: "Co-Founder & Web Manager",
+      image: florenceImage,
+      specialties: ["Digital Health", "Web Platform", "Product"],
       rating: 4.8,
       consultations: 120
     },
     {
-      name: "INEZA AGAPE",
-      role: "Community Manager",
-      image: inezaImage, 
-      specialties: ["Community Outreach", "Health Education", "Program Management"],
+      name: "NADIA GIKUNDIRO",
+      role: "Clinical Health Specialist",
+      image: nadiaImage,
+      specialties: ["Physiotherapy", "Community Health", "Amref International University"],
       rating: 4.9,
       consultations: 200
     }
