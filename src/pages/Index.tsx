@@ -206,9 +206,9 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-8 bg-card/10 backdrop-blur-sm">
+      <footer className="py-8 bg-card/10 backdrop-blur-sm" role="contentinfo">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-xl font-bold text-primary">HealthDrive</h3>
+          <p className="text-xl font-bold text-primary">HealthDrive</p>
           <p className="text-sm text-muted-foreground">Healthcare that travels to refugee and rural communities.</p>
         </div>
       </footer>
