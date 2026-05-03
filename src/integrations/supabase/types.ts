@@ -7,29 +7,26 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
       countries: {
         Row: {
           code: string
-          created_at: string
           id: string
           name: string
         }
         Insert: {
           code: string
-          created_at?: string
           id?: string
           name: string
         }
         Update: {
           code?: string
-          created_at?: string
           id?: string
           name?: string
         }
@@ -37,19 +34,16 @@ export type Database = {
       }
       districts: {
         Row: {
-          created_at: string
           id: string
           name: string
           region_id: string
         }
         Insert: {
-          created_at?: string
           id?: string
           name: string
           region_id: string
         }
         Update: {
-          created_at?: string
           id?: string
           name?: string
           region_id?: string
@@ -60,56 +54,6 @@ export type Database = {
             columns: ["region_id"]
             isOneToOne: false
             referencedRelation: "regions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      healthcare_facilities: {
-        Row: {
-          address: string | null
-          created_at: string
-          district_id: string | null
-          id: string
-          latitude: number | null
-          longitude: number | null
-          name: string
-          operating_hours: string | null
-          phone: string | null
-          services: string[] | null
-          type: string
-        }
-        Insert: {
-          address?: string | null
-          created_at?: string
-          district_id?: string | null
-          id?: string
-          latitude?: number | null
-          longitude?: number | null
-          name: string
-          operating_hours?: string | null
-          phone?: string | null
-          services?: string[] | null
-          type: string
-        }
-        Update: {
-          address?: string | null
-          created_at?: string
-          district_id?: string | null
-          id?: string
-          latitude?: number | null
-          longitude?: number | null
-          name?: string
-          operating_hours?: string | null
-          phone?: string | null
-          services?: string[] | null
-          type?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "healthcare_facilities_district_id_fkey"
-            columns: ["district_id"]
-            isOneToOne: false
-            referencedRelation: "districts"
             referencedColumns: ["id"]
           },
         ]
@@ -162,19 +106,16 @@ export type Database = {
       regions: {
         Row: {
           country_code: string
-          created_at: string
           id: string
           name: string
         }
         Insert: {
           country_code: string
-          created_at?: string
           id?: string
           name: string
         }
         Update: {
           country_code?: string
-          created_at?: string
           id?: string
           name?: string
         }
