@@ -67,7 +67,7 @@ const ReferralStatus = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="Track Your Referral" description="Enter your reference code to see the status of your CHV referral." path="/referrals" />
+      <Seo title="Track Your Primary Care Referral" description="Enter your reference code to see the status of your CHV-led primary healthcare referral." path="/referrals" />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-2xl">
