@@ -14,6 +14,21 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_config: {
+        Row: {
+          admin_passcode: string
+          id: number
+        }
+        Insert: {
+          admin_passcode: string
+          id?: number
+        }
+        Update: {
+          admin_passcode?: string
+          id?: number
+        }
+        Relationships: []
+      }
       countries: {
         Row: {
           code: string
@@ -192,6 +207,58 @@ export type Database = {
           status: string
           updated_at: string
         }[]
+      }
+      list_referrals: {
+        Args: {
+          _hub_slug?: string
+          _limit?: number
+          _offset?: number
+          _passcode: string
+          _search?: string
+          _status?: string
+        }
+        Returns: {
+          assigned_chv: string
+          created_at: string
+          full_name: string
+          hub_slug: string
+          location: string
+          notes: string
+          phone: string
+          reference_code: string
+          services: string[]
+          status: string
+          total_count: number
+          updated_at: string
+        }[]
+      }
+      update_referral_status: {
+        Args: {
+          _assigned_chv?: string
+          _passcode: string
+          _reference_code: string
+          _status: string
+        }
+        Returns: {
+          assigned_chv: string | null
+          created_at: string
+          full_name: string
+          hub_slug: string
+          id: string
+          location: string
+          notes: string | null
+          phone: string
+          reference_code: string
+          services: string[]
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "referrals"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
     }
     Enums: {
