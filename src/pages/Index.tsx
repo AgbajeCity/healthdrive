@@ -425,11 +425,38 @@ const Index = () => {
         </div>
       </section>
 
+      {/* The Problem & Impact */}
+      <section className="py-16 bg-muted/20">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">The Gap We're Closing</h2>
+            <p className="text-muted-foreground max-w-3xl mx-auto">
+              Sub-Saharan Africa carries 25% of the global disease burden with just 3% of the world's health workforce. In Rwanda, one doctor serves approximately 8,294 people — and the ratio worsens sharply in rural areas and refugee settlements. HealthDrive brings care to people, not the other way around.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { stat: "1,247", label: "USSD sessions in pilot" },
+              { stat: "78%", label: "90-day retention" },
+              { stat: "89%", label: "Elderly (55+) retention" },
+              { stat: "97.8%", label: "Rwanda mobile SIM coverage" },
+            ].map((item, i) => (
+              <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
+                <CardContent className="p-6">
+                  <div className="text-3xl font-bold text-primary mb-2">{item.stat}</div>
+                  <div className="text-sm text-muted-foreground">{item.label}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-8 bg-card/10 backdrop-blur-sm">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold text-primary mb-2">HealthDrive</h3>
-          <p className="text-muted-foreground">Bridging the healthcare gap through technology</p>
+          <p className="text-muted-foreground">Healthcare that travels to refugee and rural communities — because where you live should not determine whether you live.</p>
         </div>
       </footer>
     </div>
