@@ -9,20 +9,22 @@ import ReferralForm from "@/components/ReferralForm";
 import RouteMap from "@/components/RouteMap";
 import { visits } from "@/data/schedule";
 import { findNearestHubSlug } from "@/lib/geo";
+import { useMatchRadiusKm } from "@/hooks/use-match-radius";
 import { useMemo } from "react";
 
 const HubDetail = () => {
   const { slug = "" } = useParams();
   const hub = getHub(slug);
+  const radius = useMatchRadiusKm();
 
   const upcomingVisits = useMemo(() => {
     if (!hub) return [];
     const today = new Date().toISOString().slice(0, 10);
     return visits
-      .filter((v) => findNearestHubSlug(v.coords) === hub.slug && v.date >= today)
+      .filter((v) => findNearestHubSlug(v.coords, radius) === hub.slug && v.date >= today)
       .sort((a, b) => a.date.localeCompare(b.date))
       .slice(0, 5);
-  }, [hub]);
+  }, [hub, radius]);
 
   // Aggregate likely services across upcoming visits
   const upcomingServices = useMemo(() => {

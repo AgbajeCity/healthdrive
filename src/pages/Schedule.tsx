@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 import RouteMap from "@/components/RouteMap";
 import { visits } from "@/data/schedule";
 import { findNearestHubSlug } from "@/lib/geo";
+import { useMatchRadiusKm } from "@/hooks/use-match-radius";
 
 const Schedule = () => {
   const [filter, setFilter] = useState<"All" | "Rwanda" | "Nigeria">("All");
   const [activeIdx, setActiveIdx] = useState(0);
+  const radius = useMatchRadiusKm();
 
   const filtered = useMemo(
     () => visits.filter((v) => filter === "All" || v.country === filter),
@@ -57,7 +59,7 @@ const Schedule = () => {
                   name: v.location.split(",")[0],
                   coords: v.coords,
                   date: v.date,
-                  hubSlug: findNearestHubSlug(v.coords),
+                  hubSlug: findNearestHubSlug(v.coords, radius),
                 }))}
                 highlightIndex={activeIdx}
                 onStopClick={(i) => setActiveIdx(i)}
@@ -71,7 +73,7 @@ const Schedule = () => {
           <div className="space-y-4">
             {filtered.map((v, i) => {
               const active = i === activeIdx;
-              const hubSlug = findNearestHubSlug(v.coords);
+              const hubSlug = findNearestHubSlug(v.coords, radius);
               return (
                 <Card
                   key={i}

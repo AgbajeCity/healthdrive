@@ -232,6 +232,10 @@ export type Database = {
           updated_at: string
         }[]
       }
+      update_admin_passcode: {
+        Args: { _current_passcode: string; _new_passcode: string }
+        Returns: undefined
+      }
       update_referral_status: {
         Args: {
           _assigned_chv?: string
