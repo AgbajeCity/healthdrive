@@ -108,6 +108,61 @@ const Services = () => {
           </div>
         </section>
 
+        {/* Our Approach / Impact */}
+        <section className="py-16 bg-muted/20">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Approach &amp; Impact</h2>
+              <p className="text-muted-foreground max-w-3xl mx-auto">
+                HealthDrive runs on two integrated delivery channels that reinforce each other — and a community layer that keeps care continuous after each visit.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              <Card className="bg-card/90 backdrop-blur-sm border-border/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><span className="text-primary">1.</span> USSD-Based Telehealth</CardTitle>
+                  <CardDescription>
+                    Four short codes on any basic feature phone — *911#, *123#, *456#, *789#. Free for the patient, no smartphone or internet required. Runs on Rwanda's 97.8% mobile SIM coverage and reaches communities outside the digital divide.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="bg-card/90 backdrop-blur-sm border-border/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><span className="text-primary">2.</span> Solar-Powered Mobile Clinics</CardTitle>
+                  <CardDescription>
+                    Vans with diagnostic tools and medical professionals travel to refugee settlements and remote rural areas. Community Health Hubs and CHWs sustain follow-up after the van leaves — making care continuous, not episodic.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { stat: "1,247", label: "USSD sessions" },
+                { stat: "78%", label: "90-day retention" },
+                { stat: "89%", label: "Elderly (55+) retention" },
+                { stat: "92%", label: "CHW platform adoption" },
+                { stat: "70.4%", label: "Patient uptake" },
+                { stat: "7.8/10", label: "Patient satisfaction" },
+                { stat: "$125/mo", label: "Operational cost" },
+                { stat: "BLEU 36.55", label: "AI triage (Llama-3-8B)" },
+              ].map((item, i) => (
+                <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
+                  <CardContent className="p-4">
+                    <div className="text-2xl font-bold text-primary mb-1">{item.stat}</div>
+                    <div className="text-xs text-muted-foreground">{item.label}</div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <p className="text-xs text-center text-muted-foreground mt-6">
+              Pilot results from Bugesera and Kayonza districts, Rwanda (Aug 2024 – Mar 2026). Findings submitted to IJISRT; presented at the 2nd Primary Health Care Congress, Amref International University, Nairobi.
+            </p>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-16 text-center">
           <div className="container mx-auto px-4">
