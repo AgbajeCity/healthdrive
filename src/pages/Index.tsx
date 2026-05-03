@@ -139,10 +139,8 @@ const Index = () => {
         </div>
       </section>
 
-
+      {/* HOW IT WORKS - 4 PILLARS */}
       <section className="py-14">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {pillars.map((p, i) => (
               <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
                 <CardContent className="p-5">
@@ -228,6 +226,9 @@ const Index = () => {
 
       {/* TESTIMONIALS */}
       <Testimonials />
+
+      {/* PRIMARY CARE FAQ */}
+      <PrimaryCareFAQ />
 
       {/* USSD HERO IMAGE BAND */}
       <section className="relative h-72 md:h-96 overflow-hidden">
