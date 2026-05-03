@@ -9,6 +9,7 @@ import RouteMap from "@/components/RouteMap";
 import { visits } from "@/data/schedule";
 import { findNearestHubSlug } from "@/lib/geo";
 import { useMatchRadiusKm } from "@/hooks/use-match-radius";
+import heroRouteMap from "@/assets/hero-route-map.jpg";
 
 const Schedule = () => {
   const [filter, setFilter] = useState<"All" | "Rwanda" | "Nigeria">("All");
@@ -26,16 +27,21 @@ const Schedule = () => {
       <Navigation />
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Truck className="w-10 h-10 text-primary" />
-              <Sun className="w-8 h-8 text-yellow-500" />
+          <div className="grid lg:grid-cols-2 gap-8 items-center mb-10">
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <Truck className="w-10 h-10 text-primary" />
+                <Sun className="w-8 h-8 text-yellow-500" />
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">Van Schedule</h1>
+              <p className="text-lg text-muted-foreground">Upcoming visits across Rwanda & Nigeria.</p>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Mobile Clinic Schedule</h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Upcoming solar-powered mobile clinic visits to refugee settlements and rural communities across
-              Rwanda and Nigeria.
-            </p>
+            <img
+              src={heroRouteMap}
+              alt="Mobile clinic routes map"
+              loading="lazy"
+              className="rounded-2xl shadow-xl object-cover w-full aspect-[16/9]"
+            />
           </div>
 
           <div className="flex justify-center gap-2 mb-6">

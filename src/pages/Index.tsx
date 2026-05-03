@@ -1,450 +1,110 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Truck, Stethoscope, Calendar, MapPin, Phone, Heart, MessageSquare, Users, Copy } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Truck, MapPin, Phone, Heart, MessageSquare, Users, ArrowRight, Sun, Activity } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import { useToast } from "@/hooks/use-toast";
+import heroMobileClinic from "@/assets/hero-mobile-clinic.jpg";
+import heroUssdPhone from "@/assets/hero-ussd-phone.jpg";
+import heroHealthHub from "@/assets/hero-health-hub.jpg";
+import heroRouteMap from "@/assets/hero-route-map.jpg";
 
 const Index = () => {
-  const { toast } = useToast();
   const navigate = useNavigate();
-  
-  const features = [
-    {
-      icon: Phone,
-      text: "USSD-based telehealth on any basic feature phone — no smartphone or internet required"
-    },
-    {
-      icon: Truck,
-      text: "Solar-powered mobile clinics travelling to refugee settlements and remote rural areas"
-    },
-    {
-      icon: Users,
-      text: "Community Health Hubs and CHWs sustain follow-up care after the van leaves"
-    },
-    {
-      icon: Heart,
-      text: "AI-assisted triage fine-tuned on Llama-3-8B for symptom classification and referral"
-    }
-  ];
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    toast({
-      title: "Copied!",
-      description: `${text} copied to clipboard`,
-    });
-  };
 
   const dialUSSD = (code: string) => {
-    // Navigate to USSD Services page and trigger the dial functionality there
-    navigate('/ussd');
-    // Small delay to ensure navigation completes, then trigger the dial
+    navigate("/ussd");
     setTimeout(() => {
-      const event = new CustomEvent('dialUSSD', { detail: { code } });
-      window.dispatchEvent(event);
+      window.dispatchEvent(new CustomEvent("dialUSSD", { detail: { code } }));
     }, 100);
   };
+
+  const codes = [
+    { code: "*911#", label: "Emergency", icon: Heart, color: "text-red-500", ring: "ring-red-500/30" },
+    { code: "*123#", label: "Find Clinics", icon: MapPin, color: "text-blue-500", ring: "ring-blue-500/30" },
+    { code: "*456#", label: "Health Info", icon: MessageSquare, color: "text-green-500", ring: "ring-green-500/30" },
+    { code: "*789#", label: "Community", icon: Users, color: "text-purple-500", ring: "ring-purple-500/30" },
+  ];
+
+  const stats = [
+    { stat: "1,247", label: "USSD sessions" },
+    { stat: "78%", label: "90-day retention" },
+    { stat: "89%", label: "Elderly retention" },
+    { stat: "97.8%", label: "SIM coverage" },
+  ];
+
+  const pillars = [
+    { icon: Phone, title: "USSD telehealth", text: "Any feature phone." },
+    { icon: Truck, title: "Solar mobile clinics", text: "Care that travels." },
+    { icon: Users, title: "Community Hubs", text: "Care between visits." },
+    { icon: Activity, title: "AI triage", text: "Llama-3-8B fine-tuned." },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      
-      {/* Hero Section - USSD Focus */}
-      <section className="pt-20 min-h-screen flex items-center">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-8">
-            {/* Main USSD Heading */}
-            <div className="space-y-6">
-              <div className="flex items-center justify-center mb-8">
-                <Phone className="w-16 h-16 text-primary mr-4" />
-                <div className="text-6xl md:text-8xl font-mono font-bold text-primary">*</div>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                PRIMARY HEALTHCARE FOR
-              </h1>
-              <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                REFUGEE & RURAL COMMUNITIES
-              </h2>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                Bringing affordable, high-quality care directly to underserved communities in Rwanda and Nigeria — through USSD-based digital health, solar-powered mobile clinics, and local health workers.
-              </p>
-              <p className="text-base md:text-lg text-muted-foreground/80 max-w-3xl mx-auto italic">
-                Where a person lives should not determine whether they will live.
-              </p>
-            </div>
 
-            {/* Featured USSD Codes */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
-              <div className="bg-card/90 backdrop-blur-sm border border-red-500/30 rounded-lg p-4">
-                <Heart className="w-6 h-6 text-red-500 mx-auto mb-2" />
-                <div className="text-2xl font-mono font-bold text-red-600">*911#</div>
-                <p className="text-xs text-muted-foreground mb-2">Emergency Services</p>
-                <Button 
-                  size="sm" 
-                  variant="destructive"
-                  className="w-full text-xs"
-                  onClick={() => dialUSSD("*911#")}
-                >
-                  <Phone className="w-3 h-3 mr-1" />
-                  Dial Now
-                </Button>
-              </div>
-              <div className="bg-card/90 backdrop-blur-sm border border-blue-500/30 rounded-lg p-4">
-                <MapPin className="w-6 h-6 text-blue-500 mx-auto mb-2" />
-                <div className="text-2xl font-mono font-bold text-blue-600">*123#</div>
-                <p className="text-xs text-muted-foreground mb-2">Find Nearby Clinics</p>
-                <Button 
-                  size="sm"
-                  className="w-full text-xs bg-blue-600 hover:bg-blue-700"
-                  onClick={() => dialUSSD("*123#")}
-                >
-                  <Phone className="w-3 h-3 mr-1" />
-                  Dial Now
-                </Button>
-              </div>
-              <div className="bg-card/90 backdrop-blur-sm border border-green-500/30 rounded-lg p-4">
-                <MessageSquare className="w-6 h-6 text-green-500 mx-auto mb-2" />
-                <div className="text-2xl font-mono font-bold text-green-600">*456#</div>
-                <p className="text-xs text-muted-foreground mb-2">Health Information</p>
-                <Button 
-                  size="sm"
-                  className="w-full text-xs bg-green-600 hover:bg-green-700"
-                  onClick={() => dialUSSD("*456#")}
-                >
-                  <Phone className="w-3 h-3 mr-1" />
-                  Dial Now
-                </Button>
-              </div>
-              <div className="bg-card/90 backdrop-blur-sm border border-purple-500/30 rounded-lg p-4">
-                <Users className="w-6 h-6 text-purple-500 mx-auto mb-2" />
-                <div className="text-2xl font-mono font-bold text-purple-600">*789#</div>
-                <p className="text-xs text-muted-foreground mb-2">Community Health</p>
-                <Button 
-                  size="sm"
-                  className="w-full text-xs bg-purple-600 hover:bg-purple-700"
-                  onClick={() => dialUSSD("*789#")}
-                >
-                  <Phone className="w-3 h-3 mr-1" />
-                  Dial Now
-                </Button>
-              </div>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-              <Button 
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                asChild
-              >
-                <Link to="/ussd">Try USSD Services</Link>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
-                asChild
-              >
-                <Link to="/register">Create Account</Link>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
-                asChild
-              >
-                <Link to="/services">Our Services</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* USSD Services Section */}
-      <section className="py-16 bg-muted/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Instant Access via USSD
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Access healthcare services instantly from any mobile device. No internet or smartphone required.
+      {/* HERO */}
+      <section className="pt-24 pb-12">
+        <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
+          <div className="space-y-6">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-foreground">
+              Healthcare that <span className="text-primary">travels</span> to you.
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-xl">
+              Refugee & rural communities in Rwanda and Nigeria — reached by USSD, solar mobile clinics, and local health workers.
             </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
-            {/* Emergency Services */}
-            <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Heart className="w-5 h-5 text-red-500" />
-                    <CardTitle className="text-base">Emergency Services</CardTitle>
-                  </div>
-                  <Badge variant="destructive" className="text-xs">Urgent</Badge>
-                </div>
-                <CardDescription className="text-sm">Quick access to emergency healthcare services</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="text-xl font-mono font-bold text-center text-red-600">*911#</div>
-                  <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      className="flex-1 text-xs"
-                      onClick={() => copyToClipboard("*911#")}
-                    >
-                      <Copy className="w-3 h-3 mr-1" />
-                      Copy
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      variant="destructive"
-                      className="flex-1 text-xs"
-                      onClick={() => dialUSSD("*911#")}
-                    >
-                      <Phone className="w-3 h-3 mr-1" />
-                      Dial
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Find Clinics */}
-            <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="w-5 h-5 text-blue-500" />
-                    <CardTitle className="text-base">Find Nearby Clinics</CardTitle>
-                  </div>
-                  <Badge variant="secondary" className="text-xs">Popular</Badge>
-                </div>
-                <CardDescription className="text-sm">Locate healthcare facilities in your area</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="text-xl font-mono font-bold text-center text-blue-600">*123#</div>
-                  <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      className="flex-1 text-xs"
-                      onClick={() => copyToClipboard("*123#")}
-                    >
-                      <Copy className="w-3 h-3 mr-1" />
-                      Copy
-                    </Button>
-                    <Button 
-                      size="sm"
-                      className="flex-1 text-xs"
-                      onClick={() => dialUSSD("*123#")}
-                    >
-                      <Phone className="w-3 h-3 mr-1" />
-                      Dial
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Health Information */}
-            <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-4">
-                <div className="flex items-center space-x-2">
-                  <MessageSquare className="w-5 h-5 text-green-500" />
-                  <CardTitle className="text-base">Health Information</CardTitle>
-                </div>
-                <CardDescription className="text-sm">Get health tips and disease prevention info</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="text-xl font-mono font-bold text-center text-green-600">*456#</div>
-                  <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      className="flex-1 text-xs"
-                      onClick={() => copyToClipboard("*456#")}
-                    >
-                      <Copy className="w-3 h-3 mr-1" />
-                      Copy
-                    </Button>
-                    <Button 
-                      size="sm"
-                      className="flex-1 text-xs"
-                      onClick={() => dialUSSD("*456#")}
-                    >
-                      <Phone className="w-3 h-3 mr-1" />
-                      Dial
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Community Health */}
-            <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-4">
-                <div className="flex items-center space-x-2">
-                  <Users className="w-5 h-5 text-purple-500" />
-                  <CardTitle className="text-base">Community Health</CardTitle>
-                </div>
-                <CardDescription className="text-sm">Connect with local health workers and programs</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="text-xl font-mono font-bold text-center text-purple-600">*789#</div>
-                  <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      className="flex-1 text-xs"
-                      onClick={() => copyToClipboard("*789#")}
-                    >
-                      <Copy className="w-3 h-3 mr-1" />
-                      Copy
-                    </Button>
-                    <Button 
-                      size="sm"
-                      className="flex-1 text-xs"
-                      onClick={() => dialUSSD("*789#")}
-                    >
-                      <Phone className="w-3 h-3 mr-1" />
-                      Dial
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* USSD Instructions */}
-          <Card className="mt-8 bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare max-w-4xl mx-auto">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-center">
-                <Phone className="w-5 h-5 mr-2" />
-                How to Use USSD Services
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">1</div>
-                  <p className="text-sm text-foreground">Dial the USSD code on your mobile phone</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">2</div>
-                  <p className="text-sm text-foreground">Follow the menu options displayed</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">3</div>
-                  <p className="text-sm text-foreground">Press the number for your choice</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">4</div>
-                  <p className="text-sm text-foreground">Receive instant assistance</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="text-center mt-8">
-            <Link to="/ussd">
-              <Button variant="outline" size="lg">
-                View Full USSD Interface
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Solution Section */}
-      <section className="py-16 bg-card/10 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
-          <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare max-w-4xl mx-auto">
-            <CardContent className="p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-                  How HealthDrive Works
-                </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  Two integrated delivery channels reinforce each other — USSD telehealth maintains contact between visits, while solar-powered mobile clinics deliver in-person care to communities outside the digital divide.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <feature.icon className="w-4 h-4 text-primary" />
-                    </div>
-                    <p className="text-foreground font-medium">{feature.text}</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Find Mobile Clinic Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-8">
-            <div className="space-y-4">
-              <div className="flex items-center justify-center space-x-4 mb-6">
-                <MapPin className="w-12 h-12 text-foreground" />
-                <Truck className="w-12 h-12 text-foreground" />
-              </div>
-              <h2 className="text-4xl md:text-6xl font-bold text-foreground">
-                SOLAR-POWERED
-              </h2>
-              <h3 className="text-4xl md:text-6xl font-bold text-foreground">
-                MOBILE CLINICS
-              </h3>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Our vans are equipped with diagnostic tools and staffed by medical professionals who provide consultations, screenings, and treatment close to where people live — in refugee settlements and remote rural areas where clinics and hospitals are scarce. Community health volunteers and telehealth services connect patients to continuity of care through community-based Health Hubs.
-              </p>
+            <div className="flex flex-wrap gap-3">
+              <Button size="lg" asChild><Link to="/ussd">Try USSD <ArrowRight className="w-4 h-4 ml-1" /></Link></Button>
+              <Button size="lg" variant="outline" asChild><Link to="/schedule">See van schedule</Link></Button>
             </div>
-
-            <Button 
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              asChild
-            >
-              <Link to="/map">Find Mobile Clinics</Link>
-            </Button>
+          </div>
+          <div className="relative">
+            <img
+              src={heroMobileClinic}
+              alt="Solar-powered mobile clinic serving a rural community at sunrise"
+              width={1600}
+              height={900}
+              className="rounded-2xl shadow-2xl object-cover w-full aspect-[16/9]"
+            />
           </div>
         </div>
       </section>
 
-      {/* The Problem & Impact */}
-      <section className="py-16 bg-muted/20">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">The Gap We're Closing</h2>
-            <p className="text-muted-foreground max-w-3xl mx-auto">
-              Sub-Saharan Africa carries 25% of the global disease burden with just 3% of the world's health workforce. In Rwanda, one doctor serves approximately 8,294 people — and the ratio worsens sharply in rural areas and refugee settlements. HealthDrive brings care to people, not the other way around.
-            </p>
+      {/* USSD QUICK DIAL */}
+      <section className="py-12 bg-muted/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-foreground">Dial. Connect. Care.</h2>
+            <p className="text-muted-foreground">Four codes. No internet needed.</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { stat: "1,247", label: "USSD sessions in pilot" },
-              { stat: "78%", label: "90-day retention" },
-              { stat: "89%", label: "Elderly (55+) retention" },
-              { stat: "97.8%", label: "Rwanda mobile SIM coverage" },
-            ].map((item, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {codes.map((c) => (
+              <button
+                key={c.code}
+                onClick={() => dialUSSD(c.code)}
+                className={`bg-card/90 backdrop-blur-sm border rounded-xl p-5 text-center hover:ring-2 ${c.ring} transition-all hover:-translate-y-1`}
+              >
+                <c.icon className={`w-8 h-8 mx-auto mb-2 ${c.color}`} />
+                <div className="text-2xl font-mono font-bold text-foreground">{c.code}</div>
+                <div className="text-xs text-muted-foreground mt-1">{c.label}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS - 4 PILLARS */}
+      <section className="py-14">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {pillars.map((p, i) => (
               <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
-                <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-primary mb-2">{item.stat}</div>
-                  <div className="text-sm text-muted-foreground">{item.label}</div>
+                <CardContent className="p-5">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <p.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="font-semibold text-foreground">{p.title}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{p.text}</div>
                 </CardContent>
               </Card>
             ))}
@@ -452,11 +112,91 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* MOBILE CLINICS - VISUAL */}
+      <section className="py-14 bg-muted/20">
+        <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
+          <img
+            src={heroRouteMap}
+            alt="Mobile clinic routes across Rwanda and Nigeria"
+            loading="lazy"
+            width={1600}
+            height={900}
+            className="rounded-2xl shadow-xl object-cover w-full aspect-[16/9]"
+          />
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <Sun className="w-8 h-8 text-yellow-500" />
+              <Truck className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Solar vans. Real reach.</h2>
+            <p className="text-muted-foreground">
+              Diagnostics, screenings and treatment delivered where clinics are scarce.
+            </p>
+            <Button asChild><Link to="/schedule">View routes <ArrowRight className="w-4 h-4 ml-1" /></Link></Button>
+          </div>
+        </div>
+      </section>
+
+      {/* HEALTH HUBS - VISUAL */}
+      <section className="py-14">
+        <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
+          <div className="space-y-4 order-2 lg:order-1">
+            <Users className="w-10 h-10 text-primary" />
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Care that stays.</h2>
+            <p className="text-muted-foreground">
+              Community Health Volunteers keep follow-up alive after the van leaves.
+            </p>
+            <Button asChild variant="outline"><Link to="/health-hubs">Find a hub <ArrowRight className="w-4 h-4 ml-1" /></Link></Button>
+          </div>
+          <img
+            src={heroHealthHub}
+            alt="Community health volunteer with patients in a refugee settlement"
+            loading="lazy"
+            width={1600}
+            height={900}
+            className="rounded-2xl shadow-xl object-cover w-full aspect-[16/9] order-1 lg:order-2"
+          />
+        </div>
+      </section>
+
+      {/* IMPACT STATS */}
+      <section className="py-14 bg-muted/20">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Pilot impact</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stats.map((item, i) => (
+              <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
+                <CardContent className="p-6">
+                  <div className="text-4xl font-bold text-primary mb-1">{item.stat}</div>
+                  <div className="text-xs text-muted-foreground">{item.label}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* USSD HERO IMAGE BAND */}
+      <section className="relative h-72 md:h-96 overflow-hidden">
+        <img
+          src={heroUssdPhone}
+          alt="Elderly woman using a feature phone for healthcare access"
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/60 to-transparent" />
+        <div className="relative container mx-auto px-4 h-full flex items-center">
+          <div className="max-w-md space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Where you live shouldn't decide if you live.</h2>
+            <Button asChild size="lg"><Link to="/ussd">Get started</Link></Button>
+          </div>
+        </div>
+      </section>
+
       <footer className="py-8 bg-card/10 backdrop-blur-sm">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold text-primary mb-2">HealthDrive</h3>
-          <p className="text-muted-foreground">Healthcare that travels to refugee and rural communities — because where you live should not determine whether you live.</p>
+          <h3 className="text-xl font-bold text-primary">HealthDrive</h3>
+          <p className="text-sm text-muted-foreground">Healthcare that travels to refugee and rural communities.</p>
         </div>
       </footer>
     </div>

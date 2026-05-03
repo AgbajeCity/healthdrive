@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { hubs } from "@/data/hubs";
 import ReferralForm from "@/components/ReferralForm";
 import { useMemo, useState } from "react";
+import heroHealthHub from "@/assets/hero-health-hub.jpg";
 
 const HealthHubs = () => {
   const [query, setQuery] = useState("");
@@ -47,15 +48,20 @@ const HealthHubs = () => {
       <Navigation />
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center mb-4">
-              <Heart className="w-10 h-10 text-primary" />
+          <div className="grid lg:grid-cols-2 gap-8 items-center mb-10">
+            <div>
+              <Heart className="w-10 h-10 text-primary mb-3" />
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">Health Hubs</h1>
+              <p className="text-lg text-muted-foreground">
+                Community-based hubs in Rwanda and Nigeria, run by local CHVs.
+              </p>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Health Hubs Directory</h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Community-based hubs in Rwanda and Nigeria where local Community Health Volunteers (CHVs)
-              sustain care between mobile clinic visits.
-            </p>
+            <img
+              src={heroHealthHub}
+              alt="Community Health Volunteer with patients"
+              loading="lazy"
+              className="rounded-2xl shadow-xl object-cover w-full aspect-[16/9]"
+            />
           </div>
 
           {/* Search & filters */}
