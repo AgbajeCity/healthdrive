@@ -8,7 +8,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { hubs, type Hub } from "@/data/hubs";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, Copy } from "lucide-react";
+import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const SERVICE_OPTIONS = [
   "General consultation",
@@ -35,9 +37,16 @@ interface Props {
   compact?: boolean;
 }
 
+const generateCode = () => {
+  const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `HD-${Date.now().toString(36).toUpperCase().slice(-4)}${rand}`;
+};
+
 const ReferralForm = ({ defaultHub, compact }: Props) => {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [refCode, setRefCode] = useState<string>("");
   const [form, setForm] = useState({
     fullName: "",
     phone: "",
@@ -55,7 +64,7 @@ const ReferralForm = ({ defaultHub, compact }: Props) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = referralSchema.safeParse(form);
     if (!result.success) {
@@ -67,7 +76,33 @@ const ReferralForm = ({ defaultHub, compact }: Props) => {
       return;
     }
     setErrors({});
+    setSubmitting(true);
+    const code = generateCode();
     const hub = hubs.find((h) => h.slug === result.data.hubSlug);
+
+    const { error } = await supabase.from("referrals").insert({
+      reference_code: code,
+      full_name: result.data.fullName,
+      phone: result.data.phone,
+      location: result.data.location,
+      hub_slug: result.data.hubSlug,
+      services: result.data.services,
+      notes: result.data.notes ?? null,
+      assigned_chv: hub?.chv ?? null,
+    });
+
+    setSubmitting(false);
+
+    if (error) {
+      toast({
+        title: "Could not send referral",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setRefCode(code);
     setSubmitted(true);
     toast({
       title: "Referral sent",
@@ -80,12 +115,26 @@ const ReferralForm = ({ defaultHub, compact }: Props) => {
       <div className="text-center py-8">
         <CheckCircle2 className="w-12 h-12 text-primary mx-auto mb-3" />
         <h3 className="text-lg font-semibold text-foreground mb-2">Referral submitted</h3>
-        <p className="text-sm text-muted-foreground max-w-md mx-auto">
-          Your local Community Health Volunteer will be in touch. In an emergency, dial <strong>*911#</strong> from any phone.
+        <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">
+          Save your reference code to track this referral's status. In an emergency, dial <strong>*911#</strong> from any phone.
         </p>
-        <Button variant="outline" size="sm" className="mt-4" onClick={() => setSubmitted(false)}>
-          Submit another referral
-        </Button>
+        <div className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-md mb-4">
+          <code className="font-mono font-semibold text-foreground">{refCode}</code>
+          <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => {
+            navigator.clipboard.writeText(refCode);
+            toast({ title: "Copied", description: "Reference code copied." });
+          }}>
+            <Copy className="w-3 h-3" />
+          </Button>
+        </div>
+        <div className="flex gap-2 justify-center">
+          <Button asChild size="sm">
+            <Link to={`/referrals/${refCode}`}>Track status</Link>
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => { setSubmitted(false); setRefCode(""); }}>
+            Submit another
+          </Button>
+        </div>
       </div>
     );
   }
@@ -148,11 +197,11 @@ const ReferralForm = ({ defaultHub, compact }: Props) => {
         <Label htmlFor="notes">Notes (optional)</Label>
         <Textarea id="notes" value={form.notes} maxLength={500} rows={3}
           onChange={(e) => setForm({ ...form, notes: e.target.value })}
-          placeholder="Anything the CHV should know" />
+          placeholder="Anything the CHW should know" />
       </div>
 
-      <Button type="submit" className="w-full">
-        <Send className="w-4 h-4 mr-2" /> Send referral to CHV
+      <Button type="submit" className="w-full" disabled={submitting}>
+        <Send className="w-4 h-4 mr-2" /> {submitting ? "Sending..." : "Send referral to CHV"}
       </Button>
     </form>
   );
