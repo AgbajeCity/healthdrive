@@ -2009,20 +2009,53 @@ const USSD = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="USSD Health Services" description="Dial *911#, *123#, *456#, or *789# for instant healthcare access on any feature phone." path="/ussd" />
+      <Seo
+        title="USSD Primary Healthcare"
+        description="Primary healthcare on any feature phone. Dial *911# emergencies, *123# clinics, *456# AI symptom guidance, *789# CHV — no internet required."
+        path="/ussd"
+      />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
-      
+
       <div className="pt-20 min-h-screen p-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center space-x-2 mb-6">
+          <div className="text-center mb-6">
+            <div className="flex items-center justify-center space-x-2 mb-4">
               <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
                 <Cross className="w-7 h-7 text-primary-foreground" />
               </div>
-              <span className="text-2xl font-bold text-foreground">HealthDrive</span>
+              <span className="text-2xl font-bold text-foreground">HealthDrive USSD</span>
             </div>
+            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+              Primary healthcare on any feature phone — screening, treatment guidance and CHV referrals. No smartphone, no internet, free for the patient.
+            </p>
           </div>
+
+          {/* Shortcuts at-a-glance */}
+          {currentScreen === "main" && (
+            <Card className="bg-card/90 backdrop-blur-sm border-border/50 mb-6">
+              <CardContent className="p-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                  {[
+                    { code: "*911#", label: "Emergency triage", icon: Heart, color: "text-red-500" },
+                    { code: "*123#", label: "Find a clinic / van stop", icon: MapPin, color: "text-blue-500" },
+                    { code: "*456#", label: "AI symptom guidance", icon: MessageSquare, color: "text-green-500" },
+                    { code: "*789#", label: "Reach a CHV", icon: Users, color: "text-purple-500" },
+                  ].map((s) => (
+                    <button
+                      key={s.code}
+                      onClick={() => dialUSSD(s.code)}
+                      className="rounded-lg border border-border/50 p-3 hover:ring-2 hover:ring-primary/30 transition"
+                    >
+                      <s.icon className={`w-5 h-5 mx-auto mb-1 ${s.color}`} />
+                      <div className="font-mono font-bold text-foreground text-sm">{s.code}</div>
+                      <div className="text-[11px] text-muted-foreground mt-0.5">{s.label}</div>
+                    </button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {currentScreen === "main" && renderMainMenu()}
           {currentScreen === "emergency" && renderEmergencyScreen()}
