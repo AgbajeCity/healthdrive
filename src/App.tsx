@@ -19,6 +19,7 @@ import Profile from "./pages/Profile";
 import USSD from "./pages/USSD";
 import Map from "./pages/Map";
 import HealthHubs from "./pages/HealthHubs";
+import HubDetail from "./pages/HubDetail";
 import Schedule from "./pages/Schedule";
 
 const queryClient = new QueryClient();
