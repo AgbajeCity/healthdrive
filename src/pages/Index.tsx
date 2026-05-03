@@ -44,7 +44,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="HealthDrive — Healthcare that travels" description="USSD telehealth, solar-powered mobile clinics and community Health Hubs serving Rwanda and Nigeria." path="/" />
+      <Seo title="HealthDrive — Primary healthcare that travels" description="Primary healthcare delivered via USSD telehealth, solar-powered mobile clinics and community Health Hubs serving Rwanda and Nigeria." path="/" />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
 
       {/* HERO */}
@@ -52,10 +52,10 @@ const Index = () => {
         <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
           <div className="space-y-6">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-foreground">
-              Healthcare that <span className="text-primary">travels</span> to you.
+              Primary healthcare that <span className="text-primary">travels</span> to you.
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl">
-              Refugee & rural communities in Rwanda and Nigeria — reached by USSD, solar mobile clinics, and local health workers.
+              Everyday primary care for refugee & rural communities in Rwanda and Nigeria — reached by USSD, solar mobile clinics, and local health workers.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button size="lg" asChild><Link to="/ussd">Try USSD <ArrowRight className="w-4 h-4 ml-1" /></Link></Button>
@@ -212,7 +212,7 @@ const Index = () => {
       <footer className="py-8 bg-card/10 backdrop-blur-sm" role="contentinfo">
         <div className="container mx-auto px-4 text-center">
           <p className="text-xl font-bold text-primary">HealthDrive</p>
-          <p className="text-sm text-muted-foreground">Healthcare that travels to refugee and rural communities.</p>
+          <p className="text-sm text-muted-foreground">Primary healthcare that travels to refugee and rural communities.</p>
         </div>
       </footer>
     </div>
