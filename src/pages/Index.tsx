@@ -7,6 +7,7 @@ import heroMobileClinic from "@/assets/hero-mobile-clinic.jpg";
 import heroUssdPhone from "@/assets/hero-ussd-phone.jpg";
 import heroHealthHub from "@/assets/hero-health-hub.jpg";
 import heroRouteMap from "@/assets/hero-route-map.jpg";
+import Testimonials from "@/components/Testimonials";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -64,6 +65,9 @@ const Index = () => {
               alt="Solar-powered mobile clinic serving a rural community at sunrise"
               width={1600}
               height={900}
+              fetchPriority="high"
+              decoding="async"
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className="rounded-2xl shadow-2xl object-cover w-full aspect-[16/9]"
             />
           </div>
@@ -119,6 +123,8 @@ const Index = () => {
             src={heroRouteMap}
             alt="Mobile clinic routes across Rwanda and Nigeria"
             loading="lazy"
+            decoding="async"
+            sizes="(min-width: 1024px) 50vw, 100vw"
             width={1600}
             height={900}
             className="rounded-2xl shadow-xl object-cover w-full aspect-[16/9]"
@@ -152,6 +158,8 @@ const Index = () => {
             src={heroHealthHub}
             alt="Community health volunteer with patients in a refugee settlement"
             loading="lazy"
+            decoding="async"
+            sizes="(min-width: 1024px) 50vw, 100vw"
             width={1600}
             height={900}
             className="rounded-2xl shadow-xl object-cover w-full aspect-[16/9] order-1 lg:order-2"
@@ -176,12 +184,17 @@ const Index = () => {
         </div>
       </section>
 
+      {/* TESTIMONIALS */}
+      <Testimonials />
+
       {/* USSD HERO IMAGE BAND */}
       <section className="relative h-72 md:h-96 overflow-hidden">
         <img
           src={heroUssdPhone}
           alt="Elderly woman using a feature phone for healthcare access"
           loading="lazy"
+          decoding="async"
+          sizes="100vw"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/60 to-transparent" />
@@ -193,9 +206,9 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-8 bg-card/10 backdrop-blur-sm">
+      <footer className="py-8 bg-card/10 backdrop-blur-sm" role="contentinfo">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-xl font-bold text-primary">HealthDrive</h3>
+          <p className="text-xl font-bold text-primary">HealthDrive</p>
           <p className="text-sm text-muted-foreground">Healthcare that travels to refugee and rural communities.</p>
         </div>
       </footer>

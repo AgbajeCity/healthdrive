@@ -60,6 +60,10 @@ const HealthHubs = () => {
               src={heroHealthHub}
               alt="Community Health Volunteer with patients"
               loading="lazy"
+              decoding="async"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              width={1600}
+              height={900}
               className="rounded-2xl shadow-xl object-cover w-full aspect-[16/9]"
             />
           </div>

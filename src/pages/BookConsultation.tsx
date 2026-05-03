@@ -66,22 +66,21 @@ const BookConsultation = () => {
       <div className="pt-20 pb-8">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
-          <Card className="mb-6 bg-card/90 backdrop-blur-sm border-border/50">
-            <CardHeader className="flex flex-row items-center space-y-0 pb-4">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => navigate('/team')}
-                className="h-10 w-10 mr-4"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-              <div>
-                <CardTitle className="text-2xl">Book Consultation</CardTitle>
-                <p className="text-muted-foreground">Schedule an appointment with {doctorName}</p>
-              </div>
-            </CardHeader>
-          </Card>
+          <div className="mb-6 flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate('/team')}
+              className="h-10 w-10"
+              aria-label="Back to team"
+            >
+              <ArrowLeft className="h-5 w-5" aria-hidden="true" />
+            </Button>
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-foreground">Book a consultation</h1>
+              <p className="text-sm text-muted-foreground">With {doctorName}</p>
+            </div>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Booking Form */}
