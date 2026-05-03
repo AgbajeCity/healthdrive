@@ -6,31 +6,8 @@ import { Truck, Calendar, MapPin, Sun, ArrowRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import RouteMap from "@/components/RouteMap";
-import { hubs } from "@/data/hubs";
-
-const findHubSlug = (coords: [number, number]) =>
-  hubs.find((h) => Math.abs(h.coords[0] - coords[0]) < 0.05 && Math.abs(h.coords[1] - coords[1]) < 0.05)?.slug;
-
-interface Visit {
-  date: string;
-  country: "Rwanda" | "Nigeria";
-  location: string;
-  type: "Refugee settlement" | "Rural community";
-  van: string;
-  services: string[];
-  time: string;
-  coords: [number, number];
-}
-
-const visits: Visit[] = [
-  { date: "2026-05-12", country: "Rwanda", location: "Mahama Refugee Camp, Kirehe", type: "Refugee settlement", van: "Van 01 — Solar", services: ["NCD screening", "Antenatal care", "Triage"], time: "08:00 – 16:00", coords: [-2.2167, 30.7833] },
-  { date: "2026-05-14", country: "Rwanda", location: "Kayonza District", type: "Rural community", van: "Van 02 — Solar", services: ["General consultation", "Hypertension monitoring"], time: "09:00 – 17:00", coords: [-1.8833, 30.6167] },
-  { date: "2026-05-16", country: "Rwanda", location: "Bugesera District", type: "Rural community", van: "Van 02 — Solar", services: ["Diabetes follow-up", "Child immunization"], time: "08:30 – 15:30", coords: [-2.2056, 30.1764] },
-  { date: "2026-05-19", country: "Rwanda", location: "Kigeme Refugee Camp, Nyamagabe", type: "Refugee settlement", van: "Van 01 — Solar", services: ["Mental health screening", "Medicine refills"], time: "09:00 – 17:00", coords: [-2.4667, 29.5333] },
-  { date: "2026-05-21", country: "Nigeria", location: "Ado-Ekiti outskirts, Ekiti State", type: "Rural community", van: "Van 03 — Solar", services: ["Cardiovascular screening", "Health education"], time: "09:00 – 16:00", coords: [7.6, 5.2] },
-  { date: "2026-05-24", country: "Nigeria", location: "Ogoja Refugee Settlement, Cross River", type: "Refugee settlement", van: "Van 03 — Solar", services: ["Primary care", "Maternal health", "Triage"], time: "08:00 – 16:00", coords: [6.6553, 8.7969] },
-  { date: "2026-05-27", country: "Rwanda", location: "Mahama Refugee Camp, Kirehe", type: "Refugee settlement", van: "Van 01 — Solar", services: ["Follow-up day", "NCD review"], time: "08:00 – 14:00", coords: [-2.2167, 30.7833] },
-];
+import { visits } from "@/data/schedule";
+import { findNearestHubSlug } from "@/lib/geo";
 
 const Schedule = () => {
   const [filter, setFilter] = useState<"All" | "Rwanda" | "Nigeria">("All");
@@ -68,7 +45,6 @@ const Schedule = () => {
             ))}
           </div>
 
-          {/* Interactive route map */}
           <Card className="bg-card/90 backdrop-blur-sm border-border/50 mb-8">
             <CardHeader>
               <CardTitle className="text-lg">Where the van is going next</CardTitle>
@@ -81,7 +57,7 @@ const Schedule = () => {
                   name: v.location.split(",")[0],
                   coords: v.coords,
                   date: v.date,
-                  hubSlug: findHubSlug(v.coords),
+                  hubSlug: findNearestHubSlug(v.coords),
                 }))}
                 highlightIndex={activeIdx}
                 onStopClick={(i) => setActiveIdx(i)}
@@ -95,6 +71,7 @@ const Schedule = () => {
           <div className="space-y-4">
             {filtered.map((v, i) => {
               const active = i === activeIdx;
+              const hubSlug = findNearestHubSlug(v.coords);
               return (
                 <Card
                   key={i}
@@ -124,9 +101,9 @@ const Schedule = () => {
                         <span key={idx} className="text-xs bg-muted px-2 py-1 rounded-full text-foreground">{s}</span>
                       ))}
                     </div>
-                    {findHubSlug(v.coords) && (
+                    {hubSlug && (
                       <Button asChild variant="outline" size="sm" onClick={(e) => e.stopPropagation()}>
-                        <Link to={`/health-hubs/${findHubSlug(v.coords)}`}>
+                        <Link to={`/health-hubs/${hubSlug}`}>
                           View Health Hub <ArrowRight className="w-3 h-3 ml-1" />
                         </Link>
                       </Button>

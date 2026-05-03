@@ -3,14 +3,33 @@ import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Phone, Users, Activity } from "lucide-react";
+import { ArrowLeft, MapPin, Phone, Users, Activity, Calendar, Truck } from "lucide-react";
 import { getHub } from "@/data/hubs";
 import ReferralForm from "@/components/ReferralForm";
 import RouteMap from "@/components/RouteMap";
+import { visits } from "@/data/schedule";
+import { findNearestHubSlug } from "@/lib/geo";
+import { useMemo } from "react";
 
 const HubDetail = () => {
   const { slug = "" } = useParams();
   const hub = getHub(slug);
+
+  const upcomingVisits = useMemo(() => {
+    if (!hub) return [];
+    const today = new Date().toISOString().slice(0, 10);
+    return visits
+      .filter((v) => findNearestHubSlug(v.coords) === hub.slug && v.date >= today)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(0, 5);
+  }, [hub]);
+
+  // Aggregate likely services across upcoming visits
+  const upcomingServices = useMemo(() => {
+    const set = new Set<string>();
+    upcomingVisits.forEach((v) => v.services.forEach((s) => set.add(s)));
+    return Array.from(set);
+  }, [upcomingVisits]);
 
   if (!hub) {
     return (
@@ -64,6 +83,57 @@ const HubDetail = () => {
                       ))}
                     </div>
                   </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card/90 backdrop-blur-sm border-border/50">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Truck className="w-5 h-5 text-primary" /> Upcoming mobile clinic visits
+                  </CardTitle>
+                  <CardDescription>
+                    Estimated services available at this hub during the next solar van stops.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {upcomingVisits.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      No upcoming visits scheduled. Check the <Link to="/schedule" className="text-primary underline">full schedule</Link>.
+                    </p>
+                  ) : (
+                    <>
+                      <ul className="space-y-3">
+                        {upcomingVisits.map((v, i) => (
+                          <li key={i} className="flex items-start gap-3 border-b border-border/40 pb-3 last:border-b-0 last:pb-0">
+                            <Calendar className="w-4 h-4 text-primary mt-1 shrink-0" />
+                            <div className="flex-1">
+                              <p className="text-sm font-medium text-foreground">
+                                {new Date(v.date).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })} • {v.time}
+                              </p>
+                              <p className="text-xs text-muted-foreground">{v.van}</p>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {v.services.map((s, idx) => (
+                                  <span key={idx} className="text-xs bg-muted px-2 py-0.5 rounded-full">{s}</span>
+                                ))}
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                      {upcomingServices.length > 0 && (
+                        <div>
+                          <h4 className="text-xs uppercase font-semibold text-muted-foreground mb-2">
+                            Estimated service availability
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {upcomingServices.map((s) => (
+                              <Badge key={s} variant="secondary">{s}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </CardContent>
               </Card>
 
