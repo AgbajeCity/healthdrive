@@ -39,6 +39,22 @@ const Navigation = () => {
             >
               USSD Services
             </Link>
+            <Link
+              to="/health-hubs"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive('/health-hubs') ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              Health Hubs
+            </Link>
+            <Link
+              to="/schedule"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive('/schedule') ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              Clinic Schedule
+            </Link>
             <Link 
               to="/team" 
               className={`text-sm font-medium transition-colors hover:text-primary ${
