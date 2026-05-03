@@ -15,6 +15,22 @@ const HubDetail = () => {
   const { slug = "" } = useParams();
   const hub = getHub(slug);
 
+  const upcomingVisits = useMemo(() => {
+    if (!hub) return [];
+    const today = new Date().toISOString().slice(0, 10);
+    return visits
+      .filter((v) => findNearestHubSlug(v.coords) === hub.slug && v.date >= today)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(0, 5);
+  }, [hub]);
+
+  // Aggregate likely services across upcoming visits
+  const upcomingServices = useMemo(() => {
+    const set = new Set<string>();
+    upcomingVisits.forEach((v) => v.services.forEach((s) => set.add(s)));
+    return Array.from(set);
+  }, [upcomingVisits]);
+
   if (!hub) {
     return (
       <div className="min-h-screen bg-gradient-hero">
