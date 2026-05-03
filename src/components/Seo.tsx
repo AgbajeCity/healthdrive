@@ -6,12 +6,13 @@ export interface SeoProps {
   path?: string; // canonical path, e.g. "/services"
   image?: string; // absolute or relative
   type?: "website" | "article";
+  jsonLd?: Record<string, any> | Record<string, any>[];
 }
 
 const SITE_NAME = "HealthDrive";
 const DEFAULT_IMAGE = "/og-image.jpg";
 
-const Seo = ({ title, description, path = "/", image = DEFAULT_IMAGE, type = "website" }: SeoProps) => {
+const Seo = ({ title, description, path = "/", image = DEFAULT_IMAGE, type = "website", jsonLd }: SeoProps) => {
   const origin = typeof window !== "undefined" ? window.location.origin : "https://healthdrive.lovable.app";
   const url = `${origin}${path}`;
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
@@ -40,6 +41,9 @@ const Seo = ({ title, description, path = "/", image = DEFAULT_IMAGE, type = "we
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
       <meta name="twitter:image:alt" content={`${SITE_NAME} — ${title}`} />
+      {jsonLd && (
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      )}
     </Helmet>
   );
 };
