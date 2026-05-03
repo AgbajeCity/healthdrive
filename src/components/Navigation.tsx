@@ -108,6 +108,20 @@ const Navigation = () => {
             >
               USSD Services
             </Link>
+            <Link
+              to="/health-hubs"
+              className="block text-sm font-medium text-muted-foreground hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Health Hubs
+            </Link>
+            <Link
+              to="/schedule"
+              className="block text-sm font-medium text-muted-foreground hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Clinic Schedule
+            </Link>
             <Link 
               to="/team" 
               className="block text-sm font-medium text-muted-foreground hover:text-primary"
