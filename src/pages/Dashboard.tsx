@@ -47,7 +47,7 @@ const Dashboard = () => {
       color: "text-green-400"
     },
     {
-      title: "Call with Dr. Jade",
+      title: "Call with Nadia",
       time: "1 month ago", 
       icon: Phone,
       color: "text-purple-400"
