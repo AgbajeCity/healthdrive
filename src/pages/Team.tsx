@@ -93,6 +93,11 @@ const Team = () => {
                   </CardHeader>
                   
                   <CardContent className="space-y-4">
+                    {/* Bio */}
+                    <p className="text-sm text-primary-foreground/90 leading-relaxed">
+                      {member.bio}
+                    </p>
+
                     {/* Specialties */}
                     <div>
                       <h4 className="font-semibold text-primary-foreground/90 mb-2 text-sm">Specialties:</h4>
