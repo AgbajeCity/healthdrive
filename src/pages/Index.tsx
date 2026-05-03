@@ -9,6 +9,8 @@ import heroUssdPhone from "@/assets/hero-ussd-phone.jpg";
 import heroHealthHub from "@/assets/hero-health-hub.jpg";
 import heroRouteMap from "@/assets/hero-route-map.jpg";
 import Testimonials from "@/components/Testimonials";
+import PrimaryCareFAQ from "@/components/PrimaryCareFAQ";
+import { Stethoscope, CalendarDays } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -44,7 +46,20 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="HealthDrive — Primary healthcare that travels" description="Primary healthcare delivered via USSD telehealth, solar-powered mobile clinics and community Health Hubs serving Rwanda and Nigeria." path="/" />
+      <Seo
+        title="HealthDrive — Primary healthcare that travels"
+        description="Primary healthcare delivered via USSD telehealth, solar-powered mobile clinics and community Health Hubs serving Rwanda and Nigeria."
+        path="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            { "@type": "Question", name: "What is primary healthcare and what does it cover?", acceptedAnswer: { "@type": "Answer", text: "Primary healthcare is everyday first-contact care: screenings, common illness treatment, maternal & child health, NCD follow-up, mental wellness check-ins and referrals." } },
+            { "@type": "Question", name: "Do I need a smartphone or internet to use HealthDrive?", acceptedAnswer: { "@type": "Answer", text: "No. Any basic feature phone works via USSD short-codes — no data, no app, no account." } },
+            { "@type": "Question", name: "Which USSD code should I dial?", acceptedAnswer: { "@type": "Answer", text: "*911# emergencies, *123# find a clinic, *456# AI symptom guidance, *789# reach a CHV." } },
+          ],
+        }}
+      />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
 
       {/* HERO */}
