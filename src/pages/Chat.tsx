@@ -7,8 +7,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageCircle, Send, Phone, Video, MoreVertical, ArrowLeft } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ayomideImage from "@/assets/ayomide-agbaje.jpg";
-import jadeImage from "@/assets/jade-tuzinde.jpg";
-import inezaImage from "@/assets/ineza-agape.jpg";
+import florenceImage from "@/assets/florence-kabeya.jpg";
+import nadiaImage from "@/assets/nadia-gikundiro.jpg";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -26,8 +26,8 @@ const Chat = () => {
 
   const getDoctorImage = (name: string) => {
     if (name.includes('AYOMIDE')) return ayomideImage;
-    if (name.includes('JADE')) return jadeImage;
-    if (name.includes('INEZA')) return inezaImage;
+    if (name.includes('FLORENCE')) return florenceImage;
+    if (name.includes('NADIA')) return nadiaImage;
     return ayomideImage;
   };
 
