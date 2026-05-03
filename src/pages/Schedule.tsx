@@ -59,7 +59,7 @@ const Schedule = () => {
                   name: v.location.split(",")[0],
                   coords: v.coords,
                   date: v.date,
-                  hubSlug: findNearestHubSlug(v.coords),
+                  hubSlug: findNearestHubSlug(v.coords, radius),
                 }))}
                 highlightIndex={activeIdx}
                 onStopClick={(i) => setActiveIdx(i)}
@@ -73,7 +73,7 @@ const Schedule = () => {
           <div className="space-y-4">
             {filtered.map((v, i) => {
               const active = i === activeIdx;
-              const hubSlug = findNearestHubSlug(v.coords);
+              const hubSlug = findNearestHubSlug(v.coords, radius);
               return (
                 <Card
                   key={i}
