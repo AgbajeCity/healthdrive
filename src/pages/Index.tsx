@@ -14,19 +14,19 @@ const Index = () => {
   const features = [
     {
       icon: Phone,
-      text: "Connects doctors & rural patients via video calls"
+      text: "USSD-based telehealth on any basic feature phone — no smartphone or internet required"
     },
     {
       icon: Truck,
-      text: "Accessible at local mobile clinics"
+      text: "Solar-powered mobile clinics travelling to refugee settlements and remote rural areas"
     },
     {
-      icon: Calendar,
-      text: "Online appointment scheduling feature"
+      icon: Users,
+      text: "Community Health Hubs and CHWs sustain follow-up care after the van leaves"
     },
     {
-      icon: Phone,
-      text: "Accessible via Safaricom USSD code for feature phones via *182#"
+      icon: Heart,
+      text: "AI-assisted triage fine-tuned on Llama-3-8B for symptom classification and referral"
     }
   ];
 
