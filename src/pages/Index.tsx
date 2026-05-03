@@ -404,13 +404,13 @@ const Index = () => {
                 <Truck className="w-12 h-12 text-foreground" />
               </div>
               <h2 className="text-4xl md:text-6xl font-bold text-foreground">
-                FIND A MOBILE
+                SOLAR-POWERED
               </h2>
               <h3 className="text-4xl md:text-6xl font-bold text-foreground">
-                CLINIC NEAR YOU
+                MOBILE CLINICS
               </h3>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Locate the nearest mobile health clinic for immediate medical assistance and consultation
+                Our vans are equipped with diagnostic tools and staffed by medical professionals who provide consultations, screenings, and treatment close to where people live — in refugee settlements and remote rural areas where clinics and hospitals are scarce. Community health volunteers and telehealth services connect patients to continuity of care through community-based Health Hubs.
               </p>
             </div>
 
