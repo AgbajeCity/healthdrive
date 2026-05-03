@@ -1,42 +1,53 @@
 import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Truck, Stethoscope, GraduationCap, Cross } from "lucide-react";
+import { Truck, Phone, Users, Heart, Cross, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Services = () => {
   const services = [
     {
+      icon: Phone,
+      title: "USSD-Based Telehealth",
+      description: "Healthcare on any basic feature phone — no smartphone, no internet, no data plan required. Free for the patient.",
+      features: [
+        "*911# — Emergency triage",
+        "*123# — Clinic navigation",
+        "*456# — AI-assisted symptom classification",
+        "*789# — CHW coordination"
+      ]
+    },
+    {
       icon: Truck,
-      title: "Mobile Clinics",
-      description: "Bringing healthcare directly to underserved communities through our mobile clinic network.",
+      title: "Solar-Powered Mobile Clinics",
+      description: "Vans equipped with diagnostic tools and staffed by medical professionals, travelling to refugee settlements and remote rural areas.",
       features: [
-        "On-site medical consultations",
-        "Basic diagnostic services", 
-        "Prescription services",
-        "Health screenings"
+        "On-site consultations & screenings",
+        "Treatment close to where people live",
+        "Diagnostics where facilities are scarce",
+        "Powered entirely by solar"
       ]
     },
     {
-      icon: Stethoscope,
-      title: "Specialty Telehealth",
-      description: "Connect with specialist doctors through secure video consultations from anywhere.",
+      icon: Users,
+      title: "Community Health Hubs",
+      description: "Community health volunteers and telehealth services sustain follow-up care after the mobile clinic leaves.",
       features: [
-        "Video consultations with specialists",
-        "Digital prescription services",
-        "Follow-up appointments",
-        "Medical record management"
+        "Continuity of care between visits",
+        "Locally trusted CHWs",
+        "Chronic disease (NCD) follow-up",
+        "Refugee settlement support"
       ]
     },
     {
-      icon: GraduationCap,
-      title: "Health Education",
-      description: "Comprehensive health education programs to promote preventive care and wellness.",
+      icon: Activity,
+      title: "AI-Assisted Triage",
+      description: "Symptom classification fine-tuned on Meta Llama-3-8B — BLEU 36.55, a 319% improvement over baseline.",
       features: [
-        "Community health workshops",
-        "Disease prevention education",
-        "Nutrition counseling",
-        "Health awareness campaigns"
+        "Triage and referral routing",
+        "Mutuelle de Santé integration",
+        "Patient records across touchpoints",
+        "Open-source on GitHub"
       ]
     }
   ];
