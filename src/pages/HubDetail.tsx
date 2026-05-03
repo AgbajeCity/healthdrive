@@ -9,6 +9,7 @@ import ReferralForm from "@/components/ReferralForm";
 import RouteMap from "@/components/RouteMap";
 import { visits } from "@/data/schedule";
 import { findNearestHubSlug } from "@/lib/geo";
+import { useMatchRadiusKm } from "@/hooks/use-match-radius";
 import { useMemo } from "react";
 
 const HubDetail = () => {
