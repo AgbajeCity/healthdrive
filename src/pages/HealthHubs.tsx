@@ -2,81 +2,10 @@ import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Phone, Users, Heart } from "lucide-react";
-
-interface Hub {
-  name: string;
-  country: "Rwanda" | "Nigeria";
-  district: string;
-  type: "Refugee settlement" | "Rural community";
-  chv: string;
-  chvPhone: string;
-  ussd: string;
-  services: string[];
-}
-
-const hubs: Hub[] = [
-  {
-    name: "Mahama Health Hub",
-    country: "Rwanda",
-    district: "Kirehe District — Mahama Refugee Camp",
-    type: "Refugee settlement",
-    chv: "Esperance Mukamana",
-    chvPhone: "+250 788 123 456",
-    ussd: "*789#",
-    services: ["NCD follow-up", "Maternal health", "USSD triage support"],
-  },
-  {
-    name: "Kayonza Community Hub",
-    country: "Rwanda",
-    district: "Kayonza District",
-    type: "Rural community",
-    chv: "Jean-Paul Habimana",
-    chvPhone: "+250 788 234 567",
-    ussd: "*789#",
-    services: ["Mobile clinic coordination", "Hypertension monitoring", "Referral routing"],
-  },
-  {
-    name: "Bugesera Community Hub",
-    country: "Rwanda",
-    district: "Bugesera District",
-    type: "Rural community",
-    chv: "Claudine Uwimana",
-    chvPhone: "+250 788 345 678",
-    ussd: "*789#",
-    services: ["Diabetes follow-up", "Child immunization", "Mutuelle de Santé support"],
-  },
-  {
-    name: "Kigeme Health Hub",
-    country: "Rwanda",
-    district: "Nyamagabe — Kigeme Refugee Camp",
-    type: "Refugee settlement",
-    chv: "Aline Ingabire",
-    chvPhone: "+250 788 456 789",
-    ussd: "*789#",
-    services: ["Medicine continuity", "Mental health screening", "Antenatal care"],
-  },
-  {
-    name: "Ado-Ekiti Rural Hub",
-    country: "Nigeria",
-    district: "Ekiti State — Ado-Ekiti outskirts",
-    type: "Rural community",
-    chv: "Folake Adeyemi",
-    chvPhone: "+234 803 123 4567",
-    ussd: "*789#",
-    services: ["Cardiovascular screening", "Health education", "Emergency referral"],
-  },
-  {
-    name: "Ogoja Refugee Hub",
-    country: "Nigeria",
-    district: "Cross River — Ogoja Settlement",
-    type: "Refugee settlement",
-    chv: "Emeka Obi",
-    chvPhone: "+234 803 234 5678",
-    ussd: "*789#",
-    services: ["Primary care", "Supply chain coordination", "CHW dispatch"],
-  },
-];
+import { MapPin, Phone, Users, Heart, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { hubs } from "@/data/hubs";
+import ReferralForm from "@/components/ReferralForm";
 
 const HealthHubs = () => {
   return (
@@ -91,13 +20,13 @@ const HealthHubs = () => {
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Health Hubs Directory</h1>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Community-based hubs in Rwanda and Nigeria where local Community Health Volunteers (CHVs)
-              sustain care between mobile clinic visits. Tap a hub to call your local CHV directly.
+              sustain care between mobile clinic visits.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {hubs.map((hub, i) => (
-              <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {hubs.map((hub) => (
+              <Card key={hub.slug} className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare flex flex-col">
                 <CardHeader>
                   <div className="flex items-start justify-between gap-2">
                     <CardTitle className="text-lg">{hub.name}</CardTitle>
@@ -109,7 +38,7 @@ const HealthHubs = () => {
                     <MapPin className="w-4 h-4" /> {hub.district}, {hub.country}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 text-sm">
                     <Users className="w-4 h-4 text-primary" />
                     <span className="text-foreground"><strong>CHV:</strong> {hub.chv}</span>
@@ -122,22 +51,37 @@ const HealthHubs = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="flex gap-2 pt-2">
-                    <Button asChild size="sm" className="flex-1">
-                      <a href={`tel:${hub.chvPhone.replace(/\s/g, "")}`}>
-                        <Phone className="w-3 h-3 mr-1" /> Call CHV
-                      </a>
-                    </Button>
-                    <Button asChild size="sm" variant="outline" className="flex-1">
-                      <a href={`tel:${encodeURIComponent(hub.ussd)}`}>
-                        Dial {hub.ussd}
-                      </a>
-                    </Button>
+                  <div className="mt-auto space-y-2 pt-2">
+                    <div className="flex gap-2">
+                      <Button asChild size="sm" className="flex-1">
+                        <a href={`tel:${hub.chvPhone.replace(/\s/g, "")}`}>
+                          <Phone className="w-3 h-3 mr-1" /> Call CHV
+                        </a>
+                      </Button>
+                      <Button asChild size="sm" variant="outline" className="flex-1">
+                        <Link to={`/health-hubs/${hub.slug}`}>
+                          Details <ArrowRight className="w-3 h-3 ml-1" />
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
+
+          {/* Patient → CHV referral */}
+          <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare max-w-3xl mx-auto">
+            <CardHeader>
+              <CardTitle>Request a CHV referral</CardTitle>
+              <CardDescription>
+                Share your location and the services you need. The Community Health Volunteer at your nearest Health Hub will follow up.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ReferralForm />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

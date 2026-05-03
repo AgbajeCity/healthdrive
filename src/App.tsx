@@ -19,6 +19,7 @@ import Profile from "./pages/Profile";
 import USSD from "./pages/USSD";
 import Map from "./pages/Map";
 import HealthHubs from "./pages/HealthHubs";
+import HubDetail from "./pages/HubDetail";
 import Schedule from "./pages/Schedule";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/ussd" element={<USSD />} />
           <Route path="/map" element={<Map />} />
           <Route path="/health-hubs" element={<HealthHubs />} />
+          <Route path="/health-hubs/:slug" element={<HubDetail />} />
           <Route path="/schedule" element={<Schedule />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
