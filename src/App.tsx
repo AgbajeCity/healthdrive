@@ -48,6 +48,7 @@ const App = () => (
           <Route path="/ussd" element={<USSD />} />
           <Route path="/map" element={<Map />} />
           <Route path="/health-hubs" element={<HealthHubs />} />
+          <Route path="/health-hubs/:slug" element={<HubDetail />} />
           <Route path="/schedule" element={<Schedule />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
