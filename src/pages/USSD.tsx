@@ -67,8 +67,8 @@ const USSD = () => {
   const renderMainMenu = () => (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-primary mb-2">USSD Services</h1>
-        <p className="text-lg text-foreground">Access healthcare services instantly via USSD on any mobile device</p>
+        <h1 className="text-3xl font-bold text-primary mb-2">Primary Care via USSD</h1>
+        <p className="text-base text-muted-foreground max-w-2xl mx-auto">Tap a code below to simulate the call. Each shortcut delivers a primary-care service.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
