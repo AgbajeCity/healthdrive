@@ -14,22 +14,12 @@ const Team = () => {
       
       <div className="pt-20">
         {/* Header Section */}
-        <section className="py-16 text-center">
+        <section className="py-12 text-center">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-16 h-16 bg-primary/20 rounded-lg flex items-center justify-center mr-4">
-                <MessageCircle className="w-8 h-8 text-primary" />
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              BOOK A CONSULTATION
-            </h1>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-8">
-              WITH OUR TEAM
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Connect with our experienced healthcare professionals who are dedicated 
-              to providing quality care and support to underserved communities.
+            <Users className="w-10 h-10 text-primary mx-auto mb-3" />
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">Meet the team</h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Healthcare professionals serving refugee & rural communities.
             </p>
           </div>
         </section>

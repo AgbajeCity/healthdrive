@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Truck, Phone, Users, Heart, Cross, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroMobileClinic from "@/assets/hero-mobile-clinic.jpg";
 
 const Services = () => {
   const services = [
@@ -58,14 +59,20 @@ const Services = () => {
       
       <div className="pt-20">
         {/* Header Section */}
-        <section className="py-16 text-center">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              OUR SERVICES
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Healthcare delivered directly to refugee settlements and rural communities in Rwanda and Nigeria — through low-tech USSD, solar-powered mobile clinics, and community-based Health Hubs.
-            </p>
+        <section className="pt-12 pb-8">
+          <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Our Services</h1>
+              <p className="text-lg text-muted-foreground">
+                Care delivered through USSD, solar mobile clinics, and community hubs.
+              </p>
+            </div>
+            <img
+              src={heroMobileClinic}
+              alt="HealthDrive mobile clinic"
+              loading="lazy"
+              className="rounded-2xl shadow-xl object-cover w-full aspect-[16/9]"
+            />
           </div>
         </section>
 
