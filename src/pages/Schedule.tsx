@@ -2,9 +2,14 @@ import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Truck, Calendar, MapPin, Sun } from "lucide-react";
+import { Truck, Calendar, MapPin, Sun, ArrowRight } from "lucide-react";
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import RouteMap from "@/components/RouteMap";
+import { hubs } from "@/data/hubs";
+
+const findHubSlug = (coords: [number, number]) =>
+  hubs.find((h) => Math.abs(h.coords[0] - coords[0]) < 0.05 && Math.abs(h.coords[1] - coords[1]) < 0.05)?.slug;
 
 interface Visit {
   date: string;
