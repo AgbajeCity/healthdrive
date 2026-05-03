@@ -118,12 +118,19 @@ const Schedule = () => {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="space-y-3">
                     <div className="flex flex-wrap gap-2">
                       {v.services.map((s, idx) => (
                         <span key={idx} className="text-xs bg-muted px-2 py-1 rounded-full text-foreground">{s}</span>
                       ))}
                     </div>
+                    {findHubSlug(v.coords) && (
+                      <Button asChild variant="outline" size="sm" onClick={(e) => e.stopPropagation()}>
+                        <Link to={`/health-hubs/${findHubSlug(v.coords)}`}>
+                          View Health Hub <ArrowRight className="w-3 h-3 ml-1" />
+                        </Link>
+                      </Button>
+                    )}
                   </CardContent>
                 </Card>
               );
