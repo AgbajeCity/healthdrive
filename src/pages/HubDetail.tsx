@@ -3,10 +3,13 @@ import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Phone, Users, Activity } from "lucide-react";
+import { ArrowLeft, MapPin, Phone, Users, Activity, Calendar, Truck } from "lucide-react";
 import { getHub } from "@/data/hubs";
 import ReferralForm from "@/components/ReferralForm";
 import RouteMap from "@/components/RouteMap";
+import { visits } from "@/data/schedule";
+import { findNearestHubSlug } from "@/lib/geo";
+import { useMemo } from "react";
 
 const HubDetail = () => {
   const { slug = "" } = useParams();
