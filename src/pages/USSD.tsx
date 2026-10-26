@@ -8,6 +8,7 @@ import Navigation from "@/components/Navigation";
 import Seo from "@/components/Seo";
 import { useToast } from "@/hooks/use-toast";
 import { USSD_SHORTCUTS, ussdServiceMap } from "@/data/ussd-shortcuts";
+import { PLANNED_LABEL, SANDBOX_NOTICE } from "@/data/pilot";
 
 const USSD = () => {
   const [currentScreen, setCurrentScreen] = useState("main");
@@ -61,7 +62,7 @@ const USSD = () => {
     <div className="space-y-6">
       <div className="text-center">
         <h1 className="text-3xl font-bold text-primary mb-2">Primary Care via USSD</h1>
-        <p className="text-base text-muted-foreground max-w-2xl mx-auto">Tap a code below to simulate the call. Each shortcut delivers a primary-care service.</p>
+        <p className="text-base text-muted-foreground max-w-2xl mx-auto">The four codes below are the planned design and are not live. {SANDBOX_NOTICE} No telecom operator agreement exists and the service is not open to the public.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -74,24 +75,14 @@ const USSD = () => {
                 <Heart className="w-6 h-6 text-red-500" />
                 <CardTitle className="text-lg">Emergency Services</CardTitle>
               </div>
-              <Badge variant="destructive">Urgent</Badge>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
             <CardDescription>Quick access to emergency healthcare services</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
               <span className="text-2xl font-mono">*911#</span>
-              <Button 
-                size="sm" 
-                variant="destructive"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dialUSSD("*911#");
-                }}
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Dial Now
-              </Button>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
           </CardContent>
         </Card>
@@ -105,23 +96,14 @@ const USSD = () => {
                 <MapPin className="w-6 h-6 text-blue-500" />
                 <CardTitle className="text-lg">Find Nearby Clinics</CardTitle>
               </div>
-              <Badge variant="secondary">Popular</Badge>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
             <CardDescription>Locate healthcare facilities in your area</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
               <span className="text-2xl font-mono">*123#</span>
-              <Button 
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dialUSSD("*123#");
-                }}
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Dial Now
-              </Button>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
           </CardContent>
         </Card>
@@ -139,16 +121,7 @@ const USSD = () => {
           <CardContent>
             <div className="flex items-center justify-between">
               <span className="text-2xl font-mono">*456#</span>
-              <Button 
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dialUSSD("*456#");
-                }}
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Dial Now
-              </Button>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
           </CardContent>
         </Card>
@@ -166,16 +139,7 @@ const USSD = () => {
           <CardContent>
             <div className="flex items-center justify-between">
               <span className="text-2xl font-mono">*789#</span>
-              <Button 
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dialUSSD("*789#");
-                }}
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Dial Now
-              </Button>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
           </CardContent>
         </Card>
@@ -186,25 +150,25 @@ const USSD = () => {
         <CardHeader>
           <CardTitle className="flex items-center">
             <Phone className="w-5 h-5 mr-2" />
-            How to Use USSD Services
+            How the planned USSD service would work
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="flex items-start space-x-3">
             <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">1</div>
-            <p className="text-foreground">Dial the USSD code on your mobile phone</p>
+            <p className="text-foreground">A patient would dial a code on a basic mobile phone</p>
           </div>
           <div className="flex items-start space-x-3">
             <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">2</div>
-            <p className="text-foreground">Follow the menu options displayed on your screen</p>
+            <p className="text-foreground">Menu options would appear on screen</p>
           </div>
           <div className="flex items-start space-x-3">
             <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">3</div>
-            <p className="text-foreground">Press the corresponding number for your choice</p>
+            <p className="text-foreground">The patient would press a number to choose</p>
           </div>
           <div className="flex items-start space-x-3">
             <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold">4</div>
-            <p className="text-foreground">Receive instant information or assistance</p>
+            <p className="text-foreground">Information or next steps would be shown</p>
           </div>
         </CardContent>
       </Card>
@@ -1848,14 +1812,7 @@ const USSD = () => {
                 >
                   <Copy className="w-4 h-4" />
                 </Button>
-                <Button 
-                  size="sm" 
-                  variant="destructive"
-                  onClick={() => dialUSSD("*911#")}
-                >
-                  <Phone className="w-4 h-4 mr-1" />
-                  Dial
-                </Button>
+                <Badge variant="outline">{PLANNED_LABEL}</Badge>
               </div>
             </div>
           </CardContent>
@@ -1895,13 +1852,7 @@ const USSD = () => {
               >
                 <Copy className="w-4 h-4" />
               </Button>
-              <Button 
-                size="sm"
-                onClick={() => dialUSSD("*123#")}
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Dial
-              </Button>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
           </div>
         </CardContent>
@@ -1940,13 +1891,7 @@ const USSD = () => {
               >
                 <Copy className="w-4 h-4" />
               </Button>
-              <Button 
-                size="sm"
-                onClick={() => dialUSSD("*456#")}
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Dial
-              </Button>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
           </div>
         </CardContent>
@@ -1985,13 +1930,7 @@ const USSD = () => {
               >
                 <Copy className="w-4 h-4" />
               </Button>
-              <Button 
-                size="sm"
-                onClick={() => dialUSSD("*789#")}
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Dial
-              </Button>
+              <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
           </div>
         </CardContent>
@@ -2003,8 +1942,8 @@ const USSD = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       <Seo
-        title="USSD Primary Healthcare"
-        description="Primary healthcare on any feature phone. Dial *911# emergencies, *123# clinics, *456# AI symptom guidance, *789# CHV — no internet required."
+        title="Planned USSD Primary Healthcare"
+        description="Planned USSD primary healthcare service for basic feature phones. Codes *911#, *123#, *456#, *789# are planned and not live; a sandbox test build is running for development only."
         path="/ussd"
       />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
@@ -2020,7 +1959,7 @@ const USSD = () => {
               <span className="text-2xl font-bold text-foreground">HealthDrive USSD</span>
             </div>
             <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-              Primary healthcare on any feature phone — screening, treatment guidance and CHV referrals. No smartphone, no internet, free for the patient.
+              Planned primary healthcare service for any basic feature phone — not live. {SANDBOX_NOTICE}
             </p>
           </div>
 
@@ -2035,19 +1974,18 @@ const USSD = () => {
                       const colorMap: Record<string, string> = { emergency: "text-red-500", clinics: "text-blue-500", "health-info": "text-green-500", community: "text-purple-500" };
                       const Icon = iconMap[s.service];
                       return (
-                        <button
+                        <div
                           key={s.code}
                           data-testid={`ussd-shortcut-${s.service}`}
                           data-code={s.code}
                           data-screen={s.screen}
-                          onClick={() => dialUSSD(s.code)}
-                          className="rounded-lg border border-border/50 p-3 hover:ring-2 hover:ring-primary/30 transition"
-                          aria-label={`Dial ${s.code} — ${s.label}`}
+                          className="rounded-lg border border-border/50 p-3"
                         >
                           <Icon className={`w-5 h-5 mx-auto mb-1 ${colorMap[s.service]}`} />
                           <div className="font-mono font-bold text-foreground text-sm">{s.code}</div>
                           <div className="text-[11px] text-muted-foreground mt-0.5">{s.label}</div>
-                        </button>
+                          <Badge variant="outline" className="mt-1 text-[10px]">{PLANNED_LABEL}</Badge>
+                        </div>
                       );
                     })}
                   </div>

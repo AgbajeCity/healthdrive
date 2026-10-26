@@ -11,7 +11,7 @@ const PrimaryCareFAQ = () => {
             <HelpCircle className="w-6 h-6 text-primary" />
           </div>
           <h2 id="faq-heading" className="text-3xl font-bold text-foreground">Primary care, answered.</h2>
-          <p className="text-muted-foreground mt-2">Access, coverage, and how USSD connects you to care.</p>
+          <p className="text-muted-foreground mt-2">Access, status, and how the planned USSD service would work.</p>
         </div>
         <Accordion type="single" collapsible className="w-full">
           {PRIMARY_CARE_FAQ.map((f, i) => (
