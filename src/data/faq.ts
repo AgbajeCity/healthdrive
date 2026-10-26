@@ -30,7 +30,7 @@ export const PRIMARY_CARE_FAQ: FaqEntry[] = [
   },
   {
     q: "Where do you operate?",
-    a: "No HealthDrive service is operating yet. HealthDrive Technologies LTD is registered in Rwanda (Kigali), and Rwanda is our focus. The planned first deployment is Mahama Refugee Camp, Kirehe District, with no date set. Nigeria is a later expansion market. Our published research pilot ran in Bugesera and Kayonza districts, Rwanda (Aug 2024 – Mar 2026).",
+    a: "No HealthDrive service is operating yet. HealthDrive Technologies LTD is registered in Rwanda (Company Code / TIN 156795747, registered 10 August 2026, Kigali), and Rwanda is our focus. The planned first deployment is Mahama Refugee Camp, Kirehe District, with no date set. Nigeria is a later expansion market. Our published research pilot ran in Bugesera and Kayonza districts, Rwanda (Aug 2024 – Mar 2026).",
   },
 ];
 
