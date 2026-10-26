@@ -506,7 +506,7 @@ const ReferralRow = ({ row, saving, onSave }: RowProps) => {
           </div>
           <div>
             <Label className="text-xs uppercase">Assigned CHV</Label>
-            <Input value={chv} placeholder={hub?.chv ?? "CHV name"} onChange={(e) => setChv(e.target.value)} maxLength={120} />
+            <Input value={chv} placeholder="CHV name" onChange={(e) => setChv(e.target.value)} maxLength={120} />
           </div>
           <Button size="sm" disabled={!dirty || saving}
             onClick={() => onSave(row.reference_code, status, chv.trim() || null)}>

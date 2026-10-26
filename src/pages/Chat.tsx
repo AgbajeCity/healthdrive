@@ -25,9 +25,9 @@ const Chat = () => {
   ]);
 
   const getDoctorImage = (name: string) => {
-    if (name.includes('AYOMIDE')) return ayomideImage;
-    if (name.includes('FLORENCE')) return florenceImage;
-    if (name.includes('NADIA')) return nadiaImage;
+    if (name.toUpperCase().includes('AYOMIDE')) return ayomideImage;
+    if (name.toUpperCase().includes('FLORENCE')) return florenceImage;
+    if (name.toUpperCase().includes('NADIA')) return nadiaImage;
     return ayomideImage;
   };
 

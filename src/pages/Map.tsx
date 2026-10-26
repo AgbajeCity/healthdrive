@@ -3,38 +3,38 @@ import Seo from "@/components/Seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Truck, ArrowRight, Phone } from "lucide-react";
+import { MapPin, Truck, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroRouteMap from "@/assets/hero-route-map.jpg";
-import { hubs } from "@/data/hubs";
+import { hubs, HUB_STATUS_LABEL } from "@/data/hubs";
 
 const Map = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="Find Primary Care Near You" description="Browse Health Hubs and locate the nearest mobile clinic stop for primary healthcare across Rwanda and Nigeria." path="/map" />
+      <Seo title="Planned Locations" description="Planned HealthDrive Health Hub locations and the planned first mobile clinic deployment in Rwanda. Nothing is operating yet." path="/map" />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-8 items-center mb-10">
             <div>
               <MapPin className="w-10 h-10 text-primary mb-3" aria-hidden="true" />
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">Find care near you</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">Planned locations</h1>
               <p className="text-lg text-muted-foreground mb-6">
-                Browse Health Hubs across Rwanda and Nigeria, or check the next mobile clinic stop.
+                Planned Health Hub locations, starting in Rwanda. No mobile clinic or Health Hub is operating yet.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button asChild>
-                  <Link to="/health-hubs">All hubs <ArrowRight className="w-4 h-4 ml-1" aria-hidden="true" /></Link>
+                  <Link to="/health-hubs">Planned hubs <ArrowRight className="w-4 h-4 ml-1" aria-hidden="true" /></Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link to="/schedule"><Truck className="w-4 h-4 mr-1" aria-hidden="true" /> Van schedule</Link>
+                  <Link to="/schedule"><Truck className="w-4 h-4 mr-1" aria-hidden="true" /> Clinic schedule</Link>
                 </Button>
               </div>
             </div>
             <img
               src={heroRouteMap}
-              alt="Rwanda and Nigeria map with mobile clinic routes"
+              alt="Illustration of planned mobile clinic coverage"
               loading="lazy"
               decoding="async"
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -44,7 +44,7 @@ const Map = () => {
             />
           </div>
 
-          <h2 className="text-2xl font-bold text-foreground mb-4">Featured hubs</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Planned hubs</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {hubs.slice(0, 6).map((h) => (
               <Card key={h.slug} className="bg-card/90 backdrop-blur-sm border-border/50">
@@ -60,14 +60,10 @@ const Map = () => {
                       {h.type}
                     </Badge>
                   </div>
+                  <Badge variant="outline">{HUB_STATUS_LABEL}</Badge>
                   <div className="flex gap-2">
                     <Button asChild size="sm" className="flex-1">
                       <Link to={`/health-hubs/${h.slug}`}>Details</Link>
-                    </Button>
-                    <Button asChild size="sm" variant="outline">
-                      <a href={`tel:${h.chvPhone.replace(/\s/g, "")}`} aria-label={`Call CHV ${h.chv}`}>
-                        <Phone className="w-3 h-3" aria-hidden="true" />
-                      </a>
                     </Button>
                   </div>
                 </CardContent>

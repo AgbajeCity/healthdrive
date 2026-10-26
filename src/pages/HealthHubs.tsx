@@ -5,11 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Phone, Users, Heart, ArrowRight, Search } from "lucide-react";
-import { Link } from "react-router-dom";
-import { hubs } from "@/data/hubs";
-import ReferralForm from "@/components/ReferralForm";
+import { MapPin, Heart, ArrowRight, Search, Info } from "lucide-react";
+import { hubs, HUB_STATUS_LABEL } from "@/data/hubs";
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import heroHealthHub from "@/assets/hero-health-hub.jpg";
 
 const HealthHubs = () => {
@@ -30,7 +29,7 @@ const HealthHubs = () => {
       if (type !== "all" && h.type !== type) return false;
       if (service !== "all" && !h.services.includes(service)) return false;
       if (q) {
-        const hay = `${h.name} ${h.district} ${h.chv} ${h.services.join(" ")}`.toLowerCase();
+        const hay = `${h.name} ${h.district} ${h.services.join(" ")}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
@@ -47,7 +46,7 @@ const HealthHubs = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="Health Hubs — Community Primary Care" description="Find community Health Hubs and CHVs delivering primary healthcare across Rwanda and Nigeria. Submit a referral and track its status." path="/health-hubs" />
+      <Seo title="Planned Health Hubs" description="Planned community Health Hub locations for HealthDrive in Rwanda and Nigeria. No Health Hub is operating yet." path="/health-hubs" />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
@@ -56,12 +55,12 @@ const HealthHubs = () => {
               <Heart className="w-10 h-10 text-primary mb-3" />
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">Health Hubs</h1>
               <p className="text-lg text-muted-foreground">
-                Community-based hubs in Rwanda and Nigeria, run by local CHVs.
+                Planned community-based hubs, starting in Rwanda. No Health Hub is operating yet.
               </p>
             </div>
             <img
               src={heroHealthHub}
-              alt="Community Health Volunteer with patients"
+              alt="Illustration of a planned community health hub"
               loading="lazy"
               decoding="async"
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -81,7 +80,7 @@ const HealthHubs = () => {
                     <Search className="w-4 h-4 absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       className="pl-8"
-                      placeholder="Hub, district, CHV…"
+                      placeholder="Hub, district, service…"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       maxLength={80}
@@ -125,7 +124,7 @@ const HealthHubs = () => {
               </div>
               <div className="flex items-center justify-between mt-4">
                 <p className="text-sm text-muted-foreground">
-                  Showing {filtered.length} of {hubs.length} hubs
+                  Showing {filtered.length} of {hubs.length} planned hubs
                 </p>
                 <Button variant="ghost" size="sm" onClick={reset}>Reset filters</Button>
               </div>
@@ -154,12 +153,9 @@ const HealthHubs = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4 flex-1 flex flex-col">
-                    <div className="flex items-center gap-2 text-sm">
-                      <Users className="w-4 h-4 text-primary" />
-                      <span className="text-foreground"><strong>CHV:</strong> {hub.chv}</span>
-                    </div>
+                    <Badge variant="outline" className="w-fit">{HUB_STATUS_LABEL}</Badge>
                     <div>
-                      <h4 className="text-xs font-semibold text-muted-foreground mb-2 uppercase">Services</h4>
+                      <h4 className="text-xs font-semibold text-muted-foreground mb-2 uppercase">Planned services</h4>
                       <div className="flex flex-wrap gap-1">
                         {hub.services.map((s, idx) => (
                           <span key={idx} className="text-xs bg-muted px-2 py-1 rounded-full text-foreground">{s}</span>
@@ -168,11 +164,6 @@ const HealthHubs = () => {
                     </div>
                     <div className="mt-auto space-y-2 pt-2">
                       <div className="flex gap-2">
-                        <Button asChild size="sm" className="flex-1">
-                          <a href={`tel:${hub.chvPhone.replace(/\s/g, "")}`}>
-                            <Phone className="w-3 h-3 mr-1" /> Call CHV
-                          </a>
-                        </Button>
                         <Button asChild size="sm" variant="outline" className="flex-1">
                           <Link to={`/health-hubs/${hub.slug}`}>
                             Details <ArrowRight className="w-3 h-3 ml-1" />
@@ -186,17 +177,11 @@ const HealthHubs = () => {
             </div>
           )}
 
-          {/* Patient → CHV referral */}
+          {/* Referrals notice */}
           <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare max-w-3xl mx-auto">
-            <CardHeader>
-              <CardTitle>Request a CHV referral</CardTitle>
-              <CardDescription>
-                Share your location and the services you need. The Community Health Volunteer at your nearest Health Hub will follow up.
-                Already submitted? <Link to="/referrals" className="text-primary underline">Track your referral</Link>.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ReferralForm />
+            <CardContent className="py-6 flex items-start gap-3">
+              <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <p className="text-foreground">Referral requests are not open yet.</p>
             </CardContent>
           </Card>
         </div>

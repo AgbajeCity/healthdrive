@@ -67,13 +67,13 @@ const ReferralStatus = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      <Seo title="Track Your Primary Care Referral" description="Enter your reference code to see the status of your CHV-led primary healthcare referral." path="/referrals" />
+      <Seo title="Referral Status" description="HealthDrive referral requests are not open yet." path="/referrals" />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-2xl">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center">Track your referral</h1>
           <p className="text-muted-foreground text-center mb-8">
-            Enter the reference code you received after submitting your referral.
+            Referral requests are not open yet.
           </p>
 
           <Card className="bg-card/90 backdrop-blur-sm border-border/50 shadow-card-healthcare mb-6">
