@@ -7,6 +7,8 @@ import {
   Stethoscope, Pill, Share2, Baby, HeartPulse, Eye, Syringe, Thermometer, ClipboardList, Hospital, ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import { PILOT_COST, PILOT_LABEL, PILOT_SOURCE, PLANNED_LABEL, SANDBOX_NOTICE } from "@/data/pilot";
 import heroMobileClinic from "@/assets/hero-mobile-clinic.jpg";
 
 type ServiceItem = { icon: any; title: string; desc: string };
@@ -27,36 +29,36 @@ const categories: Category[] = [
     tagline: "Early checks that catch problems before they grow.",
     accent: "text-blue-500 bg-blue-500/10",
     items: [
-      { icon: HeartPulse, title: "Blood pressure & diabetes", desc: "NCD screening at every van stop." },
-      { icon: Baby, title: "Maternal & child checks", desc: "Antenatal vitals, growth and immunization status." },
-      { icon: Eye, title: "Vision & basic vitals", desc: "Quick assessments via CHV." },
-      { icon: ClipboardList, title: "USSD symptom triage", desc: "Dial *456# for AI-assisted classification." },
+      { icon: HeartPulse, title: "Blood pressure & diabetes", desc: "Planned NCD screening at mobile clinic stops." },
+      { icon: Baby, title: "Maternal & child checks", desc: "Planned antenatal vitals, growth and immunization checks." },
+      { icon: Eye, title: "Vision & basic vitals", desc: "Planned quick assessments by community health workers." },
+      { icon: ClipboardList, title: "USSD symptom triage", desc: "Planned code *456# for AI-assisted classification. Not live." },
     ],
   },
   {
     id: "treatment",
     icon: Pill,
     title: "Treatment",
-    tagline: "Common primary-care illnesses treated on site.",
+    tagline: "Planned treatment of common primary-care illnesses on site.",
     accent: "text-emerald-500 bg-emerald-500/10",
     items: [
-      { icon: Thermometer, title: "Acute illness", desc: "Malaria, respiratory, diarrhoeal disease." },
-      { icon: Syringe, title: "Vaccinations", desc: "Routine immunization catch-up." },
-      { icon: Pill, title: "Chronic disease refills", desc: "Hypertension, diabetes follow-up." },
-      { icon: Truck, title: "Solar mobile clinic", desc: "Diagnostics & care delivered to you." },
+      { icon: Thermometer, title: "Acute illness", desc: "Planned care for malaria, respiratory and diarrhoeal disease." },
+      { icon: Syringe, title: "Vaccinations", desc: "Planned routine immunization catch-up." },
+      { icon: Pill, title: "Chronic disease refills", desc: "Planned hypertension and diabetes follow-up." },
+      { icon: Truck, title: "Solar mobile clinic", desc: "Planned. No vehicle is in service yet." },
     ],
   },
   {
     id: "referrals",
     icon: Share2,
     title: "Referrals",
-    tagline: "Trusted handoffs when specialist care is needed.",
+    tagline: "Planned handoffs when specialist care is needed.",
     accent: "text-purple-500 bg-purple-500/10",
     items: [
-      { icon: Hospital, title: "Hospital referral", desc: "Routed to the nearest partner facility." },
-      { icon: Users, title: "CHV follow-up", desc: "Local volunteer tracks your status." },
-      { icon: Phone, title: "*789# CHV line", desc: "Reach your community health volunteer." },
-      { icon: Activity, title: "Track by code", desc: "Open /referrals to see live status." },
+      { icon: Hospital, title: "Hospital referral", desc: "Planned routing to the nearest health facility." },
+      { icon: Users, title: "Community follow-up", desc: "Planned follow-up by a community health worker." },
+      { icon: Phone, title: "*789# community line", desc: "Planned code. Not live." },
+      { icon: Activity, title: "Track by code", desc: "Planned. Referral requests are not open yet." },
     ],
   },
 ];
@@ -66,8 +68,8 @@ const Services = () => {
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
       <Seo
-        title="Primary Care Services"
-        description="Primary healthcare services from HealthDrive — screening, treatment and referrals via USSD, solar mobile clinics and Health Hubs in Rwanda and Nigeria."
+        title="Planned Primary Care Services"
+        description="Planned primary healthcare services from HealthDrive — screening, treatment and referrals via USSD, solar mobile clinics and Health Hubs, starting in Rwanda. Not yet available."
         path="/services"
       />
       <a id="main" tabIndex={-1} className="sr-only">Main content</a>
@@ -79,12 +81,12 @@ const Services = () => {
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Primary care, three ways.</h1>
               <p className="text-lg text-muted-foreground">
-                Screening, treatment and referrals — delivered by USSD, solar mobile clinics and community Health Hubs.
+                Planned screening, treatment and referrals — through USSD, solar mobile clinics and community Health Hubs, starting in Rwanda. None of these services is available yet.
               </p>
             </div>
             <img
               src={heroMobileClinic}
-              alt="HealthDrive mobile clinic"
+              alt="Illustration of a planned HealthDrive mobile clinic"
               loading="lazy"
               decoding="async"
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -135,6 +137,7 @@ const Services = () => {
                       </div>
                       <div className="font-semibold text-foreground text-sm">{it.title}</div>
                       <div className="text-xs text-muted-foreground mt-1">{it.desc}</div>
+                      <Badge variant="outline" className="mt-2">{PLANNED_LABEL}</Badge>
                     </CardContent>
                   </Card>
                 ))}
@@ -149,29 +152,30 @@ const Services = () => {
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Approach &amp; Impact</h2>
               <p className="text-muted-foreground max-w-3xl mx-auto">
-                HealthDrive runs on two integrated delivery channels that reinforce each other — and a community layer that keeps care continuous after each visit.
+                HealthDrive is planned around two delivery channels that reinforce each other — and a community layer to keep care continuous after each visit. Neither channel is operating yet.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6 mb-12">
               <Card className="bg-card/90 backdrop-blur-sm border-border/50">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2"><span className="text-primary">1.</span> USSD-Based Telehealth</CardTitle>
+                  <CardTitle className="flex items-center gap-2"><span className="text-primary">1.</span> USSD-Based Telehealth <Badge variant="outline">{PLANNED_LABEL}</Badge></CardTitle>
                   <CardDescription>
-                    Four short codes on any basic feature phone — *911#, *123#, *456#, *789#. Free for the patient, no smartphone or internet required. Runs on Rwanda's 97.8% mobile SIM coverage and reaches communities outside the digital divide.
+                    Four planned short codes for any basic feature phone — *911#, *123#, *456#, *789#. Designed to need no smartphone or internet. The codes are not live: {SANDBOX_NOTICE} No telecom operator agreement is in place and the service is not open to the public.
                   </CardDescription>
                 </CardHeader>
               </Card>
               <Card className="bg-card/90 backdrop-blur-sm border-border/50">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2"><span className="text-primary">2.</span> Solar-Powered Mobile Clinics</CardTitle>
+                  <CardTitle className="flex items-center gap-2"><span className="text-primary">2.</span> Solar-Powered Mobile Clinics <Badge variant="outline">{PLANNED_LABEL}</Badge></CardTitle>
                   <CardDescription>
-                    Vans with diagnostic tools and medical professionals travel to refugee settlements and remote rural areas. Community Health Hubs and CHWs sustain follow-up after the van leaves — making care continuous, not episodic.
+                    Planned: vans with diagnostic tools and medical professionals would travel to refugee settlements and remote rural areas, with community Health Hubs sustaining follow-up after each visit. No vehicle or Health Hub is operating yet.
                   </CardDescription>
                 </CardHeader>
               </Card>
             </div>
 
+            <h3 className="text-xl font-bold text-center text-foreground mb-6">{PILOT_LABEL}</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { stat: "1,247", label: "USSD sessions" },
@@ -180,7 +184,7 @@ const Services = () => {
                 { stat: "92%", label: "CHW platform adoption" },
                 { stat: "70.4%", label: "Patient uptake" },
                 { stat: "7.8/10", label: "Patient satisfaction" },
-                { stat: "$125/mo", label: "Operational cost" },
+                PILOT_COST,
                 { stat: "BLEU 36.55", label: "AI triage (Llama-3-8B)" },
               ].map((item, i) => (
                 <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
@@ -193,7 +197,7 @@ const Services = () => {
             </div>
 
             <p className="text-xs text-center text-muted-foreground mt-6">
-              Pilot results from Bugesera and Kayonza districts, Rwanda (Aug 2024 – Mar 2026). Findings submitted to IJISRT; presented at the 2nd Primary Health Care Congress, Amref International University, Nairobi.
+              {PILOT_SOURCE}
             </p>
           </div>
         </section>
@@ -204,17 +208,14 @@ const Services = () => {
             <Card className="bg-primary/10 border-primary/20 max-w-4xl mx-auto">
               <CardContent className="p-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                  Get primary care today.
+                  Not open to the public yet.
                 </h2>
                 <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                  No login. No data. Dial a USSD code or check the next mobile clinic stop near you.
+                  HealthDrive is pre-revenue. The USSD service is in sandbox testing and no mobile clinic or Health Hub is operating. See the planned first deployment.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" asChild>
                     <Link to="/schedule">See the schedule <ArrowRight className="w-4 h-4 ml-1" /></Link>
-                  </Button>
-                  <Button size="lg" variant="outline" asChild>
-                    <Link to="/ussd">Try USSD</Link>
                   </Button>
                 </div>
               </CardContent>
