@@ -1,12 +1,16 @@
+// Health Hubs listed on the public site.
+// IMPORTANT: none of these hubs is operating. They are planned locations only.
+// Do not add community health volunteer names or phone numbers here.
+
+export const HUB_STATUS_LABEL = "Planned, not operating";
+
 export interface Hub {
   slug: string;
   name: string;
   country: "Rwanda" | "Nigeria";
   district: string;
   type: "Refugee settlement" | "Rural community";
-  chv: string;
-  chvPhone: string;
-  ussd: string;
+  /** Planned services — not currently available. */
   services: string[];
   /** Approximate map coordinates [lat, lng] */
   coords: [number, number];
@@ -16,87 +20,36 @@ export interface Hub {
 export const hubs: Hub[] = [
   {
     slug: "mahama",
-    name: "Mahama Health Hub",
+    name: "Mahama Refugee Camp",
     country: "Rwanda",
-    district: "Kirehe District — Mahama Refugee Camp",
+    district: "Kirehe District",
     type: "Refugee settlement",
-    chv: "Esperance Mukamana",
-    chvPhone: "+250 788 123 456",
-    ussd: "*789#",
     services: ["NCD follow-up", "Maternal health", "USSD triage support"],
     coords: [-2.2167, 30.7833],
     description:
-      "Serves Mahama Refugee Camp, Rwanda's largest refugee settlement. Focused on continuity of care for chronic conditions and maternal health, with USSD-based triage support between mobile clinic visits.",
-  },
-  {
-    slug: "kayonza",
-    name: "Kayonza Community Hub",
-    country: "Rwanda",
-    district: "Kayonza District",
-    type: "Rural community",
-    chv: "Jean-Paul Habimana",
-    chvPhone: "+250 788 234 567",
-    ussd: "*789#",
-    services: ["Mobile clinic coordination", "Hypertension monitoring", "Referral routing"],
-    coords: [-1.8833, 30.6167],
-    description:
-      "A rural hub anchoring HealthDrive's pilot in Eastern Province. Coordinates mobile clinic visits and routes referrals into Mutuelle de Santé reimbursement.",
-  },
-  {
-    slug: "bugesera",
-    name: "Bugesera Community Hub",
-    country: "Rwanda",
-    district: "Bugesera District",
-    type: "Rural community",
-    chv: "Claudine Uwimana",
-    chvPhone: "+250 788 345 678",
-    ussd: "*789#",
-    services: ["Diabetes follow-up", "Child immunization", "Mutuelle de Santé support"],
-    coords: [-2.2056, 30.1764],
-    description:
-      "Rural hub in Bugesera supporting NCD follow-up and child immunization, with strong CHW coverage across the district.",
-  },
-  {
-    slug: "kigeme",
-    name: "Kigeme Health Hub",
-    country: "Rwanda",
-    district: "Nyamagabe — Kigeme Refugee Camp",
-    type: "Refugee settlement",
-    chv: "Aline Ingabire",
-    chvPhone: "+250 788 456 789",
-    ussd: "*789#",
-    services: ["Medicine continuity", "Mental health screening", "Antenatal care"],
-    coords: [-2.4667, 29.5333],
-    description:
-      "Serving Kigeme Refugee Camp in Nyamagabe District, focused on medicine continuity and mental health screening for displaced families.",
+      "Planned Health Hub for Mahama Refugee Camp, Kirehe District, Rwanda. This is the planned first deployment site. It is not operating: no date is set and no vehicle is in service.",
   },
   {
     slug: "ado-ekiti",
-    name: "Ado-Ekiti Rural Hub",
+    name: "Ado-Ekiti",
     country: "Nigeria",
-    district: "Ekiti State — Ado-Ekiti outskirts",
+    district: "Ekiti State",
     type: "Rural community",
-    chv: "Folake Adeyemi",
-    chvPhone: "+234 803 123 4567",
-    ussd: "*789#",
     services: ["Cardiovascular screening", "Health education", "Emergency referral"],
     coords: [7.6, 5.2],
     description:
-      "Inspired by HealthDrive's founding story, this hub serves the rural communities around Ado-Ekiti with cardiovascular screening and emergency referral coordination.",
+      "Planned Health Hub for rural communities around Ado-Ekiti, Ekiti State, Nigeria. Nigeria is a later expansion market. This hub is not operating.",
   },
   {
     slug: "ogoja",
-    name: "Ogoja Refugee Hub",
+    name: "Ogoja",
     country: "Nigeria",
-    district: "Cross River — Ogoja Settlement",
+    district: "Cross River",
     type: "Refugee settlement",
-    chv: "Emeka Obi",
-    chvPhone: "+234 803 234 5678",
-    ussd: "*789#",
-    services: ["Primary care", "Supply chain coordination", "CHW dispatch"],
+    services: ["Primary care", "Supply chain coordination", "Community health worker visits"],
     coords: [6.6553, 8.7969],
     description:
-      "Supports refugee families in the Ogoja settlement with primary care, medicine supply coordination, and CHW dispatch to remote sub-camps.",
+      "Planned Health Hub for the Ogoja settlement, Cross River, Nigeria. Nigeria is a later expansion market. This hub is not operating.",
   },
 ];
 

@@ -14,23 +14,23 @@ export const PRIMARY_CARE_FAQ: FaqEntry[] = [
   },
   {
     q: "Do I need a smartphone or internet to use HealthDrive?",
-    a: "No. Any basic feature phone works. Dial a USSD short-code like *123# — no data, no app, no account. It runs on the SIM network and is free for the patient.",
+    a: "The planned USSD service is designed to work on any basic feature phone, with no data or app. It is not open to the public yet. A sandbox test build is running for development only, and no telecom operator agreement is in place.",
   },
   {
     q: "Which USSD code should I dial?",
-    a: "*911# for emergencies, *123# to find the nearest clinic or van stop, *456# for AI-assisted symptom guidance, and *789# to reach a Community Health Volunteer.",
+    a: "None yet. The four codes are the planned design and are not live: *911# (emergency triage), *123# (find a clinic), *456# (symptom guidance) and *789# (community health worker). No telecom operator agreement exists and the service is not open to the public.",
   },
   {
     q: "How much does it cost?",
-    a: "USSD calls are free for patients. Mobile-clinic visits and Health Hub follow-up are covered through Mutuelle de Santé and partner programs in Rwanda and Nigeria.",
+    a: "Nothing is available to use yet. HealthDrive is pre-revenue and no service is open to the public.",
   },
   {
     q: "What happens if I need specialist or hospital care?",
-    a: "A CHV or van clinician submits a referral on your behalf. You get a reference code to track it on /referrals, and the receiving facility is notified.",
+    a: "HealthDrive cannot help with this yet. Referral requests are not open and no mobile clinic or Health Hub is operating. Please use your existing local health services.",
   },
   {
     q: "Where do you operate?",
-    a: "Refugee settlements and rural districts in Rwanda (Bugesera, Kayonza) and Nigeria — with active expansion to nearby underserved communities.",
+    a: "No HealthDrive service is operating yet. HealthDrive Technologies LTD is registered in Rwanda (Kigali), and Rwanda is our focus. The planned first deployment is Mahama Refugee Camp, Kirehe District, with no date set. Nigeria is a later expansion market. Our published research pilot ran in Bugesera and Kayonza districts, Rwanda (Aug 2024 – Mar 2026).",
   },
 ];
 
