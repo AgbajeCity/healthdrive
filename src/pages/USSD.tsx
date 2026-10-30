@@ -163,7 +163,6 @@ const USSD = () => {
                           key={s.code}
                           data-testid={`ussd-shortcut-${s.service}`}
                           data-code={s.code}
-                          data-screen={s.screen}
                           className="rounded-lg border border-border/50 p-3"
                         >
                           <Icon className={`w-5 h-5 mx-auto mb-1 ${colorMap[s.service]}`} />
