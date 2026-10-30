@@ -185,7 +185,6 @@ const Services = () => {
                 { stat: "70.4%", label: "Patient uptake" },
                 { stat: "7.8/10", label: "Patient satisfaction" },
                 PILOT_COST,
-                { stat: "BLEU 36.55", label: "AI triage (Llama-3-8B)" },
               ].map((item, i) => (
                 <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
                   <CardContent className="p-4">
@@ -199,6 +198,16 @@ const Services = () => {
             <p className="text-xs text-center text-muted-foreground mt-6">
               {PILOT_SOURCE}
             </p>
+
+            {/* Not a pilot result — kept outside the pilot group */}
+            <div className="grid grid-cols-1 gap-4 max-w-xs mx-auto mt-8">
+              <Card className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
+                <CardContent className="p-4">
+                  <div className="text-2xl font-bold text-primary mb-1">BLEU 36.55</div>
+                  <div className="text-xs text-muted-foreground">Triage model BLEU 36.55 (public GitHub repository, not evaluated in Kinyarwanda)</div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </section>
 
