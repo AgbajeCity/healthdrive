@@ -26,14 +26,14 @@ export const teamMembers: TeamMember[] = [
     role: "Co-Founder & Web Manager",
     image: florenceImage,
     specialties: ["Digital Health", "Web Platform", "Product"],
-    bio: "Florence leads HealthDrive's web platform and digital experience. She builds the patient-facing tools that connect refugee and rural communities to USSD telehealth, mobile clinic schedules, and community Health Hubs — making sure the technology stays accessible to people on basic feature phones.",
+    bio: "Florence leads HealthDrive's web platform and digital experience. She is building the web tools for HealthDrive's planned USSD service, mobile clinics and community Health Hubs, with a focus on keeping the technology accessible to people on basic feature phones.",
   },
   {
     slug: "nadia-gikundiro",
     name: "Nadia Gikundiro",
     role: "Co-Founder & Clinical Health Specialist",
     image: nadiaImage,
-    specialties: ["Physiotherapy", "Community Health", "Amref International University"],
-    bio: "Nadia is HealthDrive's Clinical Health Specialist, with a background in physiotherapy and community health engagement. She studies at Amref International University (AMIU) in Nairobi, where she also serves as the International Students Representative. Nadia leads clinical protocols for mobile clinic visits and community Health Hub follow-up.",
+    specialties: ["Physiotherapy", "Community Health"],
+    bio: "Nadia is HealthDrive's Clinical Health Specialist, with a background in physiotherapy and community health engagement. She studies at Amref International University (AMIU) in Nairobi, where she also serves as the International Students Representative. Nadia leads the design of clinical protocols for HealthDrive's planned mobile clinic visits and Health Hub follow-up.",
   },
 ];

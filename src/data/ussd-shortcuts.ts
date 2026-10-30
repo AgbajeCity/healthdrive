@@ -1,16 +1,15 @@
-// Source of truth for USSD shortcut → primary-care flow mapping.
-// Used by the USSD page and verified by tests in src/__tests__.
+// Source of truth for the four PLANNED USSD short codes.
+// None of these codes is live: a sandbox test build runs for development only,
+// and no telecom operator agreement exists. Copy must describe them as planned.
 
 export type UssdService = "emergency" | "clinics" | "health-info" | "community";
 
 export interface UssdShortcut {
   code: string;
   service: UssdService;
-  /** Screen key to render after "connecting". Must match USSD page's render switch. */
-  screen: `mobile-${UssdService}-main`;
-  /** Short label users see in the at-a-glance grid. Reflects the actual care flow. */
+  /** Short label users see in the at-a-glance grid. */
   label: string;
-  /** One-line description of the primary-care service delivered. */
+  /** One-line description of the planned service. */
   description: string;
 }
 
@@ -18,30 +17,26 @@ export const USSD_SHORTCUTS: UssdShortcut[] = [
   {
     code: "*911#",
     service: "emergency",
-    screen: "mobile-emergency-main",
     label: "Emergency triage",
-    description: "Ambulance, hospital routing and urgent care triage.",
+    description: "Planned: urgent care triage. Not live.",
   },
   {
     code: "*123#",
     service: "clinics",
-    screen: "mobile-clinics-main",
-    label: "Find a clinic / van stop",
-    description: "Locate the nearest health facility, pharmacy or mobile clinic stop.",
+    label: "Find a clinic",
+    description: "Planned: help finding the nearest health facility. Not live.",
   },
   {
     code: "*456#",
     service: "health-info",
-    screen: "mobile-health-info-main",
     label: "AI symptom guidance",
-    description: "AI-assisted symptom classification, prevention and maternal/child info.",
+    description: "Planned: AI-assisted symptom classification. Not live.",
   },
   {
     code: "*789#",
     service: "community",
-    screen: "mobile-community-main",
-    label: "Reach a CHV",
-    description: "Connect with a Community Health Volunteer for follow-up and referrals.",
+    label: "Community health worker",
+    description: "Planned: coordination with community health workers. Not live.",
   },
 ];
 

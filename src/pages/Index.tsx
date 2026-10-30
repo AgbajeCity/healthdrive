@@ -22,11 +22,15 @@ const Index = () => {
     { code: "*789#", label: "Community", icon: Users, color: "text-purple-500" },
   ];
 
+  // Research pilot results only. National statistics must not be added here.
   const stats = [
     { stat: "1,247", label: "USSD sessions" },
     { stat: "78%", label: "90-day retention" },
     { stat: "89%", label: "Elderly retention" },
-    { stat: "97.8%", label: "SIM coverage" },
+  ];
+
+  const contextFigures = [
+    { stat: "97.8%", label: "Rwanda mobile SIM coverage (national figure)" },
   ];
 
   const pillars = [
@@ -61,7 +65,7 @@ const Index = () => {
         <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
           <div className="space-y-6">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-foreground">
-              Primary healthcare that <span className="text-primary">travels</span> to you.
+              Primary healthcare, <span className="text-primary">planned to travel</span> to you.
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl">
               A planned primary healthcare model for refugee & rural communities, starting in Rwanda — combining USSD on basic phones, solar mobile clinics and local health workers.
@@ -211,7 +215,7 @@ const Index = () => {
       <section className="py-14 bg-muted/20">
         <div className="container mx-auto px-4 max-w-5xl">
           <h2 className="text-3xl font-bold text-center text-foreground mb-8">{PILOT_LABEL}</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {stats.map((item, i) => (
               <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
                 <CardContent className="p-6">
@@ -222,6 +226,17 @@ const Index = () => {
             ))}
           </div>
           <p className="text-xs text-center text-muted-foreground mt-6">{PILOT_SOURCE}</p>
+
+          <div className="grid grid-cols-1 gap-4 max-w-xs mx-auto mt-8" aria-label="Context figure, not a pilot result">
+            {contextFigures.map((item, i) => (
+              <Card key={i} className="bg-card/90 backdrop-blur-sm border-border/50 text-center">
+                <CardContent className="p-6">
+                  <div className="text-4xl font-bold text-primary mb-1">{item.stat}</div>
+                  <div className="text-xs text-muted-foreground">{item.label}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
