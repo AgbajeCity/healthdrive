@@ -29,7 +29,7 @@ const USSD = () => {
               </div>
               <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
-            <CardDescription>Quick access to emergency healthcare services</CardDescription>
+            <CardDescription>Planned: emergency triage. Not live.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
@@ -49,7 +49,7 @@ const USSD = () => {
               </div>
               <Badge variant="outline">{PLANNED_LABEL}</Badge>
             </div>
-            <CardDescription>Locate healthcare facilities in your area</CardDescription>
+            <CardDescription>Planned: help finding a health facility. Not live.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
@@ -66,7 +66,7 @@ const USSD = () => {
               <MessageSquare className="w-6 h-6 text-green-500" />
               <CardTitle className="text-lg">Health Information</CardTitle>
             </div>
-            <CardDescription>Get health tips and disease prevention info</CardDescription>
+            <CardDescription>Planned: AI-assisted symptom guidance. Not live.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
@@ -83,7 +83,7 @@ const USSD = () => {
               <Users className="w-6 h-6 text-purple-500" />
               <CardTitle className="text-lg">Community Health</CardTitle>
             </div>
-            <CardDescription>Connect with local health workers and programs</CardDescription>
+            <CardDescription>Planned: community health worker coordination. Not live.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
