@@ -42,7 +42,6 @@ const escapeCsv = (v: unknown) => {
 const Admin = () => {
   const { toast } = useToast();
   const [session, setSession] = useState<Session | null>(null);
-  const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authBusy, setAuthBusy] = useState(false);
@@ -81,15 +80,10 @@ const Admin = () => {
 
   const handleAuth = async () => {
     setAuthBusy(true);
-    const fn = authMode === "signin" ? supabase.auth.signInWithPassword : supabase.auth.signUp;
-    const { error } = await fn({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     setAuthBusy(false);
     if (error) {
-      toast({ title: authMode === "signin" ? "Sign in failed" : "Sign up failed", description: error.message, variant: "destructive" });
-      return;
-    }
-    if (authMode === "signup") {
-      toast({ title: "Account created", description: "You can now enter the admin passcode." });
+      toast({ title: "Sign in failed", description: error.message, variant: "destructive" });
     }
   };
 
@@ -236,7 +230,7 @@ const Admin = () => {
           <Card className="bg-card/90 backdrop-blur-sm border-border/50">
             <CardHeader>
               <CardTitle className="flex items-center gap-2"><Lock className="w-5 h-5" /> Admin sign in</CardTitle>
-              <CardDescription>Admin access requires a registered account plus the admin passcode.</CardDescription>
+              <CardDescription>Admin access requires an existing account plus the admin passcode.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
@@ -248,11 +242,7 @@ const Admin = () => {
                 <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <Button onClick={handleAuth} className="w-full" disabled={authBusy}>
-                {authBusy ? "..." : authMode === "signin" ? "Sign in" : "Create account"}
-              </Button>
-              <Button variant="ghost" size="sm" className="w-full"
-                onClick={() => setAuthMode(authMode === "signin" ? "signup" : "signin")}>
-                {authMode === "signin" ? "Need an account? Sign up" : "Have an account? Sign in"}
+                {authBusy ? "..." : "Sign in"}
               </Button>
             </CardContent>
           </Card>
