@@ -10,6 +10,7 @@ import heroUssdPhone from "@/assets/hero-ussd-phone.jpg";
 import heroHealthHub from "@/assets/hero-health-hub.jpg";
 import heroRouteMap from "@/assets/hero-route-map.jpg";
 import PrimaryCareFAQ from "@/components/PrimaryCareFAQ";
+import Footer from "@/components/Footer";
 import { buildFaqJsonLd } from "@/data/faq";
 import { PILOT_LABEL, PILOT_SOURCE, PLANNED_LABEL, SANDBOX_NOTICE, STATUS_NOTICE } from "@/data/pilot";
 import { Stethoscope, CalendarDays } from "lucide-react";
@@ -262,15 +263,7 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-8 bg-card/10 backdrop-blur-sm" role="contentinfo">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-xl font-bold text-primary">HealthDrive</p>
-          <p className="text-sm text-muted-foreground">A planned primary healthcare model for refugee and rural communities, starting in Rwanda.</p>
-          <p className="text-xs text-muted-foreground mt-2">
-            HealthDrive Technologies LTD · Registered in Rwanda · Company Code / TIN 156795747 · Kigali
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

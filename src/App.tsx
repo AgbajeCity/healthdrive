@@ -24,6 +24,7 @@ import HubDetail from "./pages/HubDetail";
 import Schedule from "./pages/Schedule";
 import ReferralStatus from "./pages/ReferralStatus";
 import Admin from "./pages/Admin";
+import Privacy from "./pages/Privacy";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/referrals/:code" element={<ReferralStatus />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/referrals" element={<Admin />} />
+          <Route path="/privacy" element={<Privacy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -182,6 +182,15 @@ const USSD = () => {
                   </Link>
                 </Button>
               </div>
+              <p className="text-center text-xs text-muted-foreground -mt-4 mb-6">
+                <Link
+                  to="/privacy"
+                  className="text-primary underline underline-offset-4 hover:no-underline"
+                >
+                  Privacy Notice
+                </Link>{" "}
+                — how we handle your data.
+              </p>
           </>
 
           {renderMainMenu()}
